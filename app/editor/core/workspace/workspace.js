@@ -75,25 +75,25 @@ thin.core.Workspace = function(format, opt_file) {
    * @type {thin.core.Layout}
    * @private
    */
-  this.layout_ = new thin.core.Layout(this);
+  this.layout_ = new thin.core.Container(this);
 
   /**
    * @type {thin.core.Action}
    * @private
    */
-  this.action_ = new thin.core.Action(this);
+  // this.action_ = new thin.core.Action(this);
 
   /**
    * @type {thin.core.HistoryManager}
    * @private
    */
-  this.history_ = new thin.core.HistoryManager();
+  // this.history_ = new thin.core.HistoryManager();
 
   /**
    * @type {string}
    * @private
    */
-  this.fontFamily_ = thin.Font.getDefaultFontFamily();
+  // this.fontFamily_ = thin.Font.getDefaultFontFamily();
 };
 goog.inherits(thin.core.Workspace, goog.ui.Component);
 
@@ -998,7 +998,7 @@ thin.core.Workspace.prototype.enterDocument = function() {
   eventHandler.listen(this.element_, eventType.KEYUP,
     this.releaseOnceKeyEventHandling_, false, this);
 
-  this.getHistory().setChangeHandler(this.handleHistoryChange, this);
+  // this.getHistory().setChangeHandler(this.handleHistoryChange, this);
 };
 
 
@@ -1069,4 +1069,35 @@ thin.core.Workspace.prototype.disposeInternal = function() {
   delete this.layout_;
 
   goog.base(this, 'disposeInternal');
+};
+
+
+
+
+
+thin.core.Workspace.prototype.toolBarValues = function() {
+  var toolbar = thin.ui.getComponent('toolbar');
+  var values = {};
+  var value = null;
+
+  toolbar.forEachChild(function(button, i) {
+    if (goog.isFunction(button.isChecked)) {
+      value = button.isChecked();
+    } else {
+      value = button.getValue();
+    }
+    values[button.getId()] = value;
+  });
+
+  return values;
+};
+
+
+thin.core.Workspace.prototype.getToolBoxValue = function() {
+  var selected = thin.ui.getComponent('toolbox').getSelectedItem();
+  if (selected) {
+    return selected.getId();
+  } else {
+    return null;
+  }
 };

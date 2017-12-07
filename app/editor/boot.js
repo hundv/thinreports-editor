@@ -123,7 +123,7 @@ thin.boot = function() {
 /**
  * @private
  */
-thin.init_ = function() {
+thin.init_old_ = function() {
   (function() {
     var i18n = thin.i18n;
     var bodyElement = goog.dom.getElementsByTagNameAndClass('body')[0];
@@ -1654,3 +1654,319 @@ thin.show_ = function() {
 }
 
 goog.events.listen(goog.global, goog.events.EventType.LOAD, thin.boot, false, this);
+
+
+
+
+
+
+
+goog.require('thin.core.Container');
+
+
+goog.require('thin.attribute');
+goog.require('thin.attribute.Abstract');
+
+
+goog.require('thin.shape.Abstract');
+// goog.require('thin.core.Component');
+goog.require('thin.section.Abstract');
+goog.require('thin.outline.Abstract');
+goog.require('thin.element.Abstract');
+// goog.require('thin.core.Component');
+
+goog.require('thin.element');
+goog.require('thin.element.Group');
+goog.require('thin.element.Rect');
+goog.require('thin.element.Ellipse');
+goog.require('thin.element.Line');
+
+goog.require('thin.section');
+goog.require('thin.section.Background');
+goog.require('thin.section.Container');
+goog.require('thin.section.Enumerator');
+goog.require('thin.section.Grid');
+goog.require('thin.section.Header');
+goog.require('thin.section.Margin');
+
+goog.require('thin.shape');
+goog.require('thin.shape.Rect');
+goog.require('thin.shape.Ellipse');
+
+goog.require('thin.outline');
+goog.require('thin.outline.Rect');
+goog.require('thin.outline.Ellipse');
+
+goog.require('thin.layer');
+goog.require('thin.layer.Abstract');
+goog.require('thin.layer.Draw');
+goog.require('thin.layer.Select');
+
+goog.require('thin.guide');
+goog.require('thin.guide.Abstract');
+goog.require('thin.guide.Rect');
+
+goog.require('thin.guide.resizer');
+goog.require('thin.guide.resizer.Abstract');
+goog.require('thin.guide.resizer.TopLeft');
+goog.require('thin.guide.resizer.TopCenter');
+goog.require('thin.guide.resizer.TopRight');
+
+goog.require('thin.guide.resizer.Container');
+
+// goog.require('thin.handle.Section');
+// goog.require('thin.handle.Section.Sort');
+// goog.require('thin.handle.Section.Add');
+// goog.require('thin.handle.Section.Remove');
+
+/**
+ * @private
+ */
+thin.init_ = function() {
+  (function() {
+    var i18n = thin.i18n;
+    var bodyElement = goog.dom.getElementsByTagNameAndClass('body')[0];
+
+    goog.style.setStyle(bodyElement,
+          {'font-family': i18n.getFontFamily() + ', sans-serif'});
+
+    Array.prototype.forEach.call(
+      goog.dom.getDocument().querySelectorAll('body *[data-i18n]'),
+      function(elm) {
+        var msg = i18n.translate(elm.getAttribute('data-i18n'));
+        if (msg) {
+          elm.textContent = msg;
+        }
+      });
+  })();
+
+  /**
+   * @param {e} goog.events.Event
+   */
+  var focusWorkspace = function(e) {
+  };
+
+  var main = new thin.ui.MainLayout();
+  main.decorate(goog.dom.getElement('thin-main'));
+
+  var tabpane = new thin.ui.TabPane();
+  main.addChildToMain(tabpane);
+  thin.ui.registerComponent('tabpane', tabpane);
+
+  var componentEventType = goog.ui.Component.EventType;
+
+  (function() {
+
+    var toolbar = new thin.ui.Toolbar();
+
+    var iconAlign = thin.ui.Icon.Align;
+    var dom = toolbar.getDomHelper();
+
+    // Add report
+    var reportAdd = toolbar.setupChild('report-add',
+        new thin.ui.ToolbarButton(thin.t('button_new_report'), new thin.ui.Icon('report-add', iconAlign.TOP)),
+        dom.getElement('tbar-report-add'));
+
+    reportAdd.addEventListener(componentEventType.ACTION, function(e) {
+      var format = new thin.layout.Format();
+      format.page = format.setPage({
+        'paper-type': 'A4',
+        'orientation': thin.layout.FormatPage.DirectionType.LS,
+        'margin': [ 10, 20, 30, 40 ]
+      });
+      format.page.setTitle('(none)');
+
+      var workspace = new thin.core.Workspace(format);
+      tabpane.addPage(new thin.ui.TabPane.TabPage(workspace.getTabName(), workspace));
+      // workspace.setup();
+    });
+
+    toolbar.decorate(goog.dom.getElement('thin-toolbar'));
+    thin.ui.registerComponent('toolbar', toolbar);
+  })();
+
+  (function() {
+    var tboxview = new thin.ui.ToolboxView();
+    main.addChildToLeft(tboxview);
+    var toolbox = tboxview.getControl();
+    toolbox.addEventListener(componentEventType.SELECT, focusWorkspace);
+
+    var dummyAction = {
+      handleAction: goog.nullFunction
+    };
+
+    // Select
+    var toolSelect = toolbox.addItem(
+        new thin.ui.ToolboxButton(dummyAction,
+          new thin.ui.Icon('tool-select')), 'selector');
+    toolSelect.setTooltip(thin.t('button_selection_tool'));
+
+    // Zoom
+    var toolZoom = toolbox.addItem(
+        new thin.ui.ToolboxButton(dummyAction,
+          new thin.ui.Icon('tool-zoom')), 'zoom');
+    toolZoom.setTooltip(thin.t('button_zoom_tool'));
+
+    // Separator
+    toolbox.addItem(new thin.ui.ToolboxSeparator());
+
+    // Rectangle
+    var toolRect = toolbox.addItem(
+        new thin.ui.ToolboxButton(dummyAction,
+          new thin.ui.Icon('tool-rect')), 'rect');
+    toolRect.setTooltip(thin.t('button_rectangle_tool'));
+
+    // Ellipse
+    var toolEllipse = toolbox.addItem(
+        new thin.ui.ToolboxButton(dummyAction,
+          new thin.ui.Icon('tool-ellipse')), 'ellipse');
+    toolEllipse.setTooltip(thin.t('button_ellipse_tool'));
+
+    // Line
+    var toolLine = toolbox.addItem(
+          new thin.ui.ToolboxButton(dummyAction,
+            new thin.ui.Icon('tool-line')), 'line');
+    toolLine.setTooltip(thin.t('button_line_tool'));
+
+    // Text
+    var toolText = toolbox.addItem(
+        new thin.ui.ToolboxButton(dummyAction,
+          new thin.ui.Icon('tool-text')), 'text');
+    toolText.setTooltip(thin.t('button_text_tool'));
+
+    // Image
+    var toolImage = toolbox.addItem(
+        new thin.ui.ToolboxButton(dummyAction,
+          new thin.ui.Icon('tool-image')), 'image');
+    toolImage.setTooltip(thin.t('button_image_tool'));
+
+    // Separator
+    toolbox.addItem(new thin.ui.ToolboxSeparator());
+
+    // Tblock
+    var toolTblock = toolbox.addItem(
+        new thin.ui.ToolboxButton(dummyAction,
+          new thin.ui.Icon('tool-tblock')), 'tblock');
+    toolTblock.setTooltip(thin.t('button_text_block_tool'));
+
+    // Imageblock
+    var toolIblock = toolbox.addItem(
+        new thin.ui.ToolboxButton(dummyAction,
+          new thin.ui.Icon('tool-iblock')), 'iblock');
+    toolIblock.setTooltip(thin.t('button_image_block_tool'));
+
+    // PageNumber
+    var toolPageNumber = toolbox.addItem(
+        new thin.ui.ToolboxButton(dummyAction,
+          new thin.ui.Icon('tool-pageno')), 'pagenumber');
+    toolPageNumber.setTooltip(thin.t('button_page_number_tool'));
+
+    // Separator
+    toolbox.addItem(new thin.ui.ToolboxSeparator());
+
+    // List
+    var toolList = toolbox.addItem(
+        new thin.ui.ToolboxButton(dummyAction,
+          new thin.ui.Icon('tool-list')), 'list');
+    toolList.setTooltip(thin.t('button_list_tool'));
+
+    thin.ui.registerComponent('toolbox', toolbox);
+  })();
+
+  (function() {
+    var propview = new thin.ui.PropertyView('');
+    main.addChildToRight(propview);
+    thin.ui.registerComponent('proppane', propview.getControl());
+  })();
+
+  (function() {
+    var textEditorDialog = new thin.ui.Dialog();
+    textEditorDialog.setTitle(thin.t('label_text_edit'));
+    textEditorDialog.setButtonSet(thin.ui.Dialog.ButtonSet.typeOkCancel());
+
+    var textEditArea = new goog.ui.Textarea('');
+    textEditArea.render(goog.dom.getElement('dialog-texteditor-textarea'));
+
+    textEditorDialog.decorate(goog.dom.getElement('dialog-text-editor'));
+    textEditorDialog.setControl('textarea', textEditArea);
+
+    textEditorDialog.addEventListener(goog.ui.Dialog.EventType.AFTER_HIDE, focusWorkspace);
+
+    textEditorDialog.addEventListener(goog.ui.Dialog.EventType.AFTER_SHOW,
+      function(e) {
+        textEditorDialog.getControl('textarea').getElement().focus();
+      });
+
+    thin.ui.registerComponent('texteditor', textEditorDialog);
+  })();
+
+  goog.events.listen(goog.global, goog.events.EventType.ERROR,
+    function(e) {
+      var dialogElement = goog.dom.getElement('app-error-dialog');
+
+      if (!goog.style.isElementShown(dialogElement)) {
+        var dialog = new thin.ui.Dialog();
+        dialog.setDisposeOnHide(true);
+        dialog.setTitle('Error');
+        dialog.setWidth(400);
+        dialog.setButtonSet(thin.ui.Dialog.ButtonSet.typeOk());
+        dialog.decorate(dialogElement);
+        dialog.addEventListener(goog.ui.Dialog.EventType.AFTER_HIDE, focusWorkspace);
+        dialog.setVisible(true);
+      }
+      return false;
+    }, false);
+
+  // Disable the context menu in production, COMPILED is true.
+  goog.events.listen(goog.global, goog.events.EventType.CONTEXTMENU,
+    function(e) {
+      if (!goog.global.COMPILED) {
+        return true;
+      }
+
+      var target = e.target;
+
+      if (goog.dom.isElement(target)) {
+        switch(target.tagName.toLowerCase()) {
+          case 'input':
+            if (target.getAttribute('type') == 'text') {
+              return true;
+            }
+            break;
+          case 'textarea':
+            return true;
+            break;
+        }
+      }
+      e.preventDefault();
+    }, false);
+
+  // goog.events.listen('beforeunload') does not work well.
+  goog.global.onbeforeunload = function (e) {
+    var tabPages = thin.ui.getComponent('tabpane').getPages();
+
+    var changedPageExists = goog.array.some(tabPages, function (tabPage) {
+      return tabPage.getContent().isChanged();
+    });
+
+    if (!changedPageExists) {
+      return;
+    }
+
+    // Cancel termination.
+    e.returnValue = false;
+
+    thin.ui.Message.disposeActiveMessage();
+    thin.ui.Message.confirm(
+      thin.t('text_editor_force_close_confirmation'), thin.t('label_confirmation'),
+      function (e) {
+        if (e.isYes()) {
+          goog.global.onbeforeunload = null;
+          thin.platform.Window.close();
+        }
+      }, thin.ui.Dialog.ButtonSet.typeYesNo()
+    );
+  };
+};
+
+
