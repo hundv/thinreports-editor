@@ -30,15 +30,15 @@ goog.require('goog.Disposable');
  * @constructor
  * @extends {goog.Disposable}
  */
-thin.layout.FormatPage = function(config) {
+thin.layout.FormatPage = function (config) {
   goog.base(this);
 
   var page = goog.object.clone(thin.layout.FormatPage.DEFAULT_SETTINGS);
   goog.object.extend(page, config);
   this.setPaper(page['paper-type'],
-                page['orientation'],
-                page['width'],
-                page['height']);
+    page['orientation'],
+    page['width'],
+    page['height']);
 
   var margin = page['margin'];
   this.setMargin(margin[0], margin[1], margin[2], margin[3]);
@@ -53,6 +53,7 @@ thin.layout.FormatPage.PaperSize = {
   // [height, width]
   'A3': [1190.5, 841.8],
   'A4': [841.8, 595.2],
+  'A5': [595.2, 420.9],
   'B4': [1031.8, 728.5],
   'B5': [728.5, 515.9],
   'B4_ISO': [1000.6, 708.6],
@@ -67,6 +68,7 @@ thin.layout.FormatPage.PaperSize = {
 thin.layout.FormatPage.PaperType = {
   'A3': 'A3',
   'A4': 'A4',
+  'A5': 'A5',
   'B4': 'B4',
   'B5': 'B5',
   'B4_ISO': 'B4_ISO',
@@ -81,6 +83,7 @@ thin.layout.FormatPage.PaperType = {
 thin.layout.FormatPage.PaperName = {
   'A3': thin.layout.FormatPage.PaperType['A3'],
   'A4': thin.layout.FormatPage.PaperType['A4'],
+  'A5': thin.layout.FormatPage.PaperType['A5'],
   'B4': thin.layout.FormatPage.PaperType['B4'],
   'B5': thin.layout.FormatPage.PaperType['B5'],
   'B4_ISO': 'B4(ISO)',
@@ -176,7 +179,7 @@ thin.layout.FormatPage.prototype.marginRight_ = 20;
  * @param {thin.layout.FormatPage.PaperType|string} paperType
  * @return {boolean}
  */
-thin.layout.FormatPage.isUserType = function(paperType) {
+thin.layout.FormatPage.isUserType = function (paperType) {
   return paperType == thin.layout.FormatPage.PaperType['USER'];
 };
 
@@ -188,7 +191,7 @@ thin.layout.FormatPage.isUserType = function(paperType) {
  * @param {number=} opt_height
  * @return {goog.math.Size}
  */
-thin.layout.FormatPage.getPaperSize = function(type, direction, opt_width, opt_height) {
+thin.layout.FormatPage.getPaperSize = function (type, direction, opt_width, opt_height) {
   var formatPage = thin.layout.FormatPage;
   if (formatPage.isUserType(type)) {
     var size = [opt_height, opt_width];
@@ -207,7 +210,7 @@ thin.layout.FormatPage.getPaperSize = function(type, direction, opt_width, opt_h
 /**
  * @return {number}
  */
-thin.layout.FormatPage.prototype.getMarginTop = function() {
+thin.layout.FormatPage.prototype.getMarginTop = function () {
   return this.marginTop_;
 };
 
@@ -215,7 +218,7 @@ thin.layout.FormatPage.prototype.getMarginTop = function() {
 /**
  * @return {number}
  */
-thin.layout.FormatPage.prototype.getMarginBottom = function() {
+thin.layout.FormatPage.prototype.getMarginBottom = function () {
   return this.marginBottom_;
 };
 
@@ -223,7 +226,7 @@ thin.layout.FormatPage.prototype.getMarginBottom = function() {
 /**
  * @return {number}
  */
-thin.layout.FormatPage.prototype.getMarginLeft = function() {
+thin.layout.FormatPage.prototype.getMarginLeft = function () {
   return this.marginLeft_;
 };
 
@@ -231,7 +234,7 @@ thin.layout.FormatPage.prototype.getMarginLeft = function() {
 /**
  * @return {number}
  */
-thin.layout.FormatPage.prototype.getMarginRight = function() {
+thin.layout.FormatPage.prototype.getMarginRight = function () {
   return this.marginRight_;
 };
 
@@ -242,7 +245,7 @@ thin.layout.FormatPage.prototype.getMarginRight = function() {
  * @param {number|string} bottom
  * @param {number|string} left
  */
-thin.layout.FormatPage.prototype.setMargin = function(top, right, bottom, left) {
+thin.layout.FormatPage.prototype.setMargin = function (top, right, bottom, left) {
   this.marginTop_ = Number(top);
   this.marginRight_ = Number(right);
   this.marginBottom_ = Number(bottom);
@@ -253,7 +256,7 @@ thin.layout.FormatPage.prototype.setMargin = function(top, right, bottom, left) 
 /**
  * @return {Object}
  */
-thin.layout.FormatPage.prototype.asJSON = function() {
+thin.layout.FormatPage.prototype.asJSON = function () {
   var report = {
     "paper-type": this.getPaperType(),
     "orientation": this.getOrientation(),
@@ -282,7 +285,7 @@ thin.layout.FormatPage.prototype.asJSON = function() {
 /**
  * @return {thin.layout.FormatPage.PaperType|string}
  */
-thin.layout.FormatPage.prototype.getPaperType = function() {
+thin.layout.FormatPage.prototype.getPaperType = function () {
   return this.paperType_;
 };
 
@@ -290,7 +293,7 @@ thin.layout.FormatPage.prototype.getPaperType = function() {
 /**
  * @return {thin.layout.FormatPage.DirectionType|string}
  */
-thin.layout.FormatPage.prototype.getOrientation = function() {
+thin.layout.FormatPage.prototype.getOrientation = function () {
   return this.orientation_;
 };
 
@@ -298,7 +301,7 @@ thin.layout.FormatPage.prototype.getOrientation = function() {
 /**
  * @return {number}
  */
-thin.layout.FormatPage.prototype.getWidth = function() {
+thin.layout.FormatPage.prototype.getWidth = function () {
   return this.width_;
 };
 
@@ -306,7 +309,7 @@ thin.layout.FormatPage.prototype.getWidth = function() {
 /**
  * @return {number}
  */
-thin.layout.FormatPage.prototype.getHeight = function() {
+thin.layout.FormatPage.prototype.getHeight = function () {
   return this.height_;
 };
 
@@ -314,7 +317,7 @@ thin.layout.FormatPage.prototype.getHeight = function() {
 /**
  * @return {goog.math.Size}
  */
-thin.layout.FormatPage.prototype.getPaperSize = function() {
+thin.layout.FormatPage.prototype.getPaperSize = function () {
   return thin.layout.FormatPage.getPaperSize(this.getPaperType(),
     this.getOrientation(), this.getWidth(), this.getHeight());
 };
@@ -323,7 +326,7 @@ thin.layout.FormatPage.prototype.getPaperSize = function() {
 /**
  * @param {thin.layout.FormatPage.PaperType|string} type
  */
-thin.layout.FormatPage.prototype.setPaperType = function(type) {
+thin.layout.FormatPage.prototype.setPaperType = function (type) {
   this.paperType_ = type;
 };
 
@@ -331,7 +334,7 @@ thin.layout.FormatPage.prototype.setPaperType = function(type) {
 /**
  * @param {thin.layout.FormatPage.DirectionType|string} orientation
  */
-thin.layout.FormatPage.prototype.setOrientation = function(orientation) {
+thin.layout.FormatPage.prototype.setOrientation = function (orientation) {
   this.orientation_ = orientation;
 };
 
@@ -339,7 +342,7 @@ thin.layout.FormatPage.prototype.setOrientation = function(orientation) {
 /**
  * @param {number|string} width
  */
-thin.layout.FormatPage.prototype.setWidth = function(width) {
+thin.layout.FormatPage.prototype.setWidth = function (width) {
   this.width_ = Number(width);
 };
 
@@ -347,7 +350,7 @@ thin.layout.FormatPage.prototype.setWidth = function(width) {
 /**
  * @param {number|string} height
  */
-thin.layout.FormatPage.prototype.setHeight = function(height) {
+thin.layout.FormatPage.prototype.setHeight = function (height) {
   this.height_ = Number(height);
 };
 
@@ -355,7 +358,7 @@ thin.layout.FormatPage.prototype.setHeight = function(height) {
 /**
  * @param {string} title
  */
-thin.layout.FormatPage.prototype.setTitle = function(title) {
+thin.layout.FormatPage.prototype.setTitle = function (title) {
   this.title_ = title;
 };
 
@@ -363,7 +366,7 @@ thin.layout.FormatPage.prototype.setTitle = function(title) {
 /**
  * @return {string}
  */
-thin.layout.FormatPage.prototype.getTitle = function() {
+thin.layout.FormatPage.prototype.getTitle = function () {
   return this.title_;
 };
 
@@ -374,7 +377,7 @@ thin.layout.FormatPage.prototype.getTitle = function() {
  * @param {number=} opt_width
  * @param {number=} opt_height
  */
-thin.layout.FormatPage.prototype.setPaper = function(opt_type, opt_orientation, opt_width, opt_height) {
+thin.layout.FormatPage.prototype.setPaper = function (opt_type, opt_orientation, opt_width, opt_height) {
 
   var defaultSetting = thin.layout.FormatPage.DEFAULT_SETTINGS;
   this.setPaperType(opt_type || defaultSetting['paper-type']);
@@ -391,13 +394,13 @@ thin.layout.FormatPage.prototype.setPaper = function(opt_type, opt_orientation, 
 /**
  * @return {boolean}
  */
-thin.layout.FormatPage.prototype.isUserType = function() {
+thin.layout.FormatPage.prototype.isUserType = function () {
   return thin.layout.FormatPage.isUserType(this.getPaperType());
 };
 
 
 /** @inheritDoc */
-thin.layout.FormatPage.prototype.disposeInternal = function() {
+thin.layout.FormatPage.prototype.disposeInternal = function () {
   thin.layout.FormatPage.superClass_.disposeInternal.call(this);
 
   delete this.paperType_;

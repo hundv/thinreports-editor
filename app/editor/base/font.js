@@ -25,7 +25,7 @@ goog.require('thin.platform.Font');
  * @param {boolean=} opt_builtin
  * @constructor
  */
-thin.Font = function(family, opt_name, opt_builtin) {
+thin.Font = function (family, opt_name, opt_builtin) {
   /**
    * @type {string}
    * @private
@@ -66,31 +66,31 @@ thin.Font.defaultFont_;
  * @param {boolean=} opt_builtin
  * @return {thin.Font}
  */
-thin.Font.register = function(family, opt_name, opt_builtin) {
+thin.Font.register = function (family, opt_name, opt_builtin) {
   var font = new thin.Font(family, opt_name || family, opt_builtin);
   thin.Font.fontRegistry_.push(font);
   return font;
 };
 
 
-thin.Font.init = function() {
+thin.Font.init = function () {
   var font = thin.Font;
 
-  font.defaultFont_ = font.register('Helvetica', null, true);
+  font.defaultFont_ = font.register('Avenir Next', null, true);
 
-  font.register('Courier New', null, true);
-  font.register('Times New Roman', null, true);
-  font.register('IPAMincho', 'IPA ' + thin.t('font_mincho'), true);
-  font.register('IPAPMincho', 'IPA P' + thin.t('font_mincho'), true);
-  font.register('IPAGothic', 'IPA ' + thin.t('font_gothic'), true);
-  font.register('IPAPGothic', 'IPA P' + thin.t('font_gothic'), true);
+  font.register('Arial', null, true);
+  font.register('Helvetica', null, true);
+  font.register('Merriweather', null, true);
+  font.register('Roboto', null, true);
+  font.register('IDAutomationHC39M Free Version', null, false);
+
 };
 
 
 /**
  * @return {string}
  */
-thin.Font.getDefaultFontFamily = function() {
+thin.Font.getDefaultFontFamily = function () {
   return thin.Font.defaultFont_.getFamily();
 };
 
@@ -98,7 +98,7 @@ thin.Font.getDefaultFontFamily = function() {
 /**
  * @return {Array.<thin.Font>}
  */
-thin.Font.getFonts = function() {
+thin.Font.getFonts = function () {
   return thin.Font.fontRegistry_;
 };
 
@@ -118,7 +118,7 @@ thin.Font.infoRegistry_ = {
  * @return {string}
  * @private
  */
-thin.Font.generateRegistryKey_ = function(var_args) {
+thin.Font.generateRegistryKey_ = function (var_args) {
   return goog.array.clone(arguments).join(':');
 };
 
@@ -129,7 +129,7 @@ thin.Font.generateRegistryKey_ = function(var_args) {
  * @param {boolean} isBold
  * @return {number}
  */
-thin.Font.getAscent = function(family, fontSize, isBold) {
+thin.Font.getAscent = function (family, fontSize, isBold) {
   var registryKey = thin.Font.generateRegistryKey_(family, fontSize, isBold);
   var ascent = thin.Font.infoRegistry_.ascent[registryKey];
   if (!goog.isDef(ascent)) {
@@ -145,7 +145,7 @@ thin.Font.getAscent = function(family, fontSize, isBold) {
  * @param {number} fontSize
  * @return {number}
  */
-thin.Font.getHeight = function(family, fontSize) {
+thin.Font.getHeight = function (family, fontSize) {
   var registryKey = thin.Font.generateRegistryKey_(family, fontSize);
   var height = thin.Font.infoRegistry_.height[registryKey];
   if (!goog.isDef(height)) {
@@ -159,7 +159,7 @@ thin.Font.getHeight = function(family, fontSize) {
 /**
  * @return {string}
  */
-thin.Font.prototype.getFamily = function() {
+thin.Font.prototype.getFamily = function () {
   return this.family_;
 };
 
@@ -167,7 +167,7 @@ thin.Font.prototype.getFamily = function() {
 /**
  * @return {string}
  */
-thin.Font.prototype.getName = function() {
+thin.Font.prototype.getName = function () {
   return this.name_;
 };
 
@@ -175,6 +175,6 @@ thin.Font.prototype.getName = function() {
 /**
  * @return {boolean}
  */
-thin.Font.prototype.isBuiltin = function() {
+thin.Font.prototype.isBuiltin = function () {
   return this.builtin_;
 };

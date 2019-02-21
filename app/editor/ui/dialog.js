@@ -37,9 +37,9 @@ goog.require('thin.ui.StylableControl');
  * @constructor
  * @extends {goog.ui.Dialog}
  */
-thin.ui.Dialog = function(opt_class) {
+thin.ui.Dialog = function (opt_class) {
   goog.base(this, opt_class || this.getCssClass());
-  
+
   /**
    * @type {thin.ui.Dialog.ButtonSet}
    * @private
@@ -75,7 +75,7 @@ thin.ui.Dialog.prototype.backgroundElementOpacity_ = 0;
 
 
 /** @override */
-thin.ui.Dialog.prototype.getCssClass = function() {
+thin.ui.Dialog.prototype.getCssClass = function () {
   return thin.ui.Dialog.CSS_CLASS;
 };
 
@@ -84,7 +84,7 @@ thin.ui.Dialog.prototype.getCssClass = function() {
  * @param {string} key
  * @param {goog.ui.Component|Element} control
  */
-thin.ui.Dialog.prototype.setControl = function(key, control) {
+thin.ui.Dialog.prototype.setControl = function (key, control) {
   this.controls_[key] = control;
 };
 
@@ -93,13 +93,13 @@ thin.ui.Dialog.prototype.setControl = function(key, control) {
  * @param {string} key
  * @return {goog.ui.Component|Element}
  */
-thin.ui.Dialog.prototype.getControl = function(key) {
+thin.ui.Dialog.prototype.getControl = function (key) {
   return this.controls_[key];
 };
 
 
 /** @override */
-thin.ui.Dialog.prototype.focus = function() {
+thin.ui.Dialog.prototype.focus = function () {
   var buttonSet = this.getButtonSet();
   if (buttonSet) {
     var defaultButton = buttonSet.getDefaultButton();
@@ -112,25 +112,25 @@ thin.ui.Dialog.prototype.focus = function() {
 
 
 /** @override */
-thin.ui.Dialog.prototype.onShow = function() {
+thin.ui.Dialog.prototype.onShow = function () {
   goog.base(this, 'onShow');
-  
+
   this.enableButtonSetActionHandling_(true);
   this.enableBackgroundActionHandling_(true);
 };
 
 
 /** @override */
-thin.ui.Dialog.prototype.onHide = function() {
+thin.ui.Dialog.prototype.onHide = function () {
   this.enableButtonSetActionHandling_(false);
   this.enableBackgroundActionHandling_(false);
-  
+
   goog.base(this, 'onHide');
 };
 
 
 /** @override */
-thin.ui.Dialog.prototype.onButtonClick_ = function(e) {
+thin.ui.Dialog.prototype.onButtonClick_ = function (e) {
   var button = e.target;
   if (button.isEnabled()) {
     var key = button.getId();
@@ -146,18 +146,18 @@ thin.ui.Dialog.prototype.onButtonClick_ = function(e) {
  * @param {boolean} enabled
  * @private
  */
-thin.ui.Dialog.prototype.enableButtonSetActionHandling_ = function(enabled) {
+thin.ui.Dialog.prototype.enableButtonSetActionHandling_ = function (enabled) {
   var wrapper = this.getButtonSetWrapper();
   var compEvent = goog.ui.Component.EventType;
   if (enabled) {
-    wrapper.forEachChild(function(button) {
-      button.addEventListener(compEvent.ACTION, 
-          this.onButtonClick_, false, this);
+    wrapper.forEachChild(function (button) {
+      button.addEventListener(compEvent.ACTION,
+        this.onButtonClick_, false, this);
     }, this);
   } else {
-    wrapper.forEachChild(function(button) {
-      button.removeEventListener(compEvent.ACTION, 
-          this.onButtonClick_, false, this);
+    wrapper.forEachChild(function (button) {
+      button.removeEventListener(compEvent.ACTION,
+        this.onButtonClick_, false, this);
     }, this);
   }
 };
@@ -167,15 +167,15 @@ thin.ui.Dialog.prototype.enableButtonSetActionHandling_ = function(enabled) {
  * @param {boolean} enabled
  * @private
  */
-thin.ui.Dialog.prototype.enableBackgroundActionHandling_ = function(enabled) {
+thin.ui.Dialog.prototype.enableBackgroundActionHandling_ = function (enabled) {
   if (enabled) {
     this.getHandler().
-        listen(this.getBackgroundElement(), goog.events.EventType.CLICK,
-        this.handleBackgroundAction_);
+    listen(this.getBackgroundElement(), goog.events.EventType.CLICK,
+      this.handleBackgroundAction_);
   } else {
     this.getHandler().
-        unlisten(this.getBackgroundElement(), goog.events.EventType.CLICK,
-        this.handleBackgroundAction_); 
+    unlisten(this.getBackgroundElement(), goog.events.EventType.CLICK,
+      this.handleBackgroundAction_);
   }
 };
 
@@ -184,7 +184,7 @@ thin.ui.Dialog.prototype.enableBackgroundActionHandling_ = function(enabled) {
  * @param {goog.events.BrowserEvent} e
  * @private
  */
-thin.ui.Dialog.prototype.handleBackgroundAction_ = function(e) {
+thin.ui.Dialog.prototype.handleBackgroundAction_ = function (e) {
   this.focus();
   e.stopPropagation();
   e.preventDefault();
@@ -194,7 +194,7 @@ thin.ui.Dialog.prototype.handleBackgroundAction_ = function(e) {
 /**
  * @param {thin.ui.Dialog.ButtonSet} buttons
  */
-thin.ui.Dialog.prototype.setButtonSet = function(buttons) {
+thin.ui.Dialog.prototype.setButtonSet = function (buttons) {
   var buttonElement = this.buttonEl_;
   if (buttonElement) {
     var oldButtons = this.getButtonSet();
@@ -212,28 +212,28 @@ thin.ui.Dialog.prototype.setButtonSet = function(buttons) {
 /**
  * @return {goog.ui.Component}
  */
-thin.ui.Dialog.prototype.getButtonSetWrapper = function() {
+thin.ui.Dialog.prototype.getButtonSetWrapper = function () {
   var buttonSet = this.getButtonSet();
   return buttonSet && buttonSet.getWrapper();
 };
 
 
 /** @inheritDoc */
-thin.ui.Dialog.prototype.enterDocument = function() {
+thin.ui.Dialog.prototype.enterDocument = function () {
   goog.base(this, 'enterDocument');
-  
+
   this.getHandler().unlisten(this.buttonEl_, goog.events.EventType.CLICK,
-      this.onButtonClick_);
+    this.onButtonClick_);
 
   this.setWidth(this.getWidth());
 };
 
 
 /** @inheritDoc */
-thin.ui.Dialog.prototype.exitDocument = function() {
+thin.ui.Dialog.prototype.exitDocument = function () {
   goog.base(this, 'exitDocument');
-  
-  goog.object.forEach(this.controls_, function(control) {
+
+  goog.object.forEach(this.controls_, function (control) {
     if (control instanceof goog.ui.Component) {
       control.exitDocument();
     } else if (goog.dom.isNodeLike(control)) {
@@ -244,11 +244,11 @@ thin.ui.Dialog.prototype.exitDocument = function() {
 
 
 /** @inheritDoc */
-thin.ui.Dialog.prototype.disposeInternal = function() {
+thin.ui.Dialog.prototype.disposeInternal = function () {
   goog.base(this, 'disposeInternal');
   this.disposeInternalForStylableControl();
 
-  goog.object.forEach(this.controls_, function(control) {
+  goog.object.forEach(this.controls_, function (control) {
     if (control instanceof goog.ui.Component) {
       control.dispose();
     }
@@ -263,15 +263,15 @@ thin.ui.Dialog.prototype.disposeInternal = function() {
 /**
  * @param {Element} element
  */
-thin.ui.Dialog.prototype.decorateInternal = function(element) {
+thin.ui.Dialog.prototype.decorateInternal = function (element) {
   goog.ui.Dialog.superClass_.decorateInternal.call(this, element);
-  
+
   //- Begin via {goog.ui.Dialog#decorateInternal}
-  
+
   // Decorate or create the content element.
   var contentClass = goog.getCssName(this.class_, 'content');
   this.contentEl_ = goog.dom.getElementsByTagNameAndClass(
-      null, contentClass, this.getElement())[0];
+    null, contentClass, this.getElement())[0];
   if (this.contentEl_) {
     this.content_ = this.contentEl_.innerHTML;
   } else {
@@ -287,15 +287,15 @@ thin.ui.Dialog.prototype.decorateInternal = function(element) {
   var titleTextClass = goog.getCssName(this.class_, 'title-text');
   var titleCloseClass = goog.getCssName(this.class_, 'title-close');
   this.titleEl_ = goog.dom.getElementsByTagNameAndClass(
-      null, titleClass, this.getElement())[0];
+    null, titleClass, this.getElement())[0];
   if (this.titleEl_) {
     // Only look for title text & title close elements if a title bar element
     // was found.  Otherwise assume that the entire title bar has to be
     // created from scratch.
     this.titleTextEl_ = goog.dom.getElementsByTagNameAndClass(
-        null, titleTextClass, this.titleEl_)[0];
+      null, titleTextClass, this.titleEl_)[0];
     this.titleCloseEl_ = goog.dom.getElementsByTagNameAndClass(
-        null, titleCloseClass, this.titleEl_)[0];
+      null, titleCloseClass, this.titleEl_)[0];
   } else {
     // Create the title bar element and insert it before the content area.
     // This is useful if the element to decorate only includes a content area.
@@ -308,7 +308,7 @@ thin.ui.Dialog.prototype.decorateInternal = function(element) {
     this.title_ = goog.dom.getTextContent(this.titleTextEl_);
   } else {
     this.titleTextEl_ = this.getDomHelper().createDom('span', titleTextClass,
-        this.title_);
+      this.title_);
     this.titleEl_.appendChild(this.titleTextEl_);
   }
   goog.a11y.aria.setState(this.getElement(), 'labelledby', this.titleId_ || '');
@@ -318,24 +318,24 @@ thin.ui.Dialog.prototype.decorateInternal = function(element) {
     this.titleEl_.appendChild(this.titleCloseEl_);
   }
   goog.style.showElement(this.titleCloseEl_, this.hasTitleCloseButton_);
-  
+
   //- End via {goog.ui.Dialog#decorateInternal}
 
   var buttonsClass = thin.ui.getCssName(this.class_, 'buttons');
   this.buttonEl_ = goog.dom.getElementsByTagNameAndClass(
-      null, buttonsClass, this.getElement())[0];
+    null, buttonsClass, this.getElement())[0];
   if (!this.buttonEl_) {
     this.buttonEl_ = this.getDomHelper().createDom('div', buttonsClass);
     this.getElement().appendChild(this.buttonEl_);
   }
   this.buttons_.attachToElement(this.buttonEl_);
-  
+
   goog.dom.setFocusableTabIndex(element, true);
 };
 
 
 /** @inheritDoc */
-thin.ui.Dialog.prototype.manageBackgroundDom_ = function() {
+thin.ui.Dialog.prototype.manageBackgroundDom_ = function () {
   goog.base(this, 'manageBackgroundDom_');
   if (this.bgEl_) {
     goog.dom.setFocusableTabIndex(this.bgEl_, true);
@@ -347,9 +347,9 @@ thin.ui.Dialog.prototype.manageBackgroundDom_ = function() {
  * @constructor
  * @extends {goog.ui.Dialog.ButtonSet}
  */
-thin.ui.Dialog.ButtonSet = function() {
+thin.ui.Dialog.ButtonSet = function () {
   goog.ui.Dialog.ButtonSet.call(this);
-  
+
   /**
    * @type {goog.ui.Component}
    * @private
@@ -369,7 +369,7 @@ thin.ui.Dialog.ButtonSet.prototype.class_ = thin.ui.getCssName('thin-buttonset')
 /**
  * @return {goog.ui.Component}
  */
-thin.ui.Dialog.ButtonSet.prototype.getWrapper = function() {
+thin.ui.Dialog.ButtonSet.prototype.getWrapper = function () {
   return this.wrapper_;
 };
 
@@ -382,9 +382,12 @@ thin.ui.Dialog.ButtonSet.prototype.getWrapper = function() {
  * @param {boolean=} opt_isCancel
  * @return {thin.ui.Dialog.ButtonSet}
  */
-thin.ui.Dialog.ButtonSet.prototype.set = function(key, caption, 
-    opt_icon, opt_isDefault, opt_isCancel) {
-  goog.structs.Map.prototype.set.call(this, key, {'caption': caption, 'icon': opt_icon});
+thin.ui.Dialog.ButtonSet.prototype.set = function (key, caption,
+  opt_icon, opt_isDefault, opt_isCancel) {
+  goog.structs.Map.prototype.set.call(this, key, {
+    'caption': caption,
+    'icon': opt_icon
+  });
 
   if (opt_isDefault) {
     this.defaultButton_ = key;
@@ -397,14 +400,14 @@ thin.ui.Dialog.ButtonSet.prototype.set = function(key, caption,
 
 
 /** @inheritDoc */
-thin.ui.Dialog.ButtonSet.prototype.render = function() {
+thin.ui.Dialog.ButtonSet.prototype.render = function () {
   var wrapper = this.wrapper_;
   if (wrapper) {
     wrapper.removeChildren(true);
-    
+
     var domHelper = goog.dom.getDomHelper(this.element_);
     var defaultCssClass = thin.ui.getCssName(this.class_, 'default');
-    goog.structs.forEach(this, function(settings, key) {
+    goog.structs.forEach(this, function (settings, key) {
       var button = new thin.ui.Button(settings.caption, settings.icon);
       button.setId(key);
       wrapper.addChild(button, true);
@@ -419,12 +422,12 @@ thin.ui.Dialog.ButtonSet.prototype.render = function() {
 /**
  * @param {Element} el
  */
-thin.ui.Dialog.ButtonSet.prototype.attachToElement = function(el) {
+thin.ui.Dialog.ButtonSet.prototype.attachToElement = function (el) {
   var wrapper = this.wrapper_;
 
   wrapper.render(el);
-  goog.dom.classes.set(wrapper.getElement(), 
-      thin.ui.getCssName(el.className, 'wrapper'));
+  goog.dom.classes.set(wrapper.getElement(),
+    thin.ui.getCssName(el.className, 'wrapper'));
 
   thin.ui.Dialog.ButtonSet.superClass_.attachToElement.call(this, wrapper.getElement());
 };
@@ -437,7 +440,7 @@ thin.ui.Dialog.ButtonSet.prototype.decorate = goog.nullFunction;
  * @param {string} key
  * @return {goog.ui.Component?}
  */
-thin.ui.Dialog.ButtonSet.prototype.getButton = function(key) {
+thin.ui.Dialog.ButtonSet.prototype.getButton = function (key) {
   return this.wrapper_.getChild(key);
 };
 
@@ -445,7 +448,7 @@ thin.ui.Dialog.ButtonSet.prototype.getButton = function(key) {
 /**
  * @return {goog.ui.Component?}
  */
-thin.ui.Dialog.ButtonSet.prototype.getDefaultButton = function() {
+thin.ui.Dialog.ButtonSet.prototype.getDefaultButton = function () {
   var key = this.getDefault();
   if (key) {
     return this.getButton(key);
@@ -457,18 +460,18 @@ thin.ui.Dialog.ButtonSet.prototype.getDefaultButton = function() {
 /**
  * @return {Array}
  */
-thin.ui.Dialog.ButtonSet.prototype.getAllButtons = function() {
+thin.ui.Dialog.ButtonSet.prototype.getAllButtons = function () {
   var buttons = [];
-  this.wrapper_.forEachChild(function(child) {
+  this.wrapper_.forEachChild(function (child) {
     buttons.push(child);
   });
   return buttons;
 };
 
 
-thin.ui.Dialog.ButtonSet.prototype.dispose = function() {
+thin.ui.Dialog.ButtonSet.prototype.dispose = function () {
   this.wrapper_.dispose();
-  
+
   delete this.wrapper_;
 };
 
@@ -476,44 +479,44 @@ thin.ui.Dialog.ButtonSet.prototype.dispose = function() {
 /**
  * @return {thin.ui.Dialog.ButtonSet}
  */
-thin.ui.Dialog.ButtonSet.typeOk = function() {
+thin.ui.Dialog.ButtonSet.typeOk = function () {
   var keys = goog.ui.Dialog.DefaultButtonKeys;
   return thin.ui.Dialog.ButtonSet.generate(
-      [keys.OK, 'OK', null, true, true]);
+    [keys.OK, 'OK', null, true, true]);
 };
 
 
 /**
  * @return {thin.ui.Dialog.ButtonSet}
  */
-thin.ui.Dialog.ButtonSet.typeOkCancel = function() {
+thin.ui.Dialog.ButtonSet.typeOkCancel = function () {
   var keys = goog.ui.Dialog.DefaultButtonKeys;
   return thin.ui.Dialog.ButtonSet.generate(
-      [keys.OK, 'OK', null, true], 
-      [keys.CANCEL, 'Cancel', null, false, true]);
+    [keys.OK, 'OK', null, true],
+    [keys.CANCEL, 'Abbrechen', null, false, true]);
 };
 
 
 /**
  * @return {thin.ui.Dialog.ButtonSet}
  */
-thin.ui.Dialog.ButtonSet.typeYesNo = function() {
+thin.ui.Dialog.ButtonSet.typeYesNo = function () {
   var keys = goog.ui.Dialog.DefaultButtonKeys;
   return thin.ui.Dialog.ButtonSet.generate(
-      [keys.YES, 'Yes', null, true], 
-      [keys.NO, 'No', null, false, true]);
+    [keys.YES, 'Ja', null, true],
+    [keys.NO, 'Nein', null, false, true]);
 };
 
 
 /**
  * @return {thin.ui.Dialog.ButtonSet}
  */
-thin.ui.Dialog.ButtonSet.typeYesNoCancel = function() {
+thin.ui.Dialog.ButtonSet.typeYesNoCancel = function () {
   var keys = goog.ui.Dialog.DefaultButtonKeys;
   return thin.ui.Dialog.ButtonSet.generate(
-      [keys.YES, 'Yes'], 
-      [keys.NO, 'No', null, true], 
-      [keys.CANCEL, 'Cancel', null, false, true]);
+    [keys.YES, 'Ja'],
+    [keys.NO, 'Nein', null, true],
+    [keys.CANCEL, 'Abbrechen', null, false, true]);
 };
 
 
@@ -521,9 +524,9 @@ thin.ui.Dialog.ButtonSet.typeYesNoCancel = function() {
  * @param {...Array} var_args
  * @return {thin.ui.Dialog.ButtonSet}
  */
-thin.ui.Dialog.ButtonSet.generate = function(var_args) {
+thin.ui.Dialog.ButtonSet.generate = function (var_args) {
   var buttons = new thin.ui.Dialog.ButtonSet();
-  goog.array.forEach(arguments, function(args) {
+  goog.array.forEach(arguments, function (args) {
     buttons.set.apply(buttons, args);
   });
   return buttons;
@@ -531,42 +534,41 @@ thin.ui.Dialog.ButtonSet.generate = function(var_args) {
 
 
 // Mixin custom methods to goog.ui.Dialog.Event
-(function() {
+(function () {
   var buttonKeys = goog.ui.Dialog.DefaultButtonKeys;
-  
+
   /**
    * @constructor
    */
-  var CustomDialogEvent = function() {
-  };
-  
+  var CustomDialogEvent = function () {};
+
   /**
    * @return {boolean}
    */
-  CustomDialogEvent.prototype.isYes = function() {
+  CustomDialogEvent.prototype.isYes = function () {
     return this.key == buttonKeys.YES;
   };
-  
+
   /**
    * @return {boolean}
    */
-  CustomDialogEvent.prototype.isNo = function() {
+  CustomDialogEvent.prototype.isNo = function () {
     return this.key == buttonKeys.NO;
   };
-  
+
   /**
    * @return {boolean}
    */
-  CustomDialogEvent.prototype.isOk = function() {
+  CustomDialogEvent.prototype.isOk = function () {
     return this.key == buttonKeys.OK;
   };
-  
+
   /**
    * @return {boolean}
    */
-  CustomDialogEvent.prototype.isCancel = function() {
+  CustomDialogEvent.prototype.isCancel = function () {
     return this.key == buttonKeys.CANCEL;
   };
-  
+
   goog.mixin(goog.ui.Dialog.Event.prototype, CustomDialogEvent.prototype);
 })();

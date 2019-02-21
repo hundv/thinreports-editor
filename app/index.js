@@ -41,7 +41,7 @@ App.localeIds_ = [];
  * @param {string} id
  * @param {Object} locale
  */
-App.addLocale = function(locale) {
+App.addLocale = function (locale) {
   App.locales_.push(locale);
   App.localeIds_.push(locale.id);
 };
@@ -50,7 +50,7 @@ App.addLocale = function(locale) {
 /**
  * @return {Object}
  */
-App.getLocales = function() {
+App.getLocales = function () {
   return App.locales_;
 };
 
@@ -58,7 +58,7 @@ App.getLocales = function() {
 /**
  * @return {string} default locale
  */
-App.getDefaultUILocale = function() {
+App.getDefaultUILocale = function () {
   return App.DEFAULT_LOCALE;
 };
 
@@ -66,10 +66,10 @@ App.getDefaultUILocale = function() {
 /**
  * @return {string} browser locale
  */
-App.getUILocale = function() {
-  var locale = navigator.language
-                || navigator.browserLanguage
-                || navigator.userLanguage;
+App.getUILocale = function () {
+  var locale = navigator.language ||
+    navigator.browserLanguage ||
+    navigator.userLanguage;
 
   if (!locale || App.localeIds_.indexOf(locale) == -1) {
     locale = App.DEFAULT_LOCALE;

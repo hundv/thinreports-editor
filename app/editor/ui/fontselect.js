@@ -62,9 +62,6 @@ thin.ui.FontSelect.prototype.addFonts = function(fonts) {
 
   goog.array.forEach(fonts, function(font) {
     family = font.getFamily();
-    if (family == 'IPAMincho') {
-      this.addItem(new goog.ui.MenuSeparator());
-    }
     this.addBuiltinFont(family, font.getName());
   }, this);
 };
