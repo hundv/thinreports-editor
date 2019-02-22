@@ -240,6 +240,10 @@ App.addLocale({
         shape_image: 'Bild',
 
         font_gothic: 'Gothic',
-        font_mincho: 'Mincho'
+        font_mincho: 'Mincho',
+
+        font_bold: 'Fett',
+        font_underlined: 'Unterstrichen',
+        font_italic: 'Kursiv'
     }
 });

@@ -48,7 +48,7 @@ goog.require('goog.ui.Component.EventType');
  * @constructor
  * @extends {thin.core.AbstractTextGroup}
  */
-thin.core.TblockShape = function(element, layout) {
+thin.core.TblockShape = function (element, layout) {
   thin.core.AbstractTextGroup.call(this, element, layout);
   this.setCss(thin.core.TblockShape.CLASSID);
 
@@ -190,7 +190,7 @@ thin.core.TblockShape.prototype.formatStyle_ = null;
 /**
  * @return {string}
  */
-thin.core.TblockShape.prototype.getClassId = function() {
+thin.core.TblockShape.prototype.getClassId = function () {
   return thin.core.TblockShape.CLASSID;
 };
 
@@ -199,13 +199,13 @@ thin.core.TblockShape.prototype.getClassId = function() {
  * Override thin.core.ModuleShape#canResizeHeight.
  * @return {boolean}
  */
-thin.core.TblockShape.prototype.canResizeHeight = function() {
+thin.core.TblockShape.prototype.canResizeHeight = function () {
   return this.isMultiMode();
 };
 
 
 /** @inheritDoc */
-thin.core.TblockShape.prototype.updateToolbarUI = function() {
+thin.core.TblockShape.prototype.updateToolbarUI = function () {
   goog.base(this, 'updateToolbarUI');
   thin.ui.enablingFontUIs(true, true, true, this.isMultiMode(), false);
 };
@@ -216,7 +216,7 @@ thin.core.TblockShape.prototype.updateToolbarUI = function() {
  * @return {thin.core.Box}
  * @private
  */
-thin.core.TblockShape.prototype.createBox_ = function(opt_element) {
+thin.core.TblockShape.prototype.createBox_ = function (opt_element) {
   var opt_classId;
   if (!opt_element) {
     var classId = thin.core.TblockShape.ClassIds;
@@ -224,7 +224,7 @@ thin.core.TblockShape.prototype.createBox_ = function(opt_element) {
   }
 
   var box = thin.core.TblockShape.superClass_.
-                createBox_.call(this, opt_element, opt_classId);
+  createBox_.call(this, opt_element, opt_classId);
 
   box.setStroke(thin.core.TblockShape.BOX_STROKE_);
   box.setFill(thin.core.TblockShape.BOX_FILL_);
@@ -239,34 +239,34 @@ thin.core.TblockShape.prototype.createBox_ = function(opt_element) {
  * @return {thin.core.IdShape}
  * @private
  */
-thin.core.TblockShape.prototype.createId_ = function(opt_element) {
+thin.core.TblockShape.prototype.createId_ = function (opt_element) {
   var layout = this.getLayout();
   var classId = thin.core.TblockShape.ClassIds;
   var font = thin.core.TblockShape.IDSHAPEFONT_;
   var element = opt_element ||
-  layout.createSvgElement('text', {
-    'class': thin.core.TblockShape.CLASSID + classId.ID,
-    'font-size': font.size,
-    'font-family': font.family,
-    'font-weight': 'normal',
-    'font-style': 'normal',
-    'text-decoration': 'none',
-    'text-anchor': thin.core.TextStyle.HorizonAlignType.START,
-    'kerning': thin.core.TextStyle.DEFAULT_ELEMENT_KERNING
-  });
+    layout.createSvgElement('text', {
+      'class': thin.core.TblockShape.CLASSID + classId.ID,
+      'font-size': font.size,
+      'font-family': font.family,
+      'font-weight': 'normal',
+      'font-style': 'normal',
+      'text-decoration': 'none',
+      'text-anchor': thin.core.TextStyle.HorizonAlignType.START,
+      'kerning': thin.core.TextStyle.DEFAULT_ELEMENT_KERNING
+    });
 
   return new thin.core.IdShape(element, layout, null,
-                  thin.core.TblockShape.IDSHAPEFILL_);
+    thin.core.TblockShape.IDSHAPEFILL_);
 };
 
 
 /** @inheritDoc */
-thin.core.TblockShape.prototype.setup = function() {
+thin.core.TblockShape.prototype.setup = function () {
   var element = this.getElement();
   var classId = thin.core.TblockShape.ClassIds;
 
   var opt_boxElement = thin.core.getElementByClassNameForChildNodes((
-                          thin.core.TblockShape.CLASSID + classId.BOX), element.childNodes);
+    thin.core.TblockShape.CLASSID + classId.BOX), element.childNodes);
 
   this.box_ = this.createBox_(opt_boxElement);
   if (!opt_boxElement) {
@@ -274,7 +274,7 @@ thin.core.TblockShape.prototype.setup = function() {
   }
 
   var opt_idElement = thin.core.getElementByClassNameForChildNodes((
-                          thin.core.TblockShape.CLASSID + classId.ID), element.childNodes);
+    thin.core.TblockShape.CLASSID + classId.ID), element.childNodes);
 
   this.id_ = this.createId_(opt_idElement);
   if (!opt_idElement) {
@@ -284,17 +284,17 @@ thin.core.TblockShape.prototype.setup = function() {
 
 
 
-thin.core.TblockShape.prototype.createClipPath = function() {
+thin.core.TblockShape.prototype.createClipPath = function () {
   this.box_.createClipPath(this);
 };
 
 
-thin.core.TblockShape.prototype.removeClipPath = function() {
+thin.core.TblockShape.prototype.removeClipPath = function () {
   this.box_.removeClipPath();
 };
 
 
-thin.core.TblockShape.prototype.setDefaultOutline = function() {
+thin.core.TblockShape.prototype.setDefaultOutline = function () {
   this.setTargetOutline(this.getLayout().getHelpers().getTblockOutline());
 };
 
@@ -302,7 +302,7 @@ thin.core.TblockShape.prototype.setDefaultOutline = function() {
 /**
  * @param {thin.core.formatstyles.AbstractFormat?} formatStyle
  */
-thin.core.TblockShape.prototype.setFormatStyle = function(formatStyle) {
+thin.core.TblockShape.prototype.setFormatStyle = function (formatStyle) {
   if (formatStyle) {
     this.clearFormatStyle_(formatStyle);
 
@@ -346,9 +346,9 @@ thin.core.TblockShape.prototype.setFormatStyle = function(formatStyle) {
 /**
  * @param {thin.core.formatstyles.AbstractFormat=} opt_newFormat
  */
-thin.core.TblockShape.prototype.clearFormatStyle_ = function(opt_newFormat) {
+thin.core.TblockShape.prototype.clearFormatStyle_ = function (opt_newFormat) {
   if (opt_newFormat && this.formatStyle_ &&
-  this.formatStyle_.constructor == opt_newFormat.constructor) {
+    this.formatStyle_.constructor == opt_newFormat.constructor) {
     // Skip clear;
     return;
   }
@@ -398,7 +398,7 @@ thin.core.TblockShape.prototype.clearFormatStyle_ = function(opt_newFormat) {
 /**
  * @param {string} formatType
  */
-thin.core.TblockShape.prototype.setFormatTypeInternal = function(formatType) {
+thin.core.TblockShape.prototype.setFormatTypeInternal = function (formatType) {
   this.type_ = formatType;
   this.getLayout().setElementAttributes(this.getElement(), {
     'x-format-type': formatType
@@ -409,7 +409,7 @@ thin.core.TblockShape.prototype.setFormatTypeInternal = function(formatType) {
 /**
  * @param {string} formatType
  */
-thin.core.TblockShape.prototype.setFormatType = function(formatType) {
+thin.core.TblockShape.prototype.setFormatType = function (formatType) {
   this.setFormatTypeInternal(formatType);
 
   var formatTypeTemp = thin.core.formatstyles.FormatType;
@@ -429,9 +429,9 @@ thin.core.TblockShape.prototype.setFormatType = function(formatType) {
       break;
     case formatTypeTemp.PADDING:
       this.setFormatStyle(new thin.core.formatstyles.PaddingFormat(
-          thin.core.formatstyles.PaddingFormat.DEFAULT_DIRECTION,
-          thin.core.formatstyles.PaddingFormat.DEFAULT_CHAR,
-          thin.core.formatstyles.PaddingFormat.DEFAULT_LENGTH));
+        thin.core.formatstyles.PaddingFormat.DEFAULT_DIRECTION,
+        thin.core.formatstyles.PaddingFormat.DEFAULT_CHAR,
+        thin.core.formatstyles.PaddingFormat.DEFAULT_LENGTH));
       break;
   }
 };
@@ -440,25 +440,25 @@ thin.core.TblockShape.prototype.setFormatType = function(formatType) {
 /**
  * @return {string}
  */
-thin.core.TblockShape.prototype.getFormatType = function() {
+thin.core.TblockShape.prototype.getFormatType = function () {
   return /** @type {string} */ (thin.getValIfNotDef(this.type_,
-             thin.core.TblockShape.DEFAULT_FORMAT_TYPE));
+    thin.core.TblockShape.DEFAULT_FORMAT_TYPE));
 };
 
 
 /**
  * @return {string}
  */
-thin.core.TblockShape.prototype.getDefaultValueOfLink = function() {
+thin.core.TblockShape.prototype.getDefaultValueOfLink = function () {
   return /** @type {string} */ (thin.getValIfNotDef(this.defaultValue_,
-             thin.core.TblockShape.DEFAULT_VALUE));
+    thin.core.TblockShape.DEFAULT_VALUE));
 };
 
 
 /**
  * @param {string} value
  */
-thin.core.TblockShape.prototype.setDefaultValueOfLink = function(value) {
+thin.core.TblockShape.prototype.setDefaultValueOfLink = function (value) {
   this.defaultValue_ = value;
   this.getLayout().setElementAttributes(this.getElement(), {
     'x-value': value
@@ -469,16 +469,16 @@ thin.core.TblockShape.prototype.setDefaultValueOfLink = function(value) {
 /**
  * @return {string}
  */
-thin.core.TblockShape.prototype.getBaseFormat = function() {
+thin.core.TblockShape.prototype.getBaseFormat = function () {
   return /** @type {string} */ (thin.getValIfNotDef(this.base_,
-             thin.core.TblockShape.DEFAULT_FORMAT_BASE));
+    thin.core.TblockShape.DEFAULT_FORMAT_BASE));
 };
 
 
 /**
  * @param {string} formatBase
  */
-thin.core.TblockShape.prototype.setBaseFormat = function(formatBase) {
+thin.core.TblockShape.prototype.setBaseFormat = function (formatBase) {
   this.base_ = formatBase;
   this.getLayout().setElementAttributes(this.getElement(), {
     'x-format-base': formatBase
@@ -490,7 +490,7 @@ thin.core.TblockShape.prototype.setBaseFormat = function(formatBase) {
  * @param {string} shapeId
  * @param {thin.core.ShapeIdManager=} opt_shapeIdManager
  */
-thin.core.TblockShape.prototype.setShapeId = function(shapeId, opt_shapeIdManager) {
+thin.core.TblockShape.prototype.setShapeId = function (shapeId, opt_shapeIdManager) {
   if (!thin.isExactlyEqual(shapeId, thin.core.ModuleShape.DEFAULT_SHAPEID)) {
     this.id_.setText(shapeId);
     this.setShapeId_(shapeId, opt_shapeIdManager);
@@ -501,7 +501,7 @@ thin.core.TblockShape.prototype.setShapeId = function(shapeId, opt_shapeIdManage
 /**
  * @return {boolean}
  */
-thin.core.TblockShape.prototype.isReferring = function() {
+thin.core.TblockShape.prototype.isReferring = function () {
   return !!this.getReferenceShape();
 };
 
@@ -509,12 +509,12 @@ thin.core.TblockShape.prototype.isReferring = function() {
 /**
  * @return {boolean}
  */
-thin.core.TblockShape.prototype.isReferences = function() {
+thin.core.TblockShape.prototype.isReferences = function () {
   return !goog.array.isEmpty(this.getReferringShapes());
 };
 
 
-thin.core.TblockShape.prototype.removeReferenceShapeId = function() {
+thin.core.TblockShape.prototype.removeReferenceShapeId = function () {
   this.setRefId(thin.core.TblockShape.DEFAULT_REFID);
 };
 
@@ -522,7 +522,7 @@ thin.core.TblockShape.prototype.removeReferenceShapeId = function() {
 /**
  * @return {goog.graphics.Element}
  */
-thin.core.TblockShape.prototype.getReferenceShape = function() {
+thin.core.TblockShape.prototype.getReferenceShape = function () {
   var manager;
   if (this.isAffiliationListShape()) {
     manager = this.getAffiliationSectionShape().getManager().getShapeIdManager();
@@ -535,7 +535,7 @@ thin.core.TblockShape.prototype.getReferenceShape = function() {
 /**
  * @return {Array.<thin.core.TblockShape>}
  */
-thin.core.TblockShape.prototype.getReferringShapes = function() {
+thin.core.TblockShape.prototype.getReferringShapes = function () {
   var manager;
   var layout = this.getLayout();
   if (this.isAffiliationListShape()) {
@@ -546,7 +546,7 @@ thin.core.TblockShape.prototype.getReferringShapes = function() {
 
   var shapeId = this.getShapeId();
   var refereces = [];
-  layout.forTblockShapesEach(manager.get(), function(shape, i) {
+  layout.forTblockShapesEach(manager.get(), function (shape, i) {
     if (thin.isExactlyEqual(shapeId, shape.getRefId())) {
       goog.array.insert(refereces, shape);
     }
@@ -559,7 +559,7 @@ thin.core.TblockShape.prototype.getReferringShapes = function() {
 /**
  * @param {string} refId
  */
-thin.core.TblockShape.prototype.setRefId = function(refId) {
+thin.core.TblockShape.prototype.setRefId = function (refId) {
   this.refId_ = refId;
   this.getLayout().setElementAttributes(this.getElement(), {
     'x-ref-id': refId
@@ -570,16 +570,16 @@ thin.core.TblockShape.prototype.setRefId = function(refId) {
 /**
  * @return {string}
  */
-thin.core.TblockShape.prototype.getRefId = function() {
+thin.core.TblockShape.prototype.getRefId = function () {
   return /** @type {string} */ (thin.getValIfNotDef(this.refId_,
-             thin.core.TblockShape.DEFAULT_REFID));
+    thin.core.TblockShape.DEFAULT_REFID));
 };
 
 
 /**
  * @param {number} left
  */
-thin.core.TblockShape.prototype.setLeft = function(left) {
+thin.core.TblockShape.prototype.setLeft = function (left) {
   thin.core.TblockShape.superClass_.setLeft.call(this, left);
   this.id_.setLeft(this.left_ + 4);
 };
@@ -588,7 +588,7 @@ thin.core.TblockShape.prototype.setLeft = function(left) {
 /**
  * @param {number} top
  */
-thin.core.TblockShape.prototype.setTop = function(top) {
+thin.core.TblockShape.prototype.setTop = function (top) {
   thin.core.TblockShape.superClass_.setTop.call(this, top);
   this.id_.setTop(this.top_ + 11);
 };
@@ -597,16 +597,16 @@ thin.core.TblockShape.prototype.setTop = function(top) {
 /**
  * @return {boolean}
  */
-thin.core.TblockShape.prototype.isMultiMode = function() {
+thin.core.TblockShape.prototype.isMultiMode = function () {
   return /** @type {boolean} */ (thin.getValIfNotDef(this.multiMode_,
-             thin.core.TblockShape.DEFAULT_MULTIPLE));
+    thin.core.TblockShape.DEFAULT_MULTIPLE));
 };
 
 
 /**
  * @param {boolean} multipleMode
  */
-thin.core.TblockShape.prototype.setMultiModeInternal = function(multipleMode) {
+thin.core.TblockShape.prototype.setMultiModeInternal = function (multipleMode) {
   this.multiMode_ = multipleMode;
   this.getLayout().setElementAttributes(this.getElement(), {
     'x-multiple': multipleMode
@@ -617,7 +617,7 @@ thin.core.TblockShape.prototype.setMultiModeInternal = function(multipleMode) {
 /**
  * @param {boolean} multipleMode
  */
-thin.core.TblockShape.prototype.setMultiMode = function(multipleMode) {
+thin.core.TblockShape.prototype.setMultiMode = function (multipleMode) {
   this.setMultiModeInternal(multipleMode);
 
   if (multipleMode) {
@@ -638,7 +638,7 @@ thin.core.TblockShape.prototype.setMultiMode = function(multipleMode) {
 /**
  * @param {string} valign
  */
-thin.core.TblockShape.prototype.setVerticalAlign = function(valign) {
+thin.core.TblockShape.prototype.setVerticalAlign = function (valign) {
   if (this.isMultiMode()) {
     thin.core.TblockShape.superClass_.setVerticalAlign.call(this, valign);
   }
@@ -648,7 +648,7 @@ thin.core.TblockShape.prototype.setVerticalAlign = function(valign) {
 /**
  * @param {string} ratio
  */
-thin.core.TblockShape.prototype.setTextLineHeightRatio = function(ratio) {
+thin.core.TblockShape.prototype.setTextLineHeightRatio = function (ratio) {
   if (this.isMultiMode()) {
     thin.core.TblockShape.superClass_.setTextLineHeightRatio.call(this, ratio);
   }
@@ -658,7 +658,7 @@ thin.core.TblockShape.prototype.setTextLineHeightRatio = function(ratio) {
 /**
  * @param {number} size
  */
-thin.core.TblockShape.prototype.setFontSize = function(size) {
+thin.core.TblockShape.prototype.setFontSize = function (size) {
   thin.core.TblockShape.superClass_.setFontSize.call(this, size);
 
   var ratio = this.getTextLineHeightRatio();
@@ -671,7 +671,7 @@ thin.core.TblockShape.prototype.setFontSize = function(size) {
 /**
  * @param {string} wrap
  */
-thin.core.TblockShape.prototype.setTextWordWrap = function(wrap) {
+thin.core.TblockShape.prototype.setTextWordWrap = function (wrap) {
   this.getLayout().setElementAttributes(this.getElement(), {
     'x-word-wrap': wrap
   });
@@ -681,16 +681,16 @@ thin.core.TblockShape.prototype.setTextWordWrap = function(wrap) {
 /**
  * @return {string}
  */
-thin.core.TblockShape.prototype.getTextWordWrap = function() {
-  return this.getLayout().getElementAttribute(this.getElement(), 'x-word-wrap')
-    || thin.core.TextStyle.getDefaultWordWrap();
+thin.core.TblockShape.prototype.getTextWordWrap = function () {
+  return this.getLayout().getElementAttribute(this.getElement(), 'x-word-wrap') ||
+    thin.core.TextStyle.getDefaultWordWrap();
 };
 
 
 /**
  * @param {string} type
  */
-thin.core.TblockShape.prototype.setOverflowType = function(type) {
+thin.core.TblockShape.prototype.setOverflowType = function (type) {
   this.getLayout().setElementAttributes(this.getElement(), {
     'x-overflow': type
   });
@@ -700,9 +700,9 @@ thin.core.TblockShape.prototype.setOverflowType = function(type) {
 /**
  * @return {string}
  */
-thin.core.TblockShape.prototype.getOverflowType = function() {
-  return this.getLayout().getElementAttribute(this.getElement(), 'x-overflow')
-    || thin.core.TextStyle.DEFAULT_OVERFLOWTYPE;
+thin.core.TblockShape.prototype.getOverflowType = function () {
+  return this.getLayout().getElementAttribute(this.getElement(), 'x-overflow') ||
+    thin.core.TextStyle.DEFAULT_OVERFLOWTYPE;
 };
 
 
@@ -710,7 +710,7 @@ thin.core.TblockShape.prototype.getOverflowType = function() {
  * @param {thin.core.Helpers} helpers
  * @param {thin.core.MultiOutlineHelper} multiOutlineHelper
  */
-thin.core.TblockShape.prototype.toOutline = function(helpers, multiOutlineHelper) {
+thin.core.TblockShape.prototype.toOutline = function (helpers, multiOutlineHelper) {
   multiOutlineHelper.toTblockOutline(this, helpers);
 };
 
@@ -718,7 +718,7 @@ thin.core.TblockShape.prototype.toOutline = function(helpers, multiOutlineHelper
 /**
  * @return {thin.core.formatstyles.AbstractFormat}
  */
-thin.core.TblockShape.prototype.getFormatStyle = function() {
+thin.core.TblockShape.prototype.getFormatStyle = function () {
   return this.formatStyle_;
 };
 
@@ -726,7 +726,7 @@ thin.core.TblockShape.prototype.getFormatStyle = function() {
 /**
  * @return {Function}
  */
-thin.core.TblockShape.prototype.getCloneCreator = function() {
+thin.core.TblockShape.prototype.getCloneCreator = function () {
 
   var sourceCoordinate = new goog.math.Coordinate(this.getLeft(), this.getTop()).clone();
   var deltaCoordinateForList = this.getDeltaCoordinateForList().clone();
@@ -767,17 +767,17 @@ thin.core.TblockShape.prototype.getCloneCreator = function() {
    * @param {thin.core.ShapeIdManager=} opt_shapeIdManager
    * @return {thin.core.TblockShape}
    */
-  return function(layout, opt_isAdaptDeltaForList, opt_renderTo, opt_basisCoordinate, opt_shapeIdManager) {
+  return function (layout, opt_isAdaptDeltaForList, opt_renderTo, opt_basisCoordinate, opt_shapeIdManager) {
 
     var shape = layout.createTblockShape();
     layout.appendChild(shape, opt_renderTo);
     shape.setShapeId(layout.getNextShapeId(shapeIdPrefix,
-                     opt_shapeIdManager), opt_shapeIdManager);
+      opt_shapeIdManager), opt_shapeIdManager);
 
     var pasteCoordinate = layout.calculatePasteCoordinate(isAffiliationListShape, deltaCoordinateForList, deltaCoordinateForGuide, sourceCoordinate, opt_isAdaptDeltaForList, opt_renderTo, opt_basisCoordinate);
     shape.setBounds(new goog.math.Rect(pasteCoordinate.x, pasteCoordinate.y, width, height));
 
-    if(goog.isBoolean(multiple)) {
+    if (goog.isBoolean(multiple)) {
       shape.setMultiMode(multiple);
     }
 
@@ -807,7 +807,7 @@ thin.core.TblockShape.prototype.getCloneCreator = function() {
 /**
  * @private
  */
-thin.core.TblockShape.prototype.createPropertyComponent_ = function() {
+thin.core.TblockShape.prototype.createPropertyComponent_ = function () {
   var scope = this;
   var layout = this.getLayout();
   var workspace = layout.getWorkspace();
@@ -825,7 +825,7 @@ thin.core.TblockShape.prototype.createPropertyComponent_ = function() {
   leftInput.getNumberValidator().setAllowDecimal(true, 1);
 
   leftInputProperty.addEventListener(propEventType.CHANGE,
-      this.setLeftForPropertyUpdate, false, this);
+    this.setLeftForPropertyUpdate, false, this);
 
   proppane.addProperty(leftInputProperty, baseGroup, 'left');
 
@@ -835,7 +835,7 @@ thin.core.TblockShape.prototype.createPropertyComponent_ = function() {
   topInput.getNumberValidator().setAllowDecimal(true, 1);
 
   topInputProperty.addEventListener(propEventType.CHANGE,
-      this.setTopForPropertyUpdate, false, this);
+    this.setTopForPropertyUpdate, false, this);
 
   proppane.addProperty(topInputProperty, baseGroup, 'top');
 
@@ -845,7 +845,7 @@ thin.core.TblockShape.prototype.createPropertyComponent_ = function() {
   widthInput.getNumberValidator().setAllowDecimal(true, 1);
 
   widthInputProperty.addEventListener(propEventType.CHANGE,
-      this.setWidthForPropertyUpdate, false, this);
+    this.setWidthForPropertyUpdate, false, this);
 
   proppane.addProperty(widthInputProperty, baseGroup, 'width');
 
@@ -855,14 +855,14 @@ thin.core.TblockShape.prototype.createPropertyComponent_ = function() {
   heightInput.getNumberValidator().setAllowDecimal(true, 1);
 
   heightInputProperty.addEventListener(propEventType.CHANGE,
-      this.setHeightForPropertyUpdate, false, this);
+    this.setHeightForPropertyUpdate, false, this);
 
   proppane.addProperty(heightInputProperty, baseGroup, 'height');
 
 
   var displayCheckProperty = new thin.ui.PropertyPane.CheckboxProperty(thin.t('field_display'));
   displayCheckProperty.addEventListener(propEventType.CHANGE,
-      this.setDisplayForPropertyUpdate, false, this);
+    this.setDisplayForPropertyUpdate, false, this);
 
   proppane.addProperty(displayCheckProperty, baseGroup, 'display');
 
@@ -873,37 +873,37 @@ thin.core.TblockShape.prototype.createPropertyComponent_ = function() {
   var colorInputProperty = new thin.ui.PropertyPane.ColorProperty(thin.t('field_font_color'));
   colorInputProperty.getValueControl().getInput().setLabel('none');
   colorInputProperty.addEventListener(propEventType.CHANGE,
-      function(e) {
+    function (e) {
 
-        var scope = this;
-        var layout = this.getLayout();
-        var proppaneBlank = thin.core.ModuleShape.PROPPANE_SHOW_BLANK;
-        var fillNone = thin.core.ModuleShape.NONE;
-        //  choose none color returned null.
-        var fillColor = /** @type {string} */(thin.getValIfNotDef(e.target.getValue(), proppaneBlank));
-        var fill = new goog.graphics.SolidFill(thin.isExactlyEqual(fillColor, proppaneBlank) ?
-                           fillNone : fillColor);
-        var captureFill = this.getFill();
-        var captureFillColor = captureFill.getColor();
-        if (thin.isExactlyEqual(captureFillColor, fillNone)) {
-          captureFillColor = proppaneBlank;
-        }
+      var scope = this;
+      var layout = this.getLayout();
+      var proppaneBlank = thin.core.ModuleShape.PROPPANE_SHOW_BLANK;
+      var fillNone = thin.core.ModuleShape.NONE;
+      //  choose none color returned null.
+      var fillColor = /** @type {string} */ (thin.getValIfNotDef(e.target.getValue(), proppaneBlank));
+      var fill = new goog.graphics.SolidFill(thin.isExactlyEqual(fillColor, proppaneBlank) ?
+        fillNone : fillColor);
+      var captureFill = this.getFill();
+      var captureFillColor = captureFill.getColor();
+      if (thin.isExactlyEqual(captureFillColor, fillNone)) {
+        captureFillColor = proppaneBlank;
+      }
 
-        layout.getWorkspace().normalVersioning(function(version) {
+      layout.getWorkspace().normalVersioning(function (version) {
 
-          version.upHandler(function() {
-            this.setFill(fill);
-            proppane.getPropertyControl('font-color').setValue(fillColor);
-          }, scope);
+        version.upHandler(function () {
+          this.setFill(fill);
+          proppane.getPropertyControl('font-color').setValue(fillColor);
+        }, scope);
 
-          version.downHandler(function() {
-            this.setFill(captureFill);
-            proppane.getPropertyControl('font-color').setValue(captureFillColor);
-          }, scope);
-        });
-      }, false, this);
+        version.downHandler(function () {
+          this.setFill(captureFill);
+          proppane.getPropertyControl('font-color').setValue(captureFillColor);
+        }, scope);
+      });
+    }, false, this);
 
-  proppane.addProperty(colorInputProperty , fontGroup, 'font-color');
+  proppane.addProperty(colorInputProperty, fontGroup, 'font-color');
 
 
   var fontSizeCombProperty = new thin.ui.PropertyPane.ComboBoxProperty(thin.t('field_font_size'));
@@ -915,50 +915,71 @@ thin.core.TblockShape.prototype.createPropertyComponent_ = function() {
   fontSizeInput.setValidator(fontSizeInputValidation);
 
   var fontSizeItem;
-  goog.array.forEach(thin.core.FontStyle.FONTSIZE_LIST, function(fontSizeValue) {
+  goog.array.forEach(thin.core.FontStyle.FONTSIZE_LIST, function (fontSizeValue) {
     fontSizeItem = new thin.ui.ComboBoxItem(fontSizeValue);
     fontSizeItem.setSticky(true);
     fontSizeComb.addItem(fontSizeItem);
   });
 
   fontSizeCombProperty.addEventListener(propEventType.CHANGE,
-      function(e) {
-        workspace.getAction().actionSetFontSize(Number(e.target.getValue()));
-      }, false, this);
+    function (e) {
+      workspace.getAction().actionSetFontSize(Number(e.target.getValue()));
+    }, false, this);
 
-  proppane.addProperty(fontSizeCombProperty , fontGroup, 'font-size');
+  proppane.addProperty(fontSizeCombProperty, fontGroup, 'font-size');
 
 
   var fontFamilySelectProperty =
-        new thin.ui.PropertyPane.FontSelectProperty();
+    new thin.ui.PropertyPane.FontSelectProperty();
 
   fontFamilySelectProperty.addEventListener(propEventType.CHANGE,
-      function(e) {
-        workspace.getAction().actionSetFontFamily(e.target.getValue());
-      }, false, this);
+    function (e) {
+      workspace.getAction().actionSetFontFamily(e.target.getValue());
+    }, false, this);
 
-  proppane.addProperty(fontFamilySelectProperty , fontGroup, 'font-family');
+  proppane.addProperty(fontFamilySelectProperty, fontGroup, 'font-family');
 
+
+
+  var boldCheckProperty = new thin.ui.PropertyPane.CheckboxProperty(thin.t('font_bold'));
+  boldCheckProperty.addEventListener(propEventType.CHANGE,
+    function (e) {
+      this.setFontBold(e.target.isChecked());
+    }, false, this);
+  proppane.addProperty(boldCheckProperty, fontGroup, 'font-weight');
+
+  var italicCheckProperty = new thin.ui.PropertyPane.CheckboxProperty(thin.t('font_italic'));
+  italicCheckProperty.addEventListener(propEventType.CHANGE,
+    function (e) {
+      this.setFontItalic(e.target.isChecked());
+    }, false, this);
+  proppane.addProperty(italicCheckProperty, fontGroup, 'font-style');
+
+  var underlineCheckProperty = new thin.ui.PropertyPane.CheckboxProperty(thin.t('font_underlined'));
+  underlineCheckProperty.addEventListener(propEventType.CHANGE,
+    function (e) {
+      this.setFontUnderline(e.target.isChecked());
+    }, false, this);
+  proppane.addProperty(underlineCheckProperty, fontGroup, 'text-decoration');
 
   var textGroup = proppane.addGroup(thin.t('property_group_text'));
-
 
   var textAlignSelectProperty = new thin.ui.PropertyPane.SelectProperty(thin.t('field_text_align'));
   var textAlignSelect = textAlignSelectProperty.getValueControl();
   var textAlignType = thin.core.TextStyle.HorizonAlignType;
 
   textAlignSelect.setTextAlignLeft();
-  goog.array.forEach([textAlignType.START, textAlignType.MIDDLE, textAlignType.END], function(type) {
+  goog.array.forEach([textAlignType.START, textAlignType.MIDDLE, textAlignType.END], function (type) {
     textAlignSelect.addItem(
-        new thin.ui.Option(thin.core.TextStyle.getHorizonAlignName(type), type));
+      new thin.ui.Option(thin.core.TextStyle.getHorizonAlignName(type), type));
   });
 
   textAlignSelectProperty.addEventListener(propEventType.CHANGE,
-      function(e) {
-        workspace.getAction().actionSetTextAnchor(e.target.getValue());
-      }, false, this);
+    function (e) {
+      workspace.getAction().actionSetTextAnchor(e.target.getValue());
+    }, false, this);
 
-  proppane.addProperty(textAlignSelectProperty , textGroup, 'text-halign');
+  proppane.addProperty(textAlignSelectProperty, textGroup, 'text-halign');
 
 
   var textVerticalAlignSelectProperty = new thin.ui.PropertyPane.SelectProperty(thin.t('field_text_vertical_align'));
@@ -966,17 +987,17 @@ thin.core.TblockShape.prototype.createPropertyComponent_ = function() {
   var verticalAlignType = thin.core.TextStyle.VerticalAlignType;
 
   textVerticalAlignSelect.setTextAlignLeft();
-  goog.array.forEach([verticalAlignType.TOP, verticalAlignType.CENTER, verticalAlignType.BOTTOM], function(type) {
+  goog.array.forEach([verticalAlignType.TOP, verticalAlignType.CENTER, verticalAlignType.BOTTOM], function (type) {
     textVerticalAlignSelect.addItem(
-        new thin.ui.Option(thin.core.TextStyle.getVerticalAlignName(type), type));
+      new thin.ui.Option(thin.core.TextStyle.getVerticalAlignName(type), type));
   });
 
   textVerticalAlignSelectProperty.addEventListener(propEventType.CHANGE,
-      function(e) {
-        workspace.getAction().actionSetVerticalAlign(e.target.getValue());
-      }, false, this);
+    function (e) {
+      workspace.getAction().actionSetVerticalAlign(e.target.getValue());
+    }, false, this);
 
-  proppane.addProperty(textVerticalAlignSelectProperty , textGroup, 'text-valign');
+  proppane.addProperty(textVerticalAlignSelectProperty, textGroup, 'text-valign');
 
 
   var lineHeightCombProperty = new thin.ui.PropertyPane.ComboBoxProperty(thin.t('field_text_line_height'));
@@ -989,31 +1010,31 @@ thin.core.TblockShape.prototype.createPropertyComponent_ = function() {
   lineHeightInput.setValidator(lineHeightInputValidation);
 
   var lineHeightItem;
-  goog.array.forEach(thin.core.TextStyle.LINEHEIGHT_LIST, function(lineHeightValue) {
+  goog.array.forEach(thin.core.TextStyle.LINEHEIGHT_LIST, function (lineHeightValue) {
     lineHeightItem = new thin.ui.ComboBoxItem(lineHeightValue);
     lineHeightItem.setSticky(true);
     lineHeightComb.addItem(lineHeightItem);
   });
   lineHeightCombProperty.addEventListener(propEventType.CHANGE,
-      function(e) {
-        var ratio = e.target.getValue();
-        var captureRatio = scope.getTextLineHeightRatio();
+    function (e) {
+      var ratio = e.target.getValue();
+      var captureRatio = scope.getTextLineHeightRatio();
 
-        workspace.normalVersioning(function(version) {
+      workspace.normalVersioning(function (version) {
 
-          version.upHandler(function() {
-            this.setTextLineHeightRatio(ratio);
-            proppane.getPropertyControl('line-height').setInternalValue(ratio);
-          }, scope);
+        version.upHandler(function () {
+          this.setTextLineHeightRatio(ratio);
+          proppane.getPropertyControl('line-height').setInternalValue(ratio);
+        }, scope);
 
-          version.downHandler(function() {
-            this.setTextLineHeightRatio(captureRatio);
-            proppane.getPropertyControl('line-height').setInternalValue(captureRatio);
-          }, scope);
-        });
-      }, false, this);
+        version.downHandler(function () {
+          this.setTextLineHeightRatio(captureRatio);
+          proppane.getPropertyControl('line-height').setInternalValue(captureRatio);
+        }, scope);
+      });
+    }, false, this);
 
-  proppane.addProperty(lineHeightCombProperty , textGroup, 'line-height');
+  proppane.addProperty(lineHeightCombProperty, textGroup, 'line-height');
 
 
   var kerningInputProperty = new thin.ui.PropertyPane.NumberInputProperty(thin.t('field_text_kerning'), 'auto');
@@ -1023,25 +1044,25 @@ thin.core.TblockShape.prototype.createPropertyComponent_ = function() {
   kerningInputValidation.setAllowBlank(true);
 
   kerningInputProperty.addEventListener(propEventType.CHANGE,
-      function(e) {
-        var kerning = e.target.getValue();
-        var captureSpacing = scope.getKerning();
+    function (e) {
+      var kerning = e.target.getValue();
+      var captureSpacing = scope.getKerning();
 
-        if (kerning !== thin.core.TextStyle.DEFAULT_KERNING) {
-          kerning = String(Number(kerning));
-        }
+      if (kerning !== thin.core.TextStyle.DEFAULT_KERNING) {
+        kerning = String(Number(kerning));
+      }
 
-        workspace.normalVersioning(function(version) {
-          version.upHandler(function() {
-            this.setKerning(kerning);
-            proppane.getPropertyControl('kerning').setValue(kerning);
-          }, scope);
-          version.downHandler(function() {
-            this.setKerning(captureSpacing);
-            proppane.getPropertyControl('kerning').setValue(captureSpacing);
-          }, scope);
-        });
-      }, false, this);
+      workspace.normalVersioning(function (version) {
+        version.upHandler(function () {
+          this.setKerning(kerning);
+          proppane.getPropertyControl('kerning').setValue(kerning);
+        }, scope);
+        version.downHandler(function () {
+          this.setKerning(captureSpacing);
+          proppane.getPropertyControl('kerning').setValue(captureSpacing);
+        }, scope);
+      });
+    }, false, this);
 
   proppane.addProperty(kerningInputProperty, textGroup, 'kerning');
 
@@ -1049,47 +1070,47 @@ thin.core.TblockShape.prototype.createPropertyComponent_ = function() {
   var multipleCheckProperty = new thin.ui.PropertyPane.CheckboxProperty(thin.t('field_multiple_line'));
   var multipleCheck = multipleCheckProperty.getValueControl();
   multipleCheckProperty.addEventListener(propEventType.CHANGE,
-      function(e) {
-        var multipleMode = e.target.isChecked();
-        var captureMultipleMode = scope.isMultiMode();
-        var anchorStart = thin.core.TextStyle.HorizonAlignType.START;
-        var captureTextAnchor = scope.getTextAnchor();
-        var captureHeight = scope.getHeight();
+    function (e) {
+      var multipleMode = e.target.isChecked();
+      var captureMultipleMode = scope.isMultiMode();
+      var anchorStart = thin.core.TextStyle.HorizonAlignType.START;
+      var captureTextAnchor = scope.getTextAnchor();
+      var captureHeight = scope.getHeight();
 
-        /**
-         * @param {boolean} isMultiple
-         * @param {string} textAnchor
-         */
-        var setMultipleMode = function(isMultiple, textAnchor) {
+      /**
+       * @param {boolean} isMultiple
+       * @param {string} textAnchor
+       */
+      var setMultipleMode = function (isMultiple, textAnchor) {
 
-          scope.setMultiMode(isMultiple);
-          proppane.getChild('line-height').setEnabled(isMultiple);
-          proppane.getChild('text-valign').setEnabled(isMultiple);
-          proppane.getChild('height').setEnabled(isMultiple);
+        scope.setMultiMode(isMultiple);
+        proppane.getChild('line-height').setEnabled(isMultiple);
+        proppane.getChild('text-valign').setEnabled(isMultiple);
+        proppane.getChild('height').setEnabled(isMultiple);
 
-          if(isMultiple) {
-            scope.setHeight(captureHeight);
-          } else {
-            scope.setHeight(thin.Font.getHeight(
-                    scope.getFontFamily(), scope.getFontSize()));
-          }
+        if (isMultiple) {
+          scope.setHeight(captureHeight);
+        } else {
+          scope.setHeight(thin.Font.getHeight(
+            scope.getFontFamily(), scope.getFontSize()));
+        }
 
-          scope.updateToolbarUI();
-          guide.setEnableAndTargetShape(scope);
-          scope.updateProperties();
-        };
+        scope.updateToolbarUI();
+        guide.setEnableAndTargetShape(scope);
+        scope.updateProperties();
+      };
 
-        workspace.normalVersioning(function(version) {
+      workspace.normalVersioning(function (version) {
 
-          version.upHandler(function() {
-            setMultipleMode(multipleMode, anchorStart);
-          }, scope);
+        version.upHandler(function () {
+          setMultipleMode(multipleMode, anchorStart);
+        }, scope);
 
-          version.downHandler(function() {
-            setMultipleMode(captureMultipleMode, captureTextAnchor);
-          }, scope);
-        });
-      }, false, this);
+        version.downHandler(function () {
+          setMultipleMode(captureMultipleMode, captureTextAnchor);
+        }, scope);
+      });
+    }, false, this);
 
   proppane.addProperty(multipleCheckProperty, textGroup, 'multiple');
 
@@ -1099,57 +1120,57 @@ thin.core.TblockShape.prototype.createPropertyComponent_ = function() {
 
   var overflowType = thin.core.TextStyle.OverflowType;
 
-  goog.array.forEach([overflowType.TRUNCATE, overflowType.FIT, overflowType.EXPAND], function(type) {
+  goog.array.forEach([overflowType.TRUNCATE, overflowType.FIT, overflowType.EXPAND], function (type) {
     textOverflowSelect.addItem(
-        new thin.ui.Option(thin.core.TextStyle.getOverflowName(type), type));
+      new thin.ui.Option(thin.core.TextStyle.getOverflowName(type), type));
   });
 
   textOverflowSelectProperty.addEventListener(propEventType.CHANGE,
-      function(e) {
-        var overflow = e.target.getValue();
-        var captureOverflow = scope.getOverflowType();
+    function (e) {
+      var overflow = e.target.getValue();
+      var captureOverflow = scope.getOverflowType();
 
-        workspace.normalVersioning(function(version) {
-          version.upHandler(function() {
-            this.setOverflowType(overflow);
-            proppane.getPropertyControl('overflow').setValue(overflow);
-          }, scope);
-          version.downHandler(function() {
-            this.setOverflowType(captureOverflow);
-            proppane.getPropertyControl('overflow').setValue(captureOverflow);
-          }, scope);
-        });
-      }, false, this);
+      workspace.normalVersioning(function (version) {
+        version.upHandler(function () {
+          this.setOverflowType(overflow);
+          proppane.getPropertyControl('overflow').setValue(overflow);
+        }, scope);
+        version.downHandler(function () {
+          this.setOverflowType(captureOverflow);
+          proppane.getPropertyControl('overflow').setValue(captureOverflow);
+        }, scope);
+      });
+    }, false, this);
 
-  proppane.addProperty(textOverflowSelectProperty , textGroup, 'overflow');
+  proppane.addProperty(textOverflowSelectProperty, textGroup, 'overflow');
 
 
   var textWordWrapSelectProperty = new thin.ui.PropertyPane.SelectProperty(thin.t('field_text_word_wrap'));
   var textWordWrapSelect = textWordWrapSelectProperty.getValueControl();
   textWordWrapSelect.setTextAlignLeft();
 
-  goog.object.forEach(thin.core.TextStyle.WordWrapType, function(type) {
+  goog.object.forEach(thin.core.TextStyle.WordWrapType, function (type) {
     textWordWrapSelect.addItem(
-        new thin.ui.Option(thin.core.TextStyle.getWordWrapName(type), type));
+      new thin.ui.Option(thin.core.TextStyle.getWordWrapName(type), type));
   });
 
   textWordWrapSelectProperty.addEventListener(propEventType.CHANGE,
-      function(e) {
-        var wordWrap = e.target.getValue();
-        var captureWordWrap = scope.getTextWordWrap();
+    function (e) {
+      var wordWrap = e.target.getValue();
+      var captureWordWrap = scope.getTextWordWrap();
 
-        workspace.normalVersioning(function(version) {
-          version.upHandler(function() {
-            this.setTextWordWrap(wordWrap);
-            proppane.getPropertyControl('word-wrap').setValue(wordWrap);
-          }, scope);
+      workspace.normalVersioning(function (version) {
+        version.upHandler(function () {
+          this.setTextWordWrap(wordWrap);
+          proppane.getPropertyControl('word-wrap').setValue(wordWrap);
+        }, scope);
 
-          version.downHandler(function() {
-            this.setTextWordWrap(captureWordWrap);
-            proppane.getPropertyControl('word-wrap').setValue(captureWordWrap);
-          }, scope);
-        });
-      }, false, this);
+        version.downHandler(function () {
+          this.setTextWordWrap(captureWordWrap);
+          proppane.getPropertyControl('word-wrap').setValue(captureWordWrap);
+        }, scope);
+      });
+    }, false, this);
 
   proppane.addProperty(textWordWrapSelectProperty, textGroup, 'word-wrap');
 
@@ -1158,28 +1179,28 @@ thin.core.TblockShape.prototype.createPropertyComponent_ = function() {
   var formatTypeSelectProperty = new thin.ui.PropertyPane.SelectProperty(thin.t('field_format_type'));
   var formatTypeSelect = formatTypeSelectProperty.getValueControl();
   formatTypeSelect.setTextAlignLeft();
-  goog.object.forEach(thin.core.formatstyles.FormatType, function(formatType) {
+  goog.object.forEach(thin.core.formatstyles.FormatType, function (formatType) {
     formatTypeSelect.addItem(
-        new thin.ui.Option(thin.core.formatstyles.getFormatNameFromType(formatType), formatType));
+      new thin.ui.Option(thin.core.formatstyles.getFormatNameFromType(formatType), formatType));
   });
   formatTypeSelectProperty.addEventListener(propEventType.CHANGE,
-      function(e) {
-        var formatType = e.target.getValue();
-        var captureFormatStyle = scope.getFormatStyle();
+    function (e) {
+      var formatType = e.target.getValue();
+      var captureFormatStyle = scope.getFormatStyle();
 
-        workspace.normalVersioning(function(version) {
-          version.upHandler(function() {
-            this.setFormatType(formatType);
-            this.updateProperties();
-          }, scope);
-          version.downHandler(function() {
-            this.setFormatStyle(captureFormatStyle);
-            this.updateProperties();
-          }, scope);
-        });
-      }, false, this);
+      workspace.normalVersioning(function (version) {
+        version.upHandler(function () {
+          this.setFormatType(formatType);
+          this.updateProperties();
+        }, scope);
+        version.downHandler(function () {
+          this.setFormatStyle(captureFormatStyle);
+          this.updateProperties();
+        }, scope);
+      });
+    }, false, this);
 
-  proppane.addProperty(formatTypeSelectProperty , formatGroup, 'format-type');
+  proppane.addProperty(formatTypeSelectProperty, formatGroup, 'format-type');
 
 
   var baseFormatInputProperty = new thin.ui.PropertyPane.InputProperty(thin.t('field_basic_format'));
@@ -1187,22 +1208,22 @@ thin.core.TblockShape.prototype.createPropertyComponent_ = function() {
   baseFormatInput.setTooltip(thin.t('text_placeholder_of_base_format_description'));
 
   baseFormatInputProperty.addEventListener(propEventType.CHANGE,
-      function(e) {
+    function (e) {
 
-        var formatBase = e.target.getValue();
-        var captureFormatBase = this.getBaseFormat();
+      var formatBase = e.target.getValue();
+      var captureFormatBase = this.getBaseFormat();
 
-        workspace.normalVersioning(function(version) {
-          version.upHandler(function() {
-            this.setBaseFormat(formatBase);
-            proppane.getPropertyControl('format-base').setValue(formatBase);
-          }, scope);
-          version.downHandler(function() {
-            this.setBaseFormat(captureFormatBase);
-            proppane.getPropertyControl('format-base').setValue(captureFormatBase);
-          }, scope);
-        });
-      }, false, this);
+      workspace.normalVersioning(function (version) {
+        version.upHandler(function () {
+          this.setBaseFormat(formatBase);
+          proppane.getPropertyControl('format-base').setValue(formatBase);
+        }, scope);
+        version.downHandler(function () {
+          this.setBaseFormat(captureFormatBase);
+          proppane.getPropertyControl('format-base').setValue(captureFormatBase);
+        }, scope);
+      });
+    }, false, this);
 
   proppane.addProperty(baseFormatInputProperty, formatGroup, 'format-base');
 
@@ -1210,32 +1231,32 @@ thin.core.TblockShape.prototype.createPropertyComponent_ = function() {
   var dateTimeCombProperty = new thin.ui.PropertyPane.ComboBoxProperty(thin.t('field_datetime_format'));
   var dateTimeComb = dateTimeCombProperty.getValueControl();
   var dateTimeItem;
-  goog.object.forEach(thin.core.formatstyles.DatetimeFormat.DateFormatTemplate, function(dateTimeFormat) {
+  goog.object.forEach(thin.core.formatstyles.DatetimeFormat.DateFormatTemplate, function (dateTimeFormat) {
     dateTimeItem = new thin.ui.ComboBoxItem(dateTimeFormat);
     dateTimeItem.setSticky(true);
     dateTimeComb.addItem(dateTimeItem);
   });
 
   dateTimeCombProperty.addEventListener(propEventType.CHANGE,
-      function(e) {
+    function (e) {
 
-        var dateTimeFormat = e.target.getValue();
-        var dateTimeFormatStyle = new thin.core.formatstyles.DatetimeFormat(dateTimeFormat);
-        var captureDateTimeFormatStyle = scope.getFormatStyle();
-        var captureDateTimeFormat = captureDateTimeFormatStyle.getFormat();
+      var dateTimeFormat = e.target.getValue();
+      var dateTimeFormatStyle = new thin.core.formatstyles.DatetimeFormat(dateTimeFormat);
+      var captureDateTimeFormatStyle = scope.getFormatStyle();
+      var captureDateTimeFormat = captureDateTimeFormatStyle.getFormat();
 
-        workspace.normalVersioning(function(version) {
-          version.upHandler(function() {
-            this.setFormatStyle(dateTimeFormatStyle);
-            proppane.getPropertyControl('format-datetime-format').setInternalValue(dateTimeFormat);
-          }, scope);
-          version.downHandler(function() {
-            this.setFormatStyle(captureDateTimeFormatStyle);
-            proppane.getPropertyControl('format-datetime-format').setInternalValue(captureDateTimeFormat);
-          }, scope);
-        });
-      }, false, this);
-  proppane.addProperty(dateTimeCombProperty , formatGroup, 'format-datetime-format');
+      workspace.normalVersioning(function (version) {
+        version.upHandler(function () {
+          this.setFormatStyle(dateTimeFormatStyle);
+          proppane.getPropertyControl('format-datetime-format').setInternalValue(dateTimeFormat);
+        }, scope);
+        version.downHandler(function () {
+          this.setFormatStyle(captureDateTimeFormatStyle);
+          proppane.getPropertyControl('format-datetime-format').setInternalValue(captureDateTimeFormat);
+        }, scope);
+      });
+    }, false, this);
+  proppane.addProperty(dateTimeCombProperty, formatGroup, 'format-datetime-format');
 
 
   var delimiterCheckableInputProperty = new thin.ui.PropertyPane.CheckableInputProperty(thin.t('field_delimiter'));
@@ -1245,55 +1266,55 @@ thin.core.TblockShape.prototype.createPropertyComponent_ = function() {
   var componentEventType = goog.ui.Component.EventType;
 
   delimiterCheckBox.addEventListener(componentEventType.CHANGE,
-      function(e) {
-        var updatePropertiesForDelimiter = function(delimiter, delimitation) {
-          var delimiterProperty = proppane.getChild('format-number-delimiter');
-          delimiterProperty.setValue(delimiter);
-          delimiterProperty.setControlEnabled(delimitation);
-        }
+    function (e) {
+      var updatePropertiesForDelimiter = function (delimiter, delimitation) {
+        var delimiterProperty = proppane.getChild('format-number-delimiter');
+        delimiterProperty.setValue(delimiter);
+        delimiterProperty.setControlEnabled(delimitation);
+      }
 
-        var captureFormatStyle = scope.getFormatStyle();
-        var numberFormatStyle = new thin.core.formatstyles.NumberFormat(
-                                      captureFormatStyle.getDelimiter(),
-                                      captureFormatStyle.getPrecision(), e.target.isChecked());
+      var captureFormatStyle = scope.getFormatStyle();
+      var numberFormatStyle = new thin.core.formatstyles.NumberFormat(
+        captureFormatStyle.getDelimiter(),
+        captureFormatStyle.getPrecision(), e.target.isChecked());
 
-        workspace.normalVersioning(function(version) {
+      workspace.normalVersioning(function (version) {
 
-          version.upHandler(function() {
-            this.setFormatStyle(numberFormatStyle);
-            updatePropertiesForDelimiter(numberFormatStyle.getDelimiter(), numberFormatStyle.isDelimitationEnabled());
-          }, scope);
-          version.downHandler(function() {
-            this.setFormatStyle(captureFormatStyle);
-            updatePropertiesForDelimiter(captureFormatStyle.getDelimiter(), captureFormatStyle.isDelimitationEnabled());
-          }, scope);
-        });
-      }, false, this);
+        version.upHandler(function () {
+          this.setFormatStyle(numberFormatStyle);
+          updatePropertiesForDelimiter(numberFormatStyle.getDelimiter(), numberFormatStyle.isDelimitationEnabled());
+        }, scope);
+        version.downHandler(function () {
+          this.setFormatStyle(captureFormatStyle);
+          updatePropertiesForDelimiter(captureFormatStyle.getDelimiter(), captureFormatStyle.isDelimitationEnabled());
+        }, scope);
+      });
+    }, false, this);
 
 
   delimiterInput.addEventListener(componentEventType.CHANGE,
-      function(e) {
-        var updatePropertiesForDelimiter = function(delimiter) {
-          proppane.getChild('format-number-delimiter').setValue(delimiter);
-        }
+    function (e) {
+      var updatePropertiesForDelimiter = function (delimiter) {
+        proppane.getChild('format-number-delimiter').setValue(delimiter);
+      }
 
-        var captureFormatStyle = scope.getFormatStyle();
-        var numberFormatStyle = new thin.core.formatstyles.NumberFormat(
-                                      e.target.getValue(), captureFormatStyle.getPrecision(),
-                                      captureFormatStyle.isDelimitationEnabled());
+      var captureFormatStyle = scope.getFormatStyle();
+      var numberFormatStyle = new thin.core.formatstyles.NumberFormat(
+        e.target.getValue(), captureFormatStyle.getPrecision(),
+        captureFormatStyle.isDelimitationEnabled());
 
-        workspace.normalVersioning(function(version) {
+      workspace.normalVersioning(function (version) {
 
-          version.upHandler(function() {
-            this.setFormatStyle(numberFormatStyle);
-            updatePropertiesForDelimiter(numberFormatStyle.getDelimiter());
-          }, scope);
-          version.downHandler(function() {
-            this.setFormatStyle(captureFormatStyle);
-            updatePropertiesForDelimiter(captureFormatStyle.getDelimiter());
-          }, scope);
-        });
-      }, false, this);
+        version.upHandler(function () {
+          this.setFormatStyle(numberFormatStyle);
+          updatePropertiesForDelimiter(numberFormatStyle.getDelimiter());
+        }, scope);
+        version.downHandler(function () {
+          this.setFormatStyle(captureFormatStyle);
+          updatePropertiesForDelimiter(captureFormatStyle.getDelimiter());
+        }, scope);
+      });
+    }, false, this);
 
   proppane.addProperty(delimiterCheckableInputProperty, formatGroup, 'format-number-delimiter');
 
@@ -1303,27 +1324,27 @@ thin.core.TblockShape.prototype.createPropertyComponent_ = function() {
   var precisionValidation = new thin.ui.Input.NumberValidator();
   precisionInput.setValidator(precisionValidation);
   precisionInputProperty.addEventListener(propEventType.CHANGE,
-      function(e) {
+    function (e) {
 
-        var precision = Number(e.target.getValue());
-        var captureFormatStyle = scope.getFormatStyle();
-        var capturePrecision = captureFormatStyle.getPrecision();
-        var numberFormatStyle = new thin.core.formatstyles.NumberFormat(
-                                      captureFormatStyle.getDelimiter(), precision,
-                                      captureFormatStyle.isDelimitationEnabled());
+      var precision = Number(e.target.getValue());
+      var captureFormatStyle = scope.getFormatStyle();
+      var capturePrecision = captureFormatStyle.getPrecision();
+      var numberFormatStyle = new thin.core.formatstyles.NumberFormat(
+        captureFormatStyle.getDelimiter(), precision,
+        captureFormatStyle.isDelimitationEnabled());
 
-        workspace.normalVersioning(function(version) {
+      workspace.normalVersioning(function (version) {
 
-          version.upHandler(function() {
-            this.setFormatStyle(numberFormatStyle);
-            proppane.getPropertyControl('format-number-precision').setValue(precision);
-          }, scope);
-          version.downHandler(function() {
-            this.setFormatStyle(captureFormatStyle);
-            proppane.getPropertyControl('format-number-precision').setValue(capturePrecision);
-          }, scope);
-        });
-      }, false, this);
+        version.upHandler(function () {
+          this.setFormatStyle(numberFormatStyle);
+          proppane.getPropertyControl('format-number-precision').setValue(precision);
+        }, scope);
+        version.downHandler(function () {
+          this.setFormatStyle(captureFormatStyle);
+          proppane.getPropertyControl('format-number-precision').setValue(capturePrecision);
+        }, scope);
+      });
+    }, false, this);
   proppane.addProperty(precisionInputProperty, formatGroup, 'format-number-precision');
 
 
@@ -1333,53 +1354,53 @@ thin.core.TblockShape.prototype.createPropertyComponent_ = function() {
   lengthInput.setValidator(lengthValidation);
 
   lengthInputProperty.addEventListener(propEventType.CHANGE,
-      function(e) {
+    function (e) {
 
-        var paddingLength = Number(e.target.getValue());
-        var captureFormatStyle = scope.getFormatStyle();
-        var capturePaddingLen = captureFormatStyle.getLength();
-        var paddingFormat = new thin.core.formatstyles.PaddingFormat(
-                              captureFormatStyle.getDirection(), captureFormatStyle.getChar(), paddingLength);
+      var paddingLength = Number(e.target.getValue());
+      var captureFormatStyle = scope.getFormatStyle();
+      var capturePaddingLen = captureFormatStyle.getLength();
+      var paddingFormat = new thin.core.formatstyles.PaddingFormat(
+        captureFormatStyle.getDirection(), captureFormatStyle.getChar(), paddingLength);
 
-        workspace.normalVersioning(function(version) {
+      workspace.normalVersioning(function (version) {
 
-          version.upHandler(function() {
-            this.setFormatStyle(paddingFormat);
-            proppane.getPropertyControl('format-padding-length').setValue(paddingLength);
-          }, scope);
-          version.downHandler(function() {
-            this.setFormatStyle(captureFormatStyle);
-            proppane.getPropertyControl('format-padding-length').setValue(capturePaddingLen);
-          }, scope);
-        });
-      }, false, this);
+        version.upHandler(function () {
+          this.setFormatStyle(paddingFormat);
+          proppane.getPropertyControl('format-padding-length').setValue(paddingLength);
+        }, scope);
+        version.downHandler(function () {
+          this.setFormatStyle(captureFormatStyle);
+          proppane.getPropertyControl('format-padding-length').setValue(capturePaddingLen);
+        }, scope);
+      });
+    }, false, this);
   proppane.addProperty(lengthInputProperty, formatGroup, 'format-padding-length');
 
 
   var charInputProperty = new thin.ui.PropertyPane.InputProperty(thin.t('field_fill_character'));
   var charInput = charInputProperty.getValueControl();
   charInputProperty.addEventListener(propEventType.CHANGE,
-      function(e) {
+    function (e) {
 
-        var paddingChar = e.target.getValue();
-        var captureFormatStyle = scope.getFormatStyle();
-        var capturePaddingChar = captureFormatStyle.getChar();
-        var paddingFormat = new thin.core.formatstyles.PaddingFormat(
-                              captureFormatStyle.getDirection(), paddingChar,
-                              captureFormatStyle.getLength());
+      var paddingChar = e.target.getValue();
+      var captureFormatStyle = scope.getFormatStyle();
+      var capturePaddingChar = captureFormatStyle.getChar();
+      var paddingFormat = new thin.core.formatstyles.PaddingFormat(
+        captureFormatStyle.getDirection(), paddingChar,
+        captureFormatStyle.getLength());
 
-        workspace.normalVersioning(function(version) {
+      workspace.normalVersioning(function (version) {
 
-          version.upHandler(function() {
-            this.setFormatStyle(paddingFormat);
-            proppane.getPropertyControl('format-padding-char').setValue(paddingChar);
-          }, scope);
-          version.downHandler(function() {
-            this.setFormatStyle(captureFormatStyle);
-            proppane.getPropertyControl('format-padding-char').setValue(capturePaddingChar);
-          }, scope);
-        });
-      }, false, this);
+        version.upHandler(function () {
+          this.setFormatStyle(paddingFormat);
+          proppane.getPropertyControl('format-padding-char').setValue(paddingChar);
+        }, scope);
+        version.downHandler(function () {
+          this.setFormatStyle(captureFormatStyle);
+          proppane.getPropertyControl('format-padding-char').setValue(capturePaddingChar);
+        }, scope);
+      });
+    }, false, this);
   proppane.addProperty(charInputProperty, formatGroup, 'format-padding-char');
 
 
@@ -1388,32 +1409,32 @@ thin.core.TblockShape.prototype.createPropertyComponent_ = function() {
   var directionType = thin.core.formatstyles.PaddingFormat.DirectionType;
 
   directionSelect.setTextAlignLeft();
-  goog.array.forEach([directionType.L, directionType.R], function(type) {
+  goog.array.forEach([directionType.L, directionType.R], function (type) {
     directionSelect.addItem(
-        new thin.ui.Option(thin.core.formatstyles.PaddingFormat.getDirectionName(type), type));
+      new thin.ui.Option(thin.core.formatstyles.PaddingFormat.getDirectionName(type), type));
   });
 
   directionSelectProperty.addEventListener(propEventType.CHANGE,
-      function(e) {
-        var directionType = e.target.getValue();
-        var captureFormatStyle = scope.getFormatStyle();
-        var captureDirectionType = captureFormatStyle.getDirection();
-        var paddingFormat = new thin.core.formatstyles.PaddingFormat(directionType,
-                                  captureFormatStyle.getChar(), captureFormatStyle.getLength());
+    function (e) {
+      var directionType = e.target.getValue();
+      var captureFormatStyle = scope.getFormatStyle();
+      var captureDirectionType = captureFormatStyle.getDirection();
+      var paddingFormat = new thin.core.formatstyles.PaddingFormat(directionType,
+        captureFormatStyle.getChar(), captureFormatStyle.getLength());
 
-        workspace.normalVersioning(function(version) {
+      workspace.normalVersioning(function (version) {
 
-          version.upHandler(function() {
-            this.setFormatStyle(paddingFormat);
-            proppane.getPropertyControl('format-padding-direction').setValue(directionType);
-          }, scope);
-          version.downHandler(function() {
-            this.setFormatStyle(captureFormatStyle);
-            proppane.getPropertyControl('format-padding-direction').setValue(captureDirectionType);
-          }, scope);
-        });
-      }, false, this);
-  proppane.addProperty(directionSelectProperty , formatGroup, 'format-padding-direction');
+        version.upHandler(function () {
+          this.setFormatStyle(paddingFormat);
+          proppane.getPropertyControl('format-padding-direction').setValue(directionType);
+        }, scope);
+        version.downHandler(function () {
+          this.setFormatStyle(captureFormatStyle);
+          proppane.getPropertyControl('format-padding-direction').setValue(captureDirectionType);
+        }, scope);
+      });
+    }, false, this);
+  proppane.addProperty(directionSelectProperty, formatGroup, 'format-padding-direction');
 
 
   var cooperationGroup = proppane.addGroup(thin.t('property_group_association'));
@@ -1422,35 +1443,35 @@ thin.core.TblockShape.prototype.createPropertyComponent_ = function() {
   idInputProperty.getIdValidator().setValidatePresence(true);
 
   idInputProperty.addEventListener(propEventType.CHANGE,
-      function(e) {
+    function (e) {
 
-        var shapeId = e.target.getValue();
-        var captureShapeId = scope.getShapeId();
-        var isReferences = scope.isReferences();
-        var referringShapes = scope.getReferringShapes();
+      var shapeId = e.target.getValue();
+      var captureShapeId = scope.getShapeId();
+      var isReferences = scope.isReferences();
+      var referringShapes = scope.getReferringShapes();
 
-        workspace.normalVersioning(function(version) {
-          version.upHandler(function() {
-            this.setShapeId(shapeId);
-            if (isReferences) {
-              goog.array.forEach(referringShapes, function(shape) {
-                shape.setRefId(shapeId);
-              });
-            }
-            proppane.getPropertyControl('shape-id').setValue(shapeId);
-          }, scope);
+      workspace.normalVersioning(function (version) {
+        version.upHandler(function () {
+          this.setShapeId(shapeId);
+          if (isReferences) {
+            goog.array.forEach(referringShapes, function (shape) {
+              shape.setRefId(shapeId);
+            });
+          }
+          proppane.getPropertyControl('shape-id').setValue(shapeId);
+        }, scope);
 
-          version.downHandler(function() {
-            this.setShapeId(captureShapeId);
-            if (isReferences) {
-              goog.array.forEach(referringShapes, function(shape) {
-                shape.setRefId(captureShapeId);
-              });
-            }
-            proppane.getPropertyControl('shape-id').setValue(captureShapeId);
-          }, scope);
-        });
-      }, false, this);
+        version.downHandler(function () {
+          this.setShapeId(captureShapeId);
+          if (isReferences) {
+            goog.array.forEach(referringShapes, function (shape) {
+              shape.setRefId(captureShapeId);
+            });
+          }
+          proppane.getPropertyControl('shape-id').setValue(captureShapeId);
+        }, scope);
+      });
+    }, false, this);
 
   proppane.addProperty(idInputProperty, cooperationGroup, 'shape-id');
 
@@ -1461,7 +1482,7 @@ thin.core.TblockShape.prototype.createPropertyComponent_ = function() {
   var refIdInput = refIdInputProperty.getValueControl();
   var refIdValidator = new thin.ui.Input.Validator(refIdInput);
   refIdValidator.setAllowBlank(true);
-  refIdValidator.setMethod(function(value) {
+  refIdValidator.setMethod(function (value) {
     var opt_shapeIdManager;
     if (scope.isAffiliationListShape()) {
       opt_shapeIdManager = scope.getAffiliationSectionShape().getManager().getShapeIdManager();
@@ -1469,18 +1490,24 @@ thin.core.TblockShape.prototype.createPropertyComponent_ = function() {
     var referenceShape = layout.getShapeForShapeId(value, opt_shapeIdManager);
     var notice = null;
 
-    switch(true) {
+    switch (true) {
       case !goog.isDef(referenceShape):
-        notice = thin.t('error_id_not_found', {'id': value});
+        notice = thin.t('error_id_not_found', {
+          'id': value
+        });
         break;
       case !referenceShape.instanceOfTblockShape():
-        notice = thin.t('error_id_is_not_textblock', {'id': value});
+        notice = thin.t('error_id_is_not_textblock', {
+          'id': value
+        });
         break;
       case scope == referenceShape:
         notice = thin.t('error_can_not_specify_myself');
         break;
       case referenceShape.isReferring():
-        notice = thin.t('error_id_already_has_reference', {'id': value});
+        notice = thin.t('error_id_already_has_reference', {
+          'id': value
+        });
         break;
       case scope.isReferences():
         notice = thin.t('error_can_not_set_the_reference');
@@ -1494,40 +1521,40 @@ thin.core.TblockShape.prototype.createPropertyComponent_ = function() {
   });
   refIdInput.addValidator(refIdValidator);
   refIdInputProperty.addEventListener(propEventType.CHANGE,
-      function(e) {
+    function (e) {
 
-        var refId = e.target.getValue();
-        var isDefaultValue = thin.isExactlyEqual(refId, thin.core.TblockShape.DEFAULT_REFID);
-        var captureRefId = scope.getRefId();
-        var captureIsReferring = scope.isReferring();
-        var captureReferenceShape = scope.getReferenceShape();
-        if (!isDefaultValue) {
-          var opt_shapeIdManager;
-          if (scope.isAffiliationListShape()) {
-            opt_shapeIdManager = scope.getAffiliationSectionShape().getManager().getShapeIdManager();
-          }
-          var referenceShape = layout.getShapeForShapeId(refId, opt_shapeIdManager);
+      var refId = e.target.getValue();
+      var isDefaultValue = thin.isExactlyEqual(refId, thin.core.TblockShape.DEFAULT_REFID);
+      var captureRefId = scope.getRefId();
+      var captureIsReferring = scope.isReferring();
+      var captureReferenceShape = scope.getReferenceShape();
+      if (!isDefaultValue) {
+        var opt_shapeIdManager;
+        if (scope.isAffiliationListShape()) {
+          opt_shapeIdManager = scope.getAffiliationSectionShape().getManager().getShapeIdManager();
         }
+        var referenceShape = layout.getShapeForShapeId(refId, opt_shapeIdManager);
+      }
 
-        workspace.normalVersioning(function(version) {
-          version.upHandler(function() {
-            if (isDefaultValue) {
-              this.removeReferenceShapeId();
-            } else {
-              this.setRefId(refId);
-            }
-            proppane.getPropertyControl('ref-id').setValue(refId);
-          }, scope);
-
-          version.downHandler(function() {
+      workspace.normalVersioning(function (version) {
+        version.upHandler(function () {
+          if (isDefaultValue) {
             this.removeReferenceShapeId();
-            if (captureIsReferring) {
-              this.setRefId(captureRefId);
-            }
-            proppane.getPropertyControl('ref-id').setValue(captureRefId);
-          }, scope);
-        });
-      }, false, this);
+          } else {
+            this.setRefId(refId);
+          }
+          proppane.getPropertyControl('ref-id').setValue(refId);
+        }, scope);
+
+        version.downHandler(function () {
+          this.removeReferenceShapeId();
+          if (captureIsReferring) {
+            this.setRefId(captureRefId);
+          }
+          proppane.getPropertyControl('ref-id').setValue(captureRefId);
+        }, scope);
+      });
+    }, false, this);
 
   proppane.addProperty(refIdInputProperty, cooperationGroup, 'ref-id');
 
@@ -1538,29 +1565,29 @@ thin.core.TblockShape.prototype.createPropertyComponent_ = function() {
   defaultValidation.setAllowBlank(true);
   defaultValueInput.setValidator(defaultValidation);
   defaultValueInputProperty.addEventListener(propEventType.CHANGE,
-      function(e) {
+    function (e) {
 
-        var defaultValue = e.target.getValue();
-        var captureValue = scope.getDefaultValueOfLink();
+      var defaultValue = e.target.getValue();
+      var captureValue = scope.getDefaultValueOfLink();
 
-        workspace.normalVersioning(function(version) {
+      workspace.normalVersioning(function (version) {
 
-          version.upHandler(function() {
-            this.setDefaultValueOfLink(defaultValue);
-            proppane.getPropertyControl('default-value').setValue(defaultValue);
-          }, scope);
-          version.downHandler(function() {
-            this.setDefaultValueOfLink(captureValue);
-            proppane.getPropertyControl('default-value').setValue(captureValue);
-          }, scope);
-        });
-      }, false, this);
+        version.upHandler(function () {
+          this.setDefaultValueOfLink(defaultValue);
+          proppane.getPropertyControl('default-value').setValue(defaultValue);
+        }, scope);
+        version.downHandler(function () {
+          this.setDefaultValueOfLink(captureValue);
+          proppane.getPropertyControl('default-value').setValue(captureValue);
+        }, scope);
+      });
+    }, false, this);
 
   proppane.addProperty(defaultValueInputProperty, cooperationGroup, 'default-value');
 
   var descProperty = new thin.ui.PropertyPane.InputProperty(thin.t('field_description'));
   descProperty.addEventListener(propEventType.CHANGE,
-      this.setDescPropertyUpdate, false, this);
+    this.setDescPropertyUpdate, false, this);
 
   proppane.addProperty(descProperty, cooperationGroup, 'desc');
 };
@@ -1569,7 +1596,7 @@ thin.core.TblockShape.prototype.createPropertyComponent_ = function() {
 /**
  * @return {Object}
  */
-thin.core.TblockShape.prototype.getProperties = function() {
+thin.core.TblockShape.prototype.getProperties = function () {
   var properties = {
     'left': this.getLeft(),
     'top': this.getTop(),
@@ -1618,7 +1645,7 @@ thin.core.TblockShape.prototype.getProperties = function() {
 };
 
 
-thin.core.TblockShape.prototype.updateProperties = function() {
+thin.core.TblockShape.prototype.updateProperties = function () {
   var proppane = thin.ui.getComponent('proppane');
   if (!proppane.isTarget(this)) {
     this.getLayout().updatePropertiesForEmpty();
@@ -1652,7 +1679,7 @@ thin.core.TblockShape.prototype.updateProperties = function() {
   proppane.getPropertyControl('overflow').setValue(properties['overflow']);
 
   proppane.getPropertyControl('word-wrap').setValue(
-      properties['word-wrap'] || thin.core.TextStyle.getDefaultWordWrap());
+    properties['word-wrap'] || thin.core.TextStyle.getDefaultWordWrap());
 
   var formatType = properties['format-type'];
   proppane.getPropertyControl('format-type').setValue(formatType);
@@ -1694,19 +1721,20 @@ thin.core.TblockShape.prototype.updateProperties = function() {
 /**
  * @param {string} formatType
  */
-thin.core.TblockShape.prototype.setDisplayForPropPane = function(formatType) {
+thin.core.TblockShape.prototype.setDisplayForPropPane = function (formatType) {
 
   var proppane = thin.ui.getComponent('proppane');
   var formatTypeTemplate = thin.core.formatstyles.FormatType;
   var baselist = ['format-datetime-format',
-                  'format-number-delimiter',
-                  'format-number-precision',
-                  'format-padding-length',
-                  'format-padding-char',
-                  'format-padding-direction'];
+    'format-number-delimiter',
+    'format-number-precision',
+    'format-padding-length',
+    'format-padding-char',
+    'format-padding-direction'
+  ];
   var targetlist = [];
 
-  goog.array.forEach(baselist, function(targetId) {
+  goog.array.forEach(baselist, function (targetId) {
     var target = proppane.getChild(targetId);
     if (target.isDisplay()) {
       target.setDisplay(false);
@@ -1725,7 +1753,7 @@ thin.core.TblockShape.prototype.setDisplayForPropPane = function(formatType) {
       break;
   }
   if (!goog.array.isEmpty(targetlist)) {
-    goog.array.forEach(targetlist, function(targetId) {
+    goog.array.forEach(targetlist, function (targetId) {
       proppane.getChild(targetId).setDisplay(true);
     });
   }
@@ -1735,15 +1763,15 @@ thin.core.TblockShape.prototype.setDisplayForPropPane = function(formatType) {
 /**
  * @param {Object} properties
  */
-thin.core.TblockShape.prototype.setInitShapeProperties = function(properties) {
+thin.core.TblockShape.prototype.setInitShapeProperties = function (properties) {
   var opt_shapeIdManager;
   if (this.isAffiliationListShape()) {
     opt_shapeIdManager = this.getAffiliationSectionShape().getManager().getShapeIdManager();
   }
 
   this.setShapeId(this.getLayout().getNextShapeId(
-        thin.core.ShapeIdManager.DefaultPrefix.TEXT_BLOCK,
-        opt_shapeIdManager), opt_shapeIdManager);
+    thin.core.ShapeIdManager.DefaultPrefix.TEXT_BLOCK,
+    opt_shapeIdManager), opt_shapeIdManager);
   this.setFill(thin.core.TblockShape.DEFAULT_FILL);
   this.setFontSize(properties.SIZE);
   this.setFontFamily(properties.FAMILY);
@@ -1757,7 +1785,7 @@ thin.core.TblockShape.prototype.setInitShapeProperties = function(properties) {
 
 
 /** @inheritDoc */
-thin.core.TblockShape.prototype.disposeInternal = function() {
+thin.core.TblockShape.prototype.disposeInternal = function () {
   thin.core.TblockShape.superClass_.disposeInternal.call(this);
   this.disposeInternalForShape();
 
@@ -1774,7 +1802,7 @@ thin.core.TblockShape.prototype.disposeInternal = function() {
 /**
  * @return {string}
  */
-thin.core.TblockShape.prototype.getType = function() {
+thin.core.TblockShape.prototype.getType = function () {
   return 'text-block';
 };
 
@@ -1782,7 +1810,7 @@ thin.core.TblockShape.prototype.getType = function() {
 /**
  * @return {Object}
  */
-thin.core.TblockShape.prototype.asJSON = function() {
+thin.core.TblockShape.prototype.asJSON = function () {
   var object = goog.base(this, 'asJSON');
 
   var format = {
@@ -1813,7 +1841,7 @@ thin.core.TblockShape.prototype.asJSON = function() {
 /**
  * @param {Object} attrs
  */
-thin.core.TblockShape.prototype.update = function(attrs) {
+thin.core.TblockShape.prototype.update = function (attrs) {
   if (goog.object.containsKey(attrs, 'style')) {
     var isMultiple = goog.object.get(attrs,
       'multiple-line', thin.core.TblockShape.DEFAULT_MULTIPLE);
@@ -1822,7 +1850,7 @@ thin.core.TblockShape.prototype.update = function(attrs) {
 
   goog.base(this, 'update', attrs);
 
-  goog.object.forEach(attrs, function(value, attr) {
+  goog.object.forEach(attrs, function (value, attr) {
     switch (attr) {
       case 'format':
         this.setBaseFormat(value['base']);
@@ -1834,8 +1862,8 @@ thin.core.TblockShape.prototype.update = function(attrs) {
             this.setFormatStyle(
               new thin.core.formatstyles.NumberFormat(
                 format['delimiter'], format['precision'],
-                  !thin.isExactlyEqual(format['delimiter'],
-                    thin.core.formatstyles.NumberFormat.DISABLE_DELIMITER)));
+                !thin.isExactlyEqual(format['delimiter'],
+                  thin.core.formatstyles.NumberFormat.DISABLE_DELIMITER)));
             break;
           case 'padding':
             this.setFormatStyle(
@@ -1864,6 +1892,6 @@ thin.core.TblockShape.prototype.update = function(attrs) {
       default:
         // Do Nothing
         break;
-      }
+    }
   }, this);
 };
