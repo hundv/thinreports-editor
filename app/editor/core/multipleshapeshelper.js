@@ -38,8 +38,8 @@ goog.require('goog.ui.Component.EventType');
  * @constructor
  * @extends {goog.Disposable}
  */
-thin.core.MultipleShapesHelper = function(layout) {
-  
+thin.core.MultipleShapesHelper = function (layout) {
+
   /**
    * @type {thin.core.Layout}
    * @private
@@ -49,7 +49,7 @@ thin.core.MultipleShapesHelper = function(layout) {
   this.initializeProperties();
 };
 goog.inherits(thin.core.MultipleShapesHelper, goog.Disposable);
-goog.mixin(thin.core.MultipleShapesHelper.prototype, thin.core.ModuleElement.prototype);  
+goog.mixin(thin.core.MultipleShapesHelper.prototype, thin.core.ModuleElement.prototype);
 
 
 /**
@@ -71,7 +71,7 @@ thin.core.MultipleShapesHelper.prototype.isCapture_ = false;
  * @param {string} key
  * @param {string|number} value
  */
-thin.core.MultipleShapesHelper.prototype.setPropertyForNonDestructive = function(tempprop, key, value) {
+thin.core.MultipleShapesHelper.prototype.setPropertyForNonDestructive = function (tempprop, key, value) {
   var prop = goog.object.clone(tempprop);
   prop[key] = value;
   this.setCloneProperties(prop);
@@ -81,7 +81,7 @@ thin.core.MultipleShapesHelper.prototype.setPropertyForNonDestructive = function
 /**
  * @param {Object} props
  */
-thin.core.MultipleShapesHelper.prototype.setCloneProperties = function(props) {
+thin.core.MultipleShapesHelper.prototype.setCloneProperties = function (props) {
   this.setClonePropertiesInternal_(props);
   this.captureProperties();
 };
@@ -91,7 +91,7 @@ thin.core.MultipleShapesHelper.prototype.setCloneProperties = function(props) {
  * @param {Object} props
  * @private
  */
-thin.core.MultipleShapesHelper.prototype.setClonePropertiesInternal_ = function(props) {
+thin.core.MultipleShapesHelper.prototype.setClonePropertiesInternal_ = function (props) {
   this.properties_ = goog.object.clone(props);
 };
 
@@ -99,17 +99,17 @@ thin.core.MultipleShapesHelper.prototype.setClonePropertiesInternal_ = function(
 /**
  * @return {Object}
  */
-thin.core.MultipleShapesHelper.prototype.getCloneProperties = function() {
+thin.core.MultipleShapesHelper.prototype.getCloneProperties = function () {
   return goog.object.clone(this.properties_);
 };
 
 
-thin.core.MultipleShapesHelper.prototype.captureProperties = function() {
+thin.core.MultipleShapesHelper.prototype.captureProperties = function () {
   this.isCapture_ = true;
 };
 
 
-thin.core.MultipleShapesHelper.prototype.initializeProperties = function() {
+thin.core.MultipleShapesHelper.prototype.initializeProperties = function () {
   var proppaneBlank = thin.core.ModuleShape.PROPPANE_SHOW_BLANK;
   this.setClonePropertiesInternal_({
     'left': proppaneBlank,
@@ -149,47 +149,47 @@ thin.core.MultipleShapesHelper.prototype.initializeProperties = function() {
 /**
  * @private
  */
-thin.core.MultipleShapesHelper.prototype.createPropertyComponent_ = function() {
+thin.core.MultipleShapesHelper.prototype.createPropertyComponent_ = function () {
   var scope = this;
   var layout = this.layout_;
   var workspace = layout.getWorkspace();
   var guide = layout.getHelpers().getGuideHelper();
   var groupMode = thin.core.HistoryManager.Mode.GROUP;
   var manager = layout.getManager();
-  
+
   var propEventType = thin.ui.PropertyPane.Property.EventType;
   var proppane = thin.ui.getComponent('proppane');
 
   /**
    * @param {Array} shapes
    */
-  var updateGuideAndProperties = function(shapes) {
+  var updateGuideAndProperties = function (shapes) {
     scope.updateProperties();
     layout.calculateGuideBounds(shapes);
     guide.adjustToTargetShapeBounds();
   };
-  
+
   var baseGroup = proppane.addGroup(thin.t('property_group_basis'));
-  
-  
+
+
   var leftInputProperty = new thin.ui.PropertyPane.NumberInputProperty(thin.t('field_left_position'));
   var leftInput = leftInputProperty.getValueControl();
   leftInput.getNumberValidator().setAllowDecimal(true, 1);
-  
-  leftInputProperty.addEventListener(propEventType.CHANGE, function(e) {
-  
+
+  leftInputProperty.addEventListener(propEventType.CHANGE, function (e) {
+
     var captureProperties = this.getCloneProperties();
     var captureLeftForGlobal = captureProperties['left'];
     var unlimitedLeft = Number(e.target.getValue());
     var shapes = manager.getActiveShapeByIncludeList().getClone();
-    var captureLeftArray = goog.array.map(shapes, function(target) {
+    var captureLeftArray = goog.array.map(shapes, function (target) {
       return target.getLeft();
     });
-    workspace.normalVersioning(function(version) {
-    
-      version.upHandler(function() {
-      
-        goog.array.forEach(shapes, function(shape) {
+    workspace.normalVersioning(function (version) {
+
+      version.upHandler(function () {
+
+        goog.array.forEach(shapes, function (shape) {
           var allowLeft = shape.getAllowLeft(unlimitedLeft);
           shape.setLeft(allowLeft);
           shape.getTargetOutline().setLeft(allowLeft);
@@ -198,10 +198,10 @@ thin.core.MultipleShapesHelper.prototype.createPropertyComponent_ = function() {
         layout.calculateGuideBounds(shapes);
         updateGuideAndProperties(shapes);
       }, scope);
-      
-      version.downHandler(function() {
-      
-        goog.array.forEach(shapes, function(shape, count) {
+
+      version.downHandler(function () {
+
+        goog.array.forEach(shapes, function (shape, count) {
           var captureLeft = captureLeftArray[count];
           shape.setLeft(captureLeft);
           shape.getTargetOutline().setLeft(captureLeft);
@@ -211,26 +211,26 @@ thin.core.MultipleShapesHelper.prototype.createPropertyComponent_ = function() {
       }, scope);
     });
   }, false, this);
-  
+
   proppane.addProperty(leftInputProperty, baseGroup, 'left');
-  
-  
+
+
   var topInputProperty = new thin.ui.PropertyPane.NumberInputProperty(thin.t('field_top_position'));
   var topInput = topInputProperty.getValueControl();
   topInput.getNumberValidator().setAllowDecimal(true, 1);
-  
-  topInputProperty.addEventListener(propEventType.CHANGE, function(e) {
-  
+
+  topInputProperty.addEventListener(propEventType.CHANGE, function (e) {
+
     var captureProperties = scope.getCloneProperties();
     var unlimitedTop = Number(e.target.getValue());
     var shapes = manager.getActiveShapeByIncludeList().getClone();
-    var captureTopArray = goog.array.map(shapes, function(target) {
+    var captureTopArray = goog.array.map(shapes, function (target) {
       return target.getTop();
     });
-    workspace.normalVersioning(function(version) {
-    
-      version.upHandler(function() {
-        goog.array.forEach(shapes, function(shape) {
+    workspace.normalVersioning(function (version) {
+
+      version.upHandler(function () {
+        goog.array.forEach(shapes, function (shape) {
           var allowTop = shape.getAllowTop(unlimitedTop);
           shape.setTop(allowTop);
           shape.getTargetOutline().setTop(allowTop);
@@ -240,10 +240,10 @@ thin.core.MultipleShapesHelper.prototype.createPropertyComponent_ = function() {
         guide.adjustToTargetShapeBounds();
         updateGuideAndProperties(shapes);
       }, scope);
-      
-      version.downHandler(function() {
-      
-        goog.array.forEach(shapes, function(shape, count) {
+
+      version.downHandler(function () {
+
+        goog.array.forEach(shapes, function (shape, count) {
           var captureTop = captureTopArray[count];
           shape.setTop(captureTop);
           shape.getTargetOutline().setTop(captureTop);
@@ -255,35 +255,35 @@ thin.core.MultipleShapesHelper.prototype.createPropertyComponent_ = function() {
       }, scope);
     });
   }, false, this);
-  
+
   proppane.addProperty(topInputProperty, baseGroup, 'top');
-  
-  
+
+
   var widthInputProperty = new thin.ui.PropertyPane.NumberInputProperty(thin.t('field_width'));
   var widthInput = widthInputProperty.getValueControl();
   widthInput.getNumberValidator().setAllowDecimal(true, 1);
-  
-  widthInputProperty.addEventListener(propEventType.CHANGE, function(e) {
-  
+
+  widthInputProperty.addEventListener(propEventType.CHANGE, function (e) {
+
     var allowWidth = Number(e.target.getValue());
     var captureProperties = scope.getCloneProperties();
     var shapes = manager.getActiveShapeByIncludeList().getClone();
     var targetShapes = [];
     var captureWidthArray = [];
-    
-    goog.array.forEach(shapes, function(shape, count) {
+
+    goog.array.forEach(shapes, function (shape, count) {
       var properties = shape.getProperties();
       if (goog.object.containsKey(properties, 'width')) {
         goog.array.insert(targetShapes, shape);
         goog.array.insertAt(captureWidthArray, properties['width'], count);
       }
     });
-    
-    workspace.normalVersioning(function(version) {
-    
-      version.upHandler(function() {
-      
-        goog.array.forEach(targetShapes, function(shape) {
+
+    workspace.normalVersioning(function (version) {
+
+      version.upHandler(function () {
+
+        goog.array.forEach(targetShapes, function (shape) {
           var outline = shape.getTargetOutline();
           shape.setWidth(allowWidth);
           outline.setWidth(allowWidth);
@@ -299,10 +299,10 @@ thin.core.MultipleShapesHelper.prototype.createPropertyComponent_ = function() {
         this.setPropertyForNonDestructive(captureProperties, 'width', allowWidth);
         updateGuideAndProperties(shapes);
       }, scope);
-      
-      version.downHandler(function() {
-      
-        goog.array.forEach(targetShapes, function(shape, count) {
+
+      version.downHandler(function () {
+
+        goog.array.forEach(targetShapes, function (shape, count) {
           var captureWidth = captureWidthArray[count];
           var outline = shape.getTargetOutline();
           shape.setWidth(captureWidth);
@@ -318,36 +318,36 @@ thin.core.MultipleShapesHelper.prototype.createPropertyComponent_ = function() {
       }, scope);
     });
   }, false, this);
-  
+
   proppane.addProperty(widthInputProperty, baseGroup, 'width');
-  
+
 
   var heightInputProperty = new thin.ui.PropertyPane.NumberInputProperty(thin.t('field_height'));
   var heightInput = heightInputProperty.getValueControl();
   heightInput.getNumberValidator().setAllowDecimal(true, 1);
-  
-  heightInputProperty.addEventListener(propEventType.CHANGE, function(e) {
-  
+
+  heightInputProperty.addEventListener(propEventType.CHANGE, function (e) {
+
     var allowHeight = Number(e.target.getValue());
     var captureProperties = scope.getCloneProperties();
     var shapes = manager.getActiveShapeByIncludeList().getClone();
     var targetShapes = [];
     var captureHeightArray = [];
-    
-    goog.array.forEach(shapes, function(shape, count) {
+
+    goog.array.forEach(shapes, function (shape, count) {
       var properties = shape.getProperties();
       if (goog.object.containsKey(properties, 'height')) {
         goog.array.insert(targetShapes, shape);
         goog.array.insertAt(captureHeightArray, properties['height'], count);
       }
     });
-    
-    workspace.normalVersioning(function(version) {
-    
-      version.upHandler(function() {
-      
-        goog.array.forEach(targetShapes, function(shape) {
-        
+
+    workspace.normalVersioning(function (version) {
+
+      version.upHandler(function () {
+
+        goog.array.forEach(targetShapes, function (shape) {
+
           var outline = shape.getTargetOutline();
           if (shape.instanceOfTblockShape()) {
             if (shape.isMultiMode()) {
@@ -370,11 +370,11 @@ thin.core.MultipleShapesHelper.prototype.createPropertyComponent_ = function() {
         this.setPropertyForNonDestructive(captureProperties, 'height', allowHeight);
         updateGuideAndProperties(shapes);
       }, scope);
-      
-      version.downHandler(function() {
-      
-        goog.array.forEach(targetShapes, function(shape, count) {
-        
+
+      version.downHandler(function () {
+
+        goog.array.forEach(targetShapes, function (shape, count) {
+
           var captureHeight = captureHeightArray[count];
           var outline = shape.getTargetOutline();
           if (shape.instanceOfTblockShape()) {
@@ -397,35 +397,35 @@ thin.core.MultipleShapesHelper.prototype.createPropertyComponent_ = function() {
       }, scope);
     });
   }, false, this);
-  
+
   proppane.addProperty(heightInputProperty, baseGroup, 'height');
-  
-  
+
+
   var displayCheckProperty = new thin.ui.PropertyPane.CheckboxProperty(thin.t('field_display'));
-  displayCheckProperty.addEventListener(propEventType.CHANGE, function(e) {
-  
+  displayCheckProperty.addEventListener(propEventType.CHANGE, function (e) {
+
     var display = e.target.isChecked();
     var captureProperties = scope.getCloneProperties();
     var shapes = manager.getActiveShapeByIncludeList().getClone();
     var targetShapes = [];
-    var captureDisplayArray = goog.array.map(shapes, function(target) {
+    var captureDisplayArray = goog.array.map(shapes, function (target) {
       return target.getDisplay();
     });
-    
-    workspace.normalVersioning(function(version) {
-    
-      version.upHandler(function() {
-      
-        goog.array.forEach(shapes, function(shape) {
+
+    workspace.normalVersioning(function (version) {
+
+      version.upHandler(function () {
+
+        goog.array.forEach(shapes, function (shape) {
           shape.setDisplay(display);
         });
         this.setPropertyForNonDestructive(captureProperties, 'display', display);
         updateGuideAndProperties(shapes);
       }, scope);
-      
-      version.downHandler(function() {
-      
-        goog.array.forEach(shapes, function(shape, count) {
+
+      version.downHandler(function () {
+
+        goog.array.forEach(shapes, function (shape, count) {
           shape.setDisplay(captureDisplayArray[count]);
         });
         this.setCloneProperties(captureProperties);
@@ -433,50 +433,50 @@ thin.core.MultipleShapesHelper.prototype.createPropertyComponent_ = function() {
       }, scope);
     });
   }, false, this);
-  
+
   proppane.addProperty(displayCheckProperty, baseGroup, 'display');
-  
-  
+
+
   var shapeGroup = proppane.addGroup(thin.t('property_group_shape'));
-  
-  
+
+
   var fillInputProperty = new thin.ui.PropertyPane.ColorProperty(thin.t('field_fill_color'));
   fillInputProperty.getValueControl().getInput().setLabel('none');
-  fillInputProperty.addEventListener(propEventType.CHANGE, function(e) {
+  fillInputProperty.addEventListener(propEventType.CHANGE, function (e) {
     var proppaneBlank = thin.core.ModuleShape.PROPPANE_SHOW_BLANK;
     //  choose none color returned null.
     var fillColor = thin.getValIfNotDef(e.target.getValue(), proppaneBlank);
-    if(thin.isExactlyEqual(fillColor, proppaneBlank)) {
+    if (thin.isExactlyEqual(fillColor, proppaneBlank)) {
       fillColor = thin.core.ModuleShape.NONE
     }
-    var fill = new goog.graphics.SolidFill(/** @type {string} */(fillColor));
+    var fill = new goog.graphics.SolidFill( /** @type {string} */ (fillColor));
     var captureProperties = scope.getCloneProperties();
     var shapes = manager.getActiveShapeByIncludeList().getClone();
     var targetShapes = [];
     var captureFillArray = [];
-    
-    goog.array.forEach(shapes, function(shape, count) {
+
+    goog.array.forEach(shapes, function (shape, count) {
       var properties = shape.getProperties();
       if (goog.object.containsKey(properties, 'fill')) {
         goog.array.insert(targetShapes, shape);
         goog.array.insertAt(captureFillArray, shape.getFill(), count);
       }
     });
-    
-    workspace.normalVersioning(function(version) {
-    
-      version.upHandler(function() {
-      
-        goog.array.forEach(targetShapes, function(shape) {
+
+    workspace.normalVersioning(function (version) {
+
+      version.upHandler(function () {
+
+        goog.array.forEach(targetShapes, function (shape) {
           shape.setFill(fill);
         });
         this.setPropertyForNonDestructive(captureProperties, 'fill', fillColor);
         updateGuideAndProperties(shapes);
       }, scope);
-      
-      version.downHandler(function() {
-      
-        goog.array.forEach(targetShapes, function(shape, count) {
+
+      version.downHandler(function () {
+
+        goog.array.forEach(targetShapes, function (shape, count) {
           shape.setFill(captureFillArray[count]);
         });
         this.setCloneProperties(captureProperties);
@@ -484,45 +484,45 @@ thin.core.MultipleShapesHelper.prototype.createPropertyComponent_ = function() {
       }, scope);
     });
   }, false, this);
-  
+
   proppane.addProperty(fillInputProperty, shapeGroup, 'fill');
-  
-  
+
+
   var strokeInputProperty = new thin.ui.PropertyPane.ColorProperty(thin.t('field_stroke_color'));
   strokeInputProperty.getValueControl().getInput().setLabel('none');
-  strokeInputProperty.addEventListener(propEventType.CHANGE, function(e) {
+  strokeInputProperty.addEventListener(propEventType.CHANGE, function (e) {
     var proppaneBlank = thin.core.ModuleShape.PROPPANE_SHOW_BLANK;
     //  choose none color returned null.
     var strokeColor = thin.getValIfNotDef(e.target.getValue(), proppaneBlank);
-    if(thin.isExactlyEqual(strokeColor, proppaneBlank)) {
+    if (thin.isExactlyEqual(strokeColor, proppaneBlank)) {
       strokeColor = thin.core.ModuleShape.NONE;
     }
     var captureProperties = scope.getCloneProperties();
     var shapes = manager.getActiveShapeByIncludeList().getClone();
     var targetShapes = [];
     var captureStrokeArray = [];
-    goog.array.forEach(shapes, function(shape, count) {
+    goog.array.forEach(shapes, function (shape, count) {
       var properties = shape.getProperties();
       if (goog.object.containsKey(properties, 'stroke')) {
         goog.array.insert(targetShapes, shape);
         goog.array.insertAt(captureStrokeArray, shape.getStroke(), count);
       }
     });
-    
-    workspace.normalVersioning(function(version) {
-    
-      version.upHandler(function() {
-      
-        goog.array.forEach(targetShapes, function(shape) {
-          shape.setStroke(new goog.graphics.Stroke(shape.getStroke().getWidth(), /** @type {string} */(strokeColor)));
+
+    workspace.normalVersioning(function (version) {
+
+      version.upHandler(function () {
+
+        goog.array.forEach(targetShapes, function (shape) {
+          shape.setStroke(new goog.graphics.Stroke(shape.getStroke().getWidth(), /** @type {string} */ (strokeColor)));
         });
         this.setPropertyForNonDestructive(captureProperties, 'stroke', strokeColor);
         updateGuideAndProperties(shapes);
       }, scope);
-      
-      version.downHandler(function() {
-      
-        goog.array.forEach(targetShapes, function(shape, count) {
+
+      version.downHandler(function () {
+
+        goog.array.forEach(targetShapes, function (shape, count) {
           shape.setStroke(captureStrokeArray[count]);
         });
         this.setCloneProperties(captureProperties);
@@ -530,10 +530,10 @@ thin.core.MultipleShapesHelper.prototype.createPropertyComponent_ = function() {
       }, scope);
     });
   }, false, this);
-  
+
   proppane.addProperty(strokeInputProperty, shapeGroup, 'stroke');
-  
-  
+
+
   var strokeWidthCombProperty = new thin.ui.PropertyPane.ComboBoxProperty(thin.t('field_stroke_width'));
   var strokeWidthComb = strokeWidthCombProperty.getValueControl();
   var strokeWidthInput = strokeWidthComb.getInput();
@@ -545,34 +545,34 @@ thin.core.MultipleShapesHelper.prototype.createPropertyComponent_ = function() {
 
   var strokeWidthList = ['1', '2', '3', '4', '8', '12', '16', '24'];
   var strokeWidthItem;
-  goog.array.forEach(strokeWidthList, function(strokeWidthValue) {
+  goog.array.forEach(strokeWidthList, function (strokeWidthValue) {
     strokeWidthItem = new thin.ui.ComboBoxItem(strokeWidthValue);
     strokeWidthItem.setSticky(true);
     strokeWidthComb.addItem(strokeWidthItem);
   });
-  strokeWidthCombProperty.addEventListener(propEventType.CHANGE, function(e) {
+  strokeWidthCombProperty.addEventListener(propEventType.CHANGE, function (e) {
     var strokeWidth = Number(e.target.getValue());
     var captureProperties = scope.getCloneProperties();
     var shapes = manager.getActiveShapeByIncludeList().getClone();
     var targetShapes = [];
     var captureStrokeWArray = [];
-    
-    goog.array.forEach(shapes, function(shape, count) {
+
+    goog.array.forEach(shapes, function (shape, count) {
       var properties = shape.getProperties();
       if (goog.object.containsKey(properties, 'stroke-width')) {
         goog.array.insert(targetShapes, shape);
         goog.array.insertAt(captureStrokeWArray, properties['stroke-width'], count);
       }
     });
-    
-    workspace.normalVersioning(function(version) {
-    
-      version.upHandler(function() {
-      
-        goog.array.forEach(targetShapes, function(shape) {
+
+    workspace.normalVersioning(function (version) {
+
+      version.upHandler(function () {
+
+        goog.array.forEach(targetShapes, function (shape) {
           shape.setStrokeWidth(strokeWidth);
           if (shape.instanceOfLineShape()) {
-            if(strokeWidth) {
+            if (strokeWidth) {
               shape.getTargetOutline().setStrokeWidth(strokeWidth);
             }
           } else {
@@ -582,10 +582,10 @@ thin.core.MultipleShapesHelper.prototype.createPropertyComponent_ = function() {
         this.setPropertyForNonDestructive(captureProperties, 'stroke-width', strokeWidth);
         updateGuideAndProperties(shapes);
       }, scope);
-      
-      version.downHandler(function() {
-      
-        goog.array.forEach(targetShapes, function(shape, count) {
+
+      version.downHandler(function () {
+
+        goog.array.forEach(targetShapes, function (shape, count) {
           var captureStrokeW = captureStrokeWArray[count];
           shape.setStrokeWidth(captureStrokeW);
           shape.getTargetOutline().setStrokeWidth(captureStrokeW);
@@ -595,41 +595,41 @@ thin.core.MultipleShapesHelper.prototype.createPropertyComponent_ = function() {
       }, scope);
     });
   }, false, this);
-  
+
   proppane.addProperty(strokeWidthCombProperty, shapeGroup, 'stroke-width');
-  
+
 
   var radiusInputProperty = new thin.ui.PropertyPane.InputProperty(thin.t('field_corner_radius'));
   radiusInputProperty.getValueControl().setValidator(new thin.ui.Input.NumberValidator(this));
-  radiusInputProperty.addEventListener(propEventType.CHANGE, function(e) {
-  
+  radiusInputProperty.addEventListener(propEventType.CHANGE, function (e) {
+
     var radius = Number(e.target.getValue());
     var captureProperties = scope.getCloneProperties();
     var shapes = manager.getActiveShapeByIncludeList().getClone();
     var targetShapes = [];
     var captureRadiusArray = [];
-    
-    goog.array.forEach(shapes, function(shape, count) {
+
+    goog.array.forEach(shapes, function (shape, count) {
       var properties = shape.getProperties();
       if (goog.object.containsKey(properties, 'radius')) {
         goog.array.insert(targetShapes, shape);
         goog.array.insertAt(captureRadiusArray, properties['radius'], count);
       }
     });
-    
-    workspace.normalVersioning(function(version) {
-    
-      version.upHandler(function() {
-        goog.array.forEach(targetShapes, function(shape) {
+
+    workspace.normalVersioning(function (version) {
+
+      version.upHandler(function () {
+        goog.array.forEach(targetShapes, function (shape) {
           shape.setRounded(radius);
           shape.getTargetOutline().setRounded(radius);
         });
         this.setPropertyForNonDestructive(captureProperties, 'radius', radius);
         updateGuideAndProperties(shapes);
       }, scope);
-      
-      version.downHandler(function() {
-        goog.array.forEach(targetShapes, function(shape, count) {
+
+      version.downHandler(function () {
+        goog.array.forEach(targetShapes, function (shape, count) {
           var captureRadius = captureRadiusArray[count];
           shape.setRounded(captureRadius);
           shape.getTargetOutline().setRounded(captureRadius);
@@ -639,53 +639,53 @@ thin.core.MultipleShapesHelper.prototype.createPropertyComponent_ = function() {
       }, scope);
     });
   }, false, this);
-  
+
   proppane.addProperty(radiusInputProperty, shapeGroup, 'radius');
-  
-  
+
+
   var strokeType = thin.core.ModuleElement.StrokeType;
   var strokeDashSelectProperty = new thin.ui.PropertyPane.SelectProperty(thin.t('field_stroke_type'));
   var strokeDashSelect = strokeDashSelectProperty.getValueControl();
 
   strokeDashSelect.setTextAlignLeft();
   strokeDashSelect.addItem(
-      new thin.ui.Option(thin.core.ModuleElement.getStrokeName(strokeType.SOLID), strokeType.SOLID));
+    new thin.ui.Option(thin.core.ModuleElement.getStrokeName(strokeType.SOLID), strokeType.SOLID));
   strokeDashSelect.addItem(
-      new thin.ui.Option(thin.core.ModuleElement.getStrokeName(strokeType.DASHED), strokeType.DASHED));
+    new thin.ui.Option(thin.core.ModuleElement.getStrokeName(strokeType.DASHED), strokeType.DASHED));
   strokeDashSelect.addItem(
-      new thin.ui.Option(thin.core.ModuleElement.getStrokeName(strokeType.DOTTED), strokeType.DOTTED));
+    new thin.ui.Option(thin.core.ModuleElement.getStrokeName(strokeType.DOTTED), strokeType.DOTTED));
 
-  strokeDashSelectProperty.addEventListener(propEventType.CHANGE, function(e) {
+  strokeDashSelectProperty.addEventListener(propEventType.CHANGE, function (e) {
 
     var strokeType = e.target.getValue();
     var captureProperties = scope.getCloneProperties();
     var shapes = manager.getActiveShapeByIncludeList().getClone();
     var targetShapes = [];
     var capturStrokeDashArray = [];
-    
-    goog.array.forEach(shapes, function(shape, count) {
+
+    goog.array.forEach(shapes, function (shape, count) {
       var properties = shape.getProperties();
       if (goog.object.containsKey(properties, 'stroke-dash-type')) {
         goog.array.insert(targetShapes, shape);
         goog.array.insertAt(capturStrokeDashArray, properties['stroke-dash-type'], count);
       }
     });
-    
-    workspace.normalVersioning(function(version) {
-    
-      version.upHandler(function() {
-      
-        goog.array.forEach(targetShapes, function(shape) {
+
+    workspace.normalVersioning(function (version) {
+
+      version.upHandler(function () {
+
+        goog.array.forEach(targetShapes, function (shape) {
           shape.setStrokeDashFromType(strokeType);
           shape.getTargetOutline().setStrokeDashFromType(strokeType);
         });
         this.setPropertyForNonDestructive(captureProperties, 'stroke-dash-type', strokeType);
         updateGuideAndProperties(shapes);
       }, scope);
-      
-      version.downHandler(function() {
-      
-        goog.array.forEach(targetShapes, function(shape, count) {
+
+      version.downHandler(function () {
+
+        goog.array.forEach(targetShapes, function (shape, count) {
           var capturStrokeDash = capturStrokeDashArray[count];
           shape.setStrokeDashFromType(capturStrokeDash);
           shape.getTargetOutline().setStrokeDashFromType(capturStrokeDash);
@@ -695,13 +695,13 @@ thin.core.MultipleShapesHelper.prototype.createPropertyComponent_ = function() {
       }, scope);
     });
   }, false, this);
-  
+
   proppane.addProperty(strokeDashSelectProperty, shapeGroup, 'stroke-dash-type');
 
-  
+
   var textGroup = proppane.addGroup(thin.t('property_group_text'));
-  
-  
+
+
   var lineHeightCombProperty = new thin.ui.PropertyPane.ComboBoxProperty(thin.t('field_text_line_height'));
   var lineHeightComb = lineHeightCombProperty.getValueControl();
   var lineHeightInput = lineHeightComb.getInput();
@@ -711,12 +711,12 @@ thin.core.MultipleShapesHelper.prototype.createPropertyComponent_ = function() {
   lineHeightInputValidation.setAllowDecimal(true, 1);
   lineHeightInput.setValidator(lineHeightInputValidation);
   var lineHeightItem;
-  goog.array.forEach(thin.core.TextStyle.LINEHEIGHT_LIST, function(lineHeightValue) {
+  goog.array.forEach(thin.core.TextStyle.LINEHEIGHT_LIST, function (lineHeightValue) {
     lineHeightItem = new thin.ui.ComboBoxItem(lineHeightValue);
     lineHeightItem.setSticky(true);
     lineHeightComb.addItem(lineHeightItem);
   });
-  lineHeightCombProperty.addEventListener(propEventType.CHANGE, function(e) {
+  lineHeightCombProperty.addEventListener(propEventType.CHANGE, function (e) {
     var ratio = e.target.getValue();
     var captureProperties = scope.getCloneProperties();
     var shapes = manager.getActiveShapeByIncludeList().getClone();
@@ -724,8 +724,8 @@ thin.core.MultipleShapesHelper.prototype.createPropertyComponent_ = function() {
     var captureRatioArray = [];
     var captureHeightArray = [];
     var captureTopArray = [];
-    
-    goog.array.forEach(shapes, function(shape, count) {
+
+    goog.array.forEach(shapes, function (shape, count) {
       var properties = shape.getProperties();
       if (goog.object.containsKey(properties, 'line-height')) {
         goog.array.insert(targetShapes, shape);
@@ -734,12 +734,12 @@ thin.core.MultipleShapesHelper.prototype.createPropertyComponent_ = function() {
         goog.array.insertAt(captureTopArray, properties['top'], count);
       }
     });
-    
-    workspace.normalVersioning(function(version) {
-    
-      version.upHandler(function() {
-      
-        goog.array.forEach(targetShapes, function(shape) {
+
+    workspace.normalVersioning(function (version) {
+
+      version.upHandler(function () {
+
+        goog.array.forEach(targetShapes, function (shape) {
           shape.setTextLineHeightRatio(ratio);
           if (shape.instanceOfTextShape()) {
             shape.setTop(shape.getTop());
@@ -749,10 +749,10 @@ thin.core.MultipleShapesHelper.prototype.createPropertyComponent_ = function() {
         this.setPropertyForNonDestructive(captureProperties, 'line-height', ratio);
         updateGuideAndProperties(shapes);
       }, scope);
-      
-      version.downHandler(function() {
-      
-        goog.array.forEach(targetShapes, function(shape, count) {
+
+      version.downHandler(function () {
+
+        goog.array.forEach(targetShapes, function (shape, count) {
           shape.setTextLineHeightRatio(captureRatioArray[count]);
           if (shape.instanceOfTextShape()) {
             shape.setHeight(captureHeightArray[count]);
@@ -765,20 +765,20 @@ thin.core.MultipleShapesHelper.prototype.createPropertyComponent_ = function() {
       }, scope);
     });
   }, false, this);
-  
+
   proppane.addProperty(lineHeightCombProperty, textGroup, 'line-height');
-  
-  
+
+
   var kerningInputProperty = new thin.ui.PropertyPane.NumberInputProperty(thin.t('field_text_kerning'), 'auto');
   var kerningInput = kerningInputProperty.getValueControl();
   var kerningInputValidation = kerningInput.getNumberValidator();
   kerningInputValidation.setAllowDecimal(true, 1);
   kerningInputValidation.setAllowBlank(true);
-  
-  kerningInputProperty.addEventListener(propEventType.CHANGE, function(e) {
+
+  kerningInputProperty.addEventListener(propEventType.CHANGE, function (e) {
     var kerning = e.target.getValue();
-    if (!thin.isExactlyEqual(kerning, 
-            thin.core.TextStyle.DEFAULT_KERNING)) {
+    if (!thin.isExactlyEqual(kerning,
+        thin.core.TextStyle.DEFAULT_KERNING)) {
       kerning = goog.string.padNumber(Number(kerning), 0);
     }
     var captureProperties = scope.getCloneProperties();
@@ -788,8 +788,8 @@ thin.core.MultipleShapesHelper.prototype.createPropertyComponent_ = function() {
     var captureKerningArray = [];
     var captureLeftArray = [];
     var captureWidthArray = [];
-    
-    goog.array.forEach(shapes, function(shape, count) {
+
+    goog.array.forEach(shapes, function (shape, count) {
       var properties = shape.getProperties();
       if (goog.object.containsKey(properties, 'kerning')) {
         goog.array.insert(targetShapes, shape);
@@ -798,14 +798,14 @@ thin.core.MultipleShapesHelper.prototype.createPropertyComponent_ = function() {
         goog.array.insertAt(captureLeftArray, properties['left'], count);
       }
     });
-    
-    workspace.normalVersioning(function(version) {
-    
-      version.upHandler(function() {
-      
-        goog.array.forEach(targetShapes, function(shape, count) {
+
+    workspace.normalVersioning(function (version) {
+
+      version.upHandler(function () {
+
+        goog.array.forEach(targetShapes, function (shape, count) {
           shape.setKerning(kerning);
-          
+
           if (shape.instanceOfTextShape()) {
             shape.setLeft(captureLeftArray[count]);
             shape.getTargetOutline().setBounds(shape.getBounds());
@@ -814,12 +814,12 @@ thin.core.MultipleShapesHelper.prototype.createPropertyComponent_ = function() {
         this.setPropertyForNonDestructive(captureProperties, 'kerning', kerning);
         updateGuideAndProperties(shapes);
       }, scope);
-      
-      version.downHandler(function() {
-      
-        goog.array.forEach(targetShapes, function(shape, count) {
+
+      version.downHandler(function () {
+
+        goog.array.forEach(targetShapes, function (shape, count) {
           shape.setKerning(captureKerningArray[count]);
-          
+
           if (shape.instanceOfTextShape()) {
             shape.setWidth(captureWidthArray[count]);
             shape.setLeft(captureLeftArray[count]);
@@ -831,22 +831,22 @@ thin.core.MultipleShapesHelper.prototype.createPropertyComponent_ = function() {
       }, scope);
     });
   }, false, this);
-  
+
   proppane.addProperty(kerningInputProperty, textGroup, 'kerning');
 
 
   var multipleCheckProperty = new thin.ui.PropertyPane.CheckboxProperty(thin.t('field_multiple_line'));
   var multipleCheck = multipleCheckProperty.getValueControl();
-  multipleCheckProperty.addEventListener(propEventType.CHANGE, function(e) {
-  
+  multipleCheckProperty.addEventListener(propEventType.CHANGE, function (e) {
+
     var multipleMode = e.target.isChecked();
     var captureProperties = scope.getCloneProperties();
     var shapes = manager.getActiveShapeByIncludeList().getClone();
     var targetShapes = [];
     var captureMultipleModeArray = [];
     var captureHeightArray = [];
-    
-    goog.array.forEach(shapes, function(shape, count) {
+
+    goog.array.forEach(shapes, function (shape, count) {
       var properties = shape.getProperties();
       if (goog.object.containsKey(properties, 'multiple')) {
         goog.array.insert(targetShapes, shape);
@@ -858,17 +858,17 @@ thin.core.MultipleShapesHelper.prototype.createPropertyComponent_ = function() {
         }
       }
     });
-    
-    workspace.normalVersioning(function(version) {
-    
-      version.upHandler(function() {
-      
-        goog.array.forEach(targetShapes, function(shape) {
+
+    workspace.normalVersioning(function (version) {
+
+      version.upHandler(function () {
+
+        goog.array.forEach(targetShapes, function (shape) {
           if (shape.instanceOfTblockShape()) {
             shape.setMultiMode(multipleMode);
             if (!multipleMode) {
               shape.setHeight(thin.Font.getHeight(
-                      shape.getFontFamily(), shape.getFontSize()));
+                shape.getFontFamily(), shape.getFontSize()));
               shape.getTargetOutline().setHeight(shape.getHeight());
             }
           }
@@ -876,12 +876,12 @@ thin.core.MultipleShapesHelper.prototype.createPropertyComponent_ = function() {
         this.setPropertyForNonDestructive(captureProperties, 'multiple', multipleMode);
         updateGuideAndProperties(shapes);
       }, scope);
-      
-      version.downHandler(function() {
-        
+
+      version.downHandler(function () {
+
         var captureMultipleMode;
         var captureHeight;
-        goog.array.forEach(targetShapes, function(shape, count) {
+        goog.array.forEach(targetShapes, function (shape, count) {
           if (shape.instanceOfTblockShape()) {
             captureMultipleMode = captureMultipleModeArray[count];
             captureHeight = captureHeightArray[count];
@@ -895,55 +895,55 @@ thin.core.MultipleShapesHelper.prototype.createPropertyComponent_ = function() {
       }, scope);
     });
   }, false, this);
-  
+
   proppane.addProperty(multipleCheckProperty, textGroup, 'multiple');
-  
+
   var textOverflowSelectProperty = new thin.ui.PropertyPane.SelectProperty(thin.t('field_text_overflow'));
   var textOverflowSelect = textOverflowSelectProperty.getValueControl();
   textOverflowSelect.setTextAlignLeft();
-  
+
   var overflowType = thin.core.TextStyle.OverflowType;
 
-  goog.array.forEach([overflowType.TRUNCATE, overflowType.FIT, overflowType.EXPAND], function(type) {
+  goog.array.forEach([overflowType.TRUNCATE, overflowType.FIT, overflowType.EXPAND], function (type) {
     textOverflowSelect.addItem(
-        new thin.ui.Option(thin.core.TextStyle.getOverflowName(type), type));
+      new thin.ui.Option(thin.core.TextStyle.getOverflowName(type), type));
   });
-  
+
   textOverflowSelectProperty.addEventListener(propEventType.CHANGE,
-      function(e) {
-        var captureProperties = scope.getCloneProperties();
-        var overflow = e.target.getValue();
-        var originalOverflowTypes = [];
-        var shapes = manager.getActiveShapeByIncludeList().getClone();
-        var targetShapes = goog.array.filter(shapes, function(shape) {
-          if (goog.isFunction(shape.getOverflowType)) {
-            originalOverflowTypes[originalOverflowTypes.length] = shape.getOverflowType();
-            return true;
-          } else {
-            return false;
-          }
-        });
+    function (e) {
+      var captureProperties = scope.getCloneProperties();
+      var overflow = e.target.getValue();
+      var originalOverflowTypes = [];
+      var shapes = manager.getActiveShapeByIncludeList().getClone();
+      var targetShapes = goog.array.filter(shapes, function (shape) {
+        if (goog.isFunction(shape.getOverflowType)) {
+          originalOverflowTypes[originalOverflowTypes.length] = shape.getOverflowType();
+          return true;
+        } else {
+          return false;
+        }
+      });
 
-        workspace.normalVersioning(function(version) {
-          version.upHandler(function() {
-            goog.array.forEach(targetShapes, function(shape) {
-              shape.setOverflowType(overflow);
-            });
-            this.setPropertyForNonDestructive(captureProperties, 'overflow', overflow);
-            updateGuideAndProperties(shapes);
-          }, scope);
+      workspace.normalVersioning(function (version) {
+        version.upHandler(function () {
+          goog.array.forEach(targetShapes, function (shape) {
+            shape.setOverflowType(overflow);
+          });
+          this.setPropertyForNonDestructive(captureProperties, 'overflow', overflow);
+          updateGuideAndProperties(shapes);
+        }, scope);
 
-          version.downHandler(function() {
-            goog.array.forEach(targetShapes, function(shape, i) {
-              shape.setOverflowType(originalOverflowTypes[i]);
-            });
-            this.setCloneProperties(captureProperties);
-            updateGuideAndProperties(shapes);
-          }, scope);
-        });
-      }, false, this);
+        version.downHandler(function () {
+          goog.array.forEach(targetShapes, function (shape, i) {
+            shape.setOverflowType(originalOverflowTypes[i]);
+          });
+          this.setCloneProperties(captureProperties);
+          updateGuideAndProperties(shapes);
+        }, scope);
+      });
+    }, false, this);
 
-  proppane.addProperty(textOverflowSelectProperty , textGroup, 'overflow');
+  proppane.addProperty(textOverflowSelectProperty, textGroup, 'overflow');
 
   var fontGroup = proppane.addGroup(thin.t('property_group_font'));
 
@@ -952,81 +952,81 @@ thin.core.MultipleShapesHelper.prototype.createPropertyComponent_ = function() {
   var fontSizeComb = fontSizeCombProperty.getValueControl();
   var fontSizeInput = fontSizeComb.getInput();
   var fontSizeInputValidation = new thin.ui.Input.NumberValidator(this);
-  fontSizeInputValidation.setInputRange(5);
+  fontSizeInputValidation.setInputRange(2);
   fontSizeInputValidation.setAllowDecimal(true, 1);
   fontSizeInput.setValidator(fontSizeInputValidation);
   var fontSizeItem;
-  goog.array.forEach(thin.core.FontStyle.FONTSIZE_LIST, function(fontSizeValue) {
+  goog.array.forEach(thin.core.FontStyle.FONTSIZE_LIST, function (fontSizeValue) {
     fontSizeItem = new thin.ui.ComboBoxItem(fontSizeValue);
     fontSizeItem.setSticky(true);
     fontSizeComb.addItem(fontSizeItem);
   });
-  
-  fontSizeCombProperty.addEventListener(propEventType.CHANGE, function(e) {
+
+  fontSizeCombProperty.addEventListener(propEventType.CHANGE, function (e) {
     workspace.getAction().actionSetFontSize(Number(e.target.getValue()));
   }, false, this);
-  
+
   proppane.addProperty(fontSizeCombProperty, fontGroup, 'font-size');
-  
+
 
   var fontFamilySelectProperty =
-        new thin.ui.PropertyPane.FontSelectProperty(thin.t('field_font_family'));
+    new thin.ui.PropertyPane.FontSelectProperty(thin.t('field_font_family'));
 
   fontFamilySelectProperty.addEventListener(propEventType.CHANGE,
-      function(e) {
-        workspace.getAction().actionSetFontFamily(e.target.getValue());
-      }, false, this);
-  
-  proppane.addProperty(fontFamilySelectProperty , fontGroup, 'font-family');
+    function (e) {
+      workspace.getAction().actionSetFontFamily(e.target.getValue());
+    }, false, this);
+
+  proppane.addProperty(fontFamilySelectProperty, fontGroup, 'font-family');
 
 
   var colorInputProperty = new thin.ui.PropertyPane.ColorProperty(thin.t('field_font_color'));
   colorInputProperty.getValueControl().getInput().setLabel('none');
   colorInputProperty.addEventListener(propEventType.CHANGE,
-      function(e) {
-        var proppaneBlank = thin.core.ModuleShape.PROPPANE_SHOW_BLANK;
-        //  choose none color returned null.
-        var fontColor = thin.getValIfNotDef(e.target.getValue(), proppaneBlank);
-        if (thin.isExactlyEqual(fontColor, proppaneBlank)) {
-          fontColor = thin.core.ModuleShape.NONE;
+    function (e) {
+      var proppaneBlank = thin.core.ModuleShape.PROPPANE_SHOW_BLANK;
+      //  choose none color returned null.
+      var fontColor = thin.getValIfNotDef(e.target.getValue(), proppaneBlank);
+      if (thin.isExactlyEqual(fontColor, proppaneBlank)) {
+        fontColor = thin.core.ModuleShape.NONE;
+      }
+      var captureProperties = scope.getCloneProperties();
+      var shapes = manager.getActiveShapeByIncludeList().getClone();
+      var targetShapes = [];
+      var captureFillArray = [];
+      var fill = new goog.graphics.SolidFill( /** @type {string} */ (fontColor));
+
+      goog.array.forEach(shapes, function (shape, count) {
+        var properties = shape.getProperties();
+        if (goog.object.containsKey(shape.getProperties(), 'font-color')) {
+          goog.array.insert(targetShapes, shape);
+          goog.array.insertAt(captureFillArray, shape.getFill(), count);
         }
-        var captureProperties = scope.getCloneProperties();
-        var shapes = manager.getActiveShapeByIncludeList().getClone();
-        var targetShapes = [];
-        var captureFillArray = [];
-        var fill = new goog.graphics.SolidFill(/** @type {string} */(fontColor));
-        
-        goog.array.forEach(shapes, function(shape, count) {
-          var properties = shape.getProperties();
-          if (goog.object.containsKey(shape.getProperties(), 'font-color')) {
-            goog.array.insert(targetShapes, shape);
-            goog.array.insertAt(captureFillArray, shape.getFill(), count);
-          }
-        });
-        
-        workspace.normalVersioning(function(version) {
-        
-          version.upHandler(function() {
-          
-            goog.array.forEach(targetShapes, function(shape) {
-              shape.setFill(fill);
-            });
-            this.setPropertyForNonDestructive(captureProperties, 'font-color', fontColor);
-            updateGuideAndProperties(shapes);
-          }, scope);
-          
-          version.downHandler(function() {
-          
-            goog.array.forEach(targetShapes, function(shape, count) {
-              shape.setFill(captureFillArray[count]);
-            });
-            this.setCloneProperties(captureProperties);
-            updateGuideAndProperties(shapes);
-          }, scope);
-        });
-      }, false, this);
-  
-  proppane.addProperty(colorInputProperty , fontGroup, 'font-color');
+      });
+
+      workspace.normalVersioning(function (version) {
+
+        version.upHandler(function () {
+
+          goog.array.forEach(targetShapes, function (shape) {
+            shape.setFill(fill);
+          });
+          this.setPropertyForNonDestructive(captureProperties, 'font-color', fontColor);
+          updateGuideAndProperties(shapes);
+        }, scope);
+
+        version.downHandler(function () {
+
+          goog.array.forEach(targetShapes, function (shape, count) {
+            shape.setFill(captureFillArray[count]);
+          });
+          this.setCloneProperties(captureProperties);
+          updateGuideAndProperties(shapes);
+        }, scope);
+      });
+    }, false, this);
+
+  proppane.addProperty(colorInputProperty, fontGroup, 'font-color');
 
 
   var textAlignSelectProperty = new thin.ui.PropertyPane.SelectProperty(thin.t('field_text_align'));
@@ -1034,71 +1034,71 @@ thin.core.MultipleShapesHelper.prototype.createPropertyComponent_ = function() {
   var textAlignType = thin.core.TextStyle.HorizonAlignType;
 
   textAlignSelect.setTextAlignLeft();
-  goog.array.forEach([textAlignType.START, textAlignType.MIDDLE, textAlignType.END], function(type) {
+  goog.array.forEach([textAlignType.START, textAlignType.MIDDLE, textAlignType.END], function (type) {
     textAlignSelect.addItem(
-        new thin.ui.Option(thin.core.TextStyle.getHorizonAlignName(type), type));
+      new thin.ui.Option(thin.core.TextStyle.getHorizonAlignName(type), type));
   });
 
   textAlignSelectProperty.addEventListener(propEventType.CHANGE,
-      function(e) {
-        workspace.getAction().actionSetTextAnchor(e.target.getValue());
-      }, false, this);
-  
-  proppane.addProperty(textAlignSelectProperty , textGroup, 'text-halign');
+    function (e) {
+      workspace.getAction().actionSetTextAnchor(e.target.getValue());
+    }, false, this);
+
+  proppane.addProperty(textAlignSelectProperty, textGroup, 'text-halign');
 
 
   var textVerticalAlignSelectProperty = new thin.ui.PropertyPane.SelectProperty(thin.t('field_text_vertical_align'));
   var textVerticalAlignSelect = textVerticalAlignSelectProperty.getValueControl();
   var verticalAlignType = thin.core.TextStyle.VerticalAlignType;
-  
+
   textVerticalAlignSelect.setTextAlignLeft();
-  goog.array.forEach([verticalAlignType.TOP, verticalAlignType.CENTER, verticalAlignType.BOTTOM], function(type) {
+  goog.array.forEach([verticalAlignType.TOP, verticalAlignType.CENTER, verticalAlignType.BOTTOM], function (type) {
     textVerticalAlignSelect.addItem(
-        new thin.ui.Option(thin.core.TextStyle.getVerticalAlignName(type), type));
+      new thin.ui.Option(thin.core.TextStyle.getVerticalAlignName(type), type));
   });
-  
+
   textVerticalAlignSelectProperty.addEventListener(propEventType.CHANGE,
-      function(e) {
-        workspace.getAction().actionSetVerticalAlign(e.target.getValue());
-      }, false, this);
-  
-  proppane.addProperty(textVerticalAlignSelectProperty , textGroup, 'text-valign');
-  
-  
+    function (e) {
+      workspace.getAction().actionSetVerticalAlign(e.target.getValue());
+    }, false, this);
+
+  proppane.addProperty(textVerticalAlignSelectProperty, textGroup, 'text-valign');
+
+
   // formatGroup
   var formatGroup = proppane.addGroup(thin.t('property_group_simple_format'));
-  
-  
+
+
   var formatTypeSelectProperty = new thin.ui.PropertyPane.SelectProperty(thin.t('field_format_type'));
   var formatTypeSelect = formatTypeSelectProperty.getValueControl();
   formatTypeSelect.setTextAlignLeft();
-  goog.object.forEach(thin.core.formatstyles.FormatType, function(formatType) {
+  goog.object.forEach(thin.core.formatstyles.FormatType, function (formatType) {
     formatTypeSelect.addItem(
-        new thin.ui.Option(thin.core.formatstyles.getFormatNameFromType(formatType), formatType));
+      new thin.ui.Option(thin.core.formatstyles.getFormatNameFromType(formatType), formatType));
   });
-  
-  
-  formatTypeSelectProperty.addEventListener(propEventType.CHANGE, function(e) {
+
+
+  formatTypeSelectProperty.addEventListener(propEventType.CHANGE, function (e) {
     var formatType = e.target.getValue();
     var captureProperties = scope.getCloneProperties();
     var captureFormatType = captureProperties['format-type'];
     var shapes = manager.getActiveShapeByIncludeList().getClone();
     var targetShapes = [];
     var captureFormatStyleArray = [];
-    
-    goog.array.forEach(shapes, function(shape, count) {
+
+    goog.array.forEach(shapes, function (shape, count) {
       var properties = shape.getProperties();
       if (goog.object.containsKey(properties, 'format-type')) {
         goog.array.insert(targetShapes, shape);
         goog.array.insertAt(captureFormatStyleArray, shape.getFormatStyle(), count);
       }
     });
-    
-    workspace.normalVersioning(function(version) {
-    
-      version.upHandler(function() {
-      
-        goog.array.forEach(targetShapes, function(shape) {
+
+    workspace.normalVersioning(function (version) {
+
+      version.upHandler(function () {
+
+        goog.array.forEach(targetShapes, function (shape) {
           shape.setFormatType(formatType);
         });
 
@@ -1107,33 +1107,33 @@ thin.core.MultipleShapesHelper.prototype.createPropertyComponent_ = function() {
         var formatTypeTemp = thin.core.formatstyles.FormatType;
         switch (captureFormatType) {
           case formatTypeTemp.NUMBER:
-            this.setPropertyForNonDestructive(this.getCloneProperties(), 'format-number-delimiter', 
-                thin.core.formatstyles.NumberFormat.DEFAULT_DELIMITER);
+            this.setPropertyForNonDestructive(this.getCloneProperties(), 'format-number-delimiter',
+              thin.core.formatstyles.NumberFormat.DEFAULT_DELIMITER);
             this.setPropertyForNonDestructive(this.getCloneProperties(), 'format-number-precision',
-                thin.core.formatstyles.NumberFormat.DEFAULT_PRECISION);
+              thin.core.formatstyles.NumberFormat.DEFAULT_PRECISION);
             this.setPropertyForNonDestructive(this.getCloneProperties(), 'format-number-delimitation',
-                thin.core.formatstyles.NumberFormat.DEFAULT_ENABLED);
+              thin.core.formatstyles.NumberFormat.DEFAULT_ENABLED);
             break;
           case formatTypeTemp.DATETIME:
-            this.setPropertyForNonDestructive(this.getCloneProperties(), 'format-datetime-format', 
-                thin.core.formatstyles.DatetimeFormat.DEFAULT_FORMAT);
+            this.setPropertyForNonDestructive(this.getCloneProperties(), 'format-datetime-format',
+              thin.core.formatstyles.DatetimeFormat.DEFAULT_FORMAT);
             break;
           case formatTypeTemp.PADDING:
-            this.setPropertyForNonDestructive(this.getCloneProperties(), 'format-padding-length', 
-                thin.core.formatstyles.PaddingFormat.DEFAULT_LENGTH);
-            this.setPropertyForNonDestructive(this.getCloneProperties(), 'format-padding-char', 
-                thin.core.formatstyles.PaddingFormat.DEFAULT_CHAR);
-            this.setPropertyForNonDestructive(this.getCloneProperties(), 'format-padding-direction', 
-                thin.core.formatstyles.PaddingFormat.DEFAULT_DIRECTION);
+            this.setPropertyForNonDestructive(this.getCloneProperties(), 'format-padding-length',
+              thin.core.formatstyles.PaddingFormat.DEFAULT_LENGTH);
+            this.setPropertyForNonDestructive(this.getCloneProperties(), 'format-padding-char',
+              thin.core.formatstyles.PaddingFormat.DEFAULT_CHAR);
+            this.setPropertyForNonDestructive(this.getCloneProperties(), 'format-padding-direction',
+              thin.core.formatstyles.PaddingFormat.DEFAULT_DIRECTION);
             break;
         }
 
         updateGuideAndProperties(shapes);
       }, scope);
-      
-      version.downHandler(function() {
-      
-        goog.array.forEach(targetShapes, function(shape, count) {
+
+      version.downHandler(function () {
+
+        goog.array.forEach(targetShapes, function (shape, count) {
           shape.setFormatStyle(captureFormatStyleArray[count]);
         });
         this.setCloneProperties(captureProperties);
@@ -1141,44 +1141,44 @@ thin.core.MultipleShapesHelper.prototype.createPropertyComponent_ = function() {
       }, scope);
     });
   }, false, this);
-  
+
   proppane.addProperty(formatTypeSelectProperty, formatGroup, 'format-type');
-  
-  
+
+
   var baseFormatInputProperty = new thin.ui.PropertyPane.InputProperty(thin.t('field_basic_format'));
   var baseFormatInput = baseFormatInputProperty.getValueControl();
   baseFormatInput.setTooltip(thin.t('text_placeholder_of_base_format_description'));
 
-  baseFormatInputProperty.addEventListener(propEventType.CHANGE, function(e) {
-  
+  baseFormatInputProperty.addEventListener(propEventType.CHANGE, function (e) {
+
     var formatBase = e.target.getValue();
     var captureProperties = scope.getCloneProperties();
     var shapes = manager.getActiveShapeByIncludeList().getClone();
     var targetShapes = [];
     var captureFormatBaseArray = [];
-    
-    goog.array.forEach(shapes, function(shape, count) {
+
+    goog.array.forEach(shapes, function (shape, count) {
       var properties = shape.getProperties();
       if (goog.object.containsKey(properties, 'format-base')) {
         goog.array.insert(targetShapes, shape);
         goog.array.insertAt(captureFormatBaseArray, properties['format-base'], count);
       }
     });
-    
-    workspace.normalVersioning(function(version) {
-    
-      version.upHandler(function() {
-      
-        goog.array.forEach(targetShapes, function(shape) {
+
+    workspace.normalVersioning(function (version) {
+
+      version.upHandler(function () {
+
+        goog.array.forEach(targetShapes, function (shape) {
           shape.setBaseFormat(formatBase);
         });
         this.setPropertyForNonDestructive(captureProperties, 'format-base', formatBase);
         updateGuideAndProperties(shapes);
       }, scope);
-      
-      version.downHandler(function() {
-      
-        goog.array.forEach(targetShapes, function(shape, count) {
+
+      version.downHandler(function () {
+
+        goog.array.forEach(targetShapes, function (shape, count) {
           shape.setBaseFormat(captureFormatBaseArray[count]);
         });
         this.setCloneProperties(captureProperties);
@@ -1186,49 +1186,49 @@ thin.core.MultipleShapesHelper.prototype.createPropertyComponent_ = function() {
       }, scope);
     });
   }, false, this);
-  
+
   proppane.addProperty(baseFormatInputProperty, formatGroup, 'format-base');
-  
-  
+
+
   var dateTimeCombProperty = new thin.ui.PropertyPane.ComboBoxProperty(thin.t('field_datetime_format'));
   var dateTimeComb = dateTimeCombProperty.getValueControl();
   var dateTimeItem;
-  goog.object.forEach(thin.core.formatstyles.DatetimeFormat.DateFormatTemplate, function(dateTimeFormat) {
+  goog.object.forEach(thin.core.formatstyles.DatetimeFormat.DateFormatTemplate, function (dateTimeFormat) {
     dateTimeItem = new thin.ui.ComboBoxItem(dateTimeFormat);
     dateTimeItem.setSticky(true);
     dateTimeComb.addItem(dateTimeItem);
   });
-  
-  dateTimeCombProperty.addEventListener(propEventType.CHANGE, function(e) {
-  
+
+  dateTimeCombProperty.addEventListener(propEventType.CHANGE, function (e) {
+
     var dateTimeFormatValue = e.target.getValue();
     var captureProperties = scope.getCloneProperties();
     var shapes = manager.getActiveShapeByIncludeList().getClone();
     var targetShapes = [];
     var captureFormatStyleArray = [];
-    
-    goog.array.forEach(shapes, function(shape, count) {
+
+    goog.array.forEach(shapes, function (shape, count) {
       var properties = shape.getProperties();
       if (goog.object.containsKey(properties, 'format-datetime-format')) {
         goog.array.insert(targetShapes, shape);
         goog.array.insertAt(captureFormatStyleArray, shape.getFormatStyle(), count);
       }
     });
-    
-    workspace.normalVersioning(function(version) {
-    
-      version.upHandler(function() {
-      
-        goog.array.forEach(targetShapes, function(shape) {
+
+    workspace.normalVersioning(function (version) {
+
+      version.upHandler(function () {
+
+        goog.array.forEach(targetShapes, function (shape) {
           shape.setFormatStyle(new thin.core.formatstyles.DatetimeFormat(dateTimeFormatValue));
         });
         this.setPropertyForNonDestructive(captureProperties, 'format-datetime-format', dateTimeFormatValue);
         updateGuideAndProperties(shapes);
       }, scope);
-      
-      version.downHandler(function() {
-      
-        goog.array.forEach(targetShapes, function(shape, count) {
+
+      version.downHandler(function () {
+
+        goog.array.forEach(targetShapes, function (shape, count) {
           shape.setFormatStyle(captureFormatStyleArray[count]);
         });
         this.setCloneProperties(captureProperties);
@@ -1238,13 +1238,13 @@ thin.core.MultipleShapesHelper.prototype.createPropertyComponent_ = function() {
   }, false, this);
   proppane.addProperty(dateTimeCombProperty, formatGroup, 'format-datetime-format');
 
-  
+
   var delimiterCheckableInputProperty = new thin.ui.PropertyPane.CheckableInputProperty(thin.t('field_delimiter'));
   var delimiterCheckBox = delimiterCheckableInputProperty.getValueControlCheckbox();
   var delimiterInput = delimiterCheckableInputProperty.getValueControlMain();
   var componentEventType = goog.ui.Component.EventType;
-  
-  delimiterCheckBox.addEventListener(componentEventType.CHANGE, function(e) {
+
+  delimiterCheckBox.addEventListener(componentEventType.CHANGE, function (e) {
 
     var isEnabled = e.target.isChecked();
     var captureProperties = scope.getCloneProperties();
@@ -1252,42 +1252,42 @@ thin.core.MultipleShapesHelper.prototype.createPropertyComponent_ = function() {
     var targetShapes = [];
     var captureFormatStyleArray = [];
 
-    goog.array.forEach(shapes, function(shape, count) {
+    goog.array.forEach(shapes, function (shape, count) {
       var properties = shape.getProperties();
       if (goog.object.containsKey(properties, 'format-number-delimitation')) {
         goog.array.insert(targetShapes, shape);
         goog.array.insertAt(captureFormatStyleArray, shape.getFormatStyle(), count);
       }
     });
-    
-    workspace.normalVersioning(function(version) {
-    
-      version.upHandler(function() {
-      
-        goog.array.forEach(targetShapes, function(shape, count) {
+
+    workspace.normalVersioning(function (version) {
+
+      version.upHandler(function () {
+
+        goog.array.forEach(targetShapes, function (shape, count) {
           var captureNumberFormatStyle = captureFormatStyleArray[count];
           shape.setFormatStyle(new thin.core.formatstyles.NumberFormat(
-            captureNumberFormatStyle.getDelimiter(), 
+            captureNumberFormatStyle.getDelimiter(),
             captureNumberFormatStyle.getPrecision(), isEnabled));
         });
         this.setPropertyForNonDestructive(captureProperties, 'format-number-delimitation', isEnabled);
         if (isEnabled) {
-          if (thin.isExactlyEqual(captureProperties['format-number-delimiter'], 
+          if (thin.isExactlyEqual(captureProperties['format-number-delimiter'],
               thin.core.formatstyles.NumberFormat.DISABLE_DELIMITER)) {
 
-            this.setPropertyForNonDestructive(this.getCloneProperties(), 'format-number-delimiter', 
-                thin.core.formatstyles.NumberFormat.DEFAULT_DELIMITER);
+            this.setPropertyForNonDestructive(this.getCloneProperties(), 'format-number-delimiter',
+              thin.core.formatstyles.NumberFormat.DEFAULT_DELIMITER);
           }
         } else {
-          this.setPropertyForNonDestructive(this.getCloneProperties(), 'format-number-delimiter', 
-              thin.core.formatstyles.NumberFormat.DISABLE_DELIMITER);
+          this.setPropertyForNonDestructive(this.getCloneProperties(), 'format-number-delimiter',
+            thin.core.formatstyles.NumberFormat.DISABLE_DELIMITER);
         }
         updateGuideAndProperties(shapes);
       }, scope);
-      
-      version.downHandler(function() {
-      
-        goog.array.forEach(targetShapes, function(shape, count) {
+
+      version.downHandler(function () {
+
+        goog.array.forEach(targetShapes, function (shape, count) {
           shape.setFormatStyle(captureFormatStyleArray[count]);
         });
         this.setCloneProperties(captureProperties);
@@ -1295,9 +1295,9 @@ thin.core.MultipleShapesHelper.prototype.createPropertyComponent_ = function() {
       }, scope);
     });
   }, false, this);
-  
-  
-  delimiterInput.addEventListener(componentEventType.CHANGE, function(e) {
+
+
+  delimiterInput.addEventListener(componentEventType.CHANGE, function (e) {
 
     var delimiter = e.target.getValue();
     if (delimiter == '') {
@@ -1307,32 +1307,32 @@ thin.core.MultipleShapesHelper.prototype.createPropertyComponent_ = function() {
     var shapes = manager.getActiveShapeByIncludeList().getClone();
     var targetShapes = [];
     var captureFormatStyleArray = [];
-    
-    goog.array.forEach(shapes, function(shape, count) {
+
+    goog.array.forEach(shapes, function (shape, count) {
       var properties = shape.getProperties();
       if (goog.object.containsKey(properties, 'format-number-delimiter')) {
         goog.array.insert(targetShapes, shape);
         goog.array.insertAt(captureFormatStyleArray, shape.getFormatStyle(), count);
       }
     });
-    
-    workspace.normalVersioning(function(version) {
-    
-      version.upHandler(function() {
-      
-        goog.array.forEach(targetShapes, function(shape, count) {
+
+    workspace.normalVersioning(function (version) {
+
+      version.upHandler(function () {
+
+        goog.array.forEach(targetShapes, function (shape, count) {
           var captureNumberFormatStyle = captureFormatStyleArray[count];
           shape.setFormatStyle(new thin.core.formatstyles.NumberFormat(
-              delimiter, captureNumberFormatStyle.getPrecision(), 
-              captureNumberFormatStyle.isDelimitationEnabled()));
+            delimiter, captureNumberFormatStyle.getPrecision(),
+            captureNumberFormatStyle.isDelimitationEnabled()));
         });
         this.setPropertyForNonDestructive(captureProperties, 'format-number-delimiter', delimiter);
         updateGuideAndProperties(shapes);
       }, scope);
-      
-      version.downHandler(function() {
-      
-        goog.array.forEach(targetShapes, function(shape, count) {
+
+      version.downHandler(function () {
+
+        goog.array.forEach(targetShapes, function (shape, count) {
           shape.setFormatStyle(captureFormatStyleArray[count]);
         });
         this.setCloneProperties(captureProperties);
@@ -1340,47 +1340,47 @@ thin.core.MultipleShapesHelper.prototype.createPropertyComponent_ = function() {
       }, scope);
     });
   }, false, this);
-  
+
   proppane.addProperty(delimiterCheckableInputProperty, formatGroup, 'format-number-delimiter');
-  
-  
+
+
   var precisionInputProperty = new thin.ui.PropertyPane.InputProperty(thin.t('field_decimal_place'));
   var precisionInput = precisionInputProperty.getValueControl();
   var precisionValidation = new thin.ui.Input.NumberValidator();
   precisionInput.setValidator(precisionValidation);
-  precisionInputProperty.addEventListener(propEventType.CHANGE, function(e) {
-  
+  precisionInputProperty.addEventListener(propEventType.CHANGE, function (e) {
+
     var precision = Number(e.target.getValue());
     var captureProperties = scope.getCloneProperties();
     var shapes = manager.getActiveShapeByIncludeList().getClone();
     var targetShapes = [];
     var captureFormatStyleArray = [];
-    
-    goog.array.forEach(shapes, function(shape, count) {
+
+    goog.array.forEach(shapes, function (shape, count) {
       var properties = shape.getProperties();
       if (goog.object.containsKey(properties, 'format-number-precision')) {
         goog.array.insert(targetShapes, shape);
         goog.array.insertAt(captureFormatStyleArray, shape.getFormatStyle(), count);
       }
     });
-    
-    workspace.normalVersioning(function(version) {
-    
-      version.upHandler(function() {
-      
-        goog.array.forEach(targetShapes, function(shape, count) {
+
+    workspace.normalVersioning(function (version) {
+
+      version.upHandler(function () {
+
+        goog.array.forEach(targetShapes, function (shape, count) {
           var captureNumberFormatStyle = captureFormatStyleArray[count];
           shape.setFormatStyle(new thin.core.formatstyles.NumberFormat(
-                                        captureNumberFormatStyle.getDelimiter(), precision, 
-                                        captureNumberFormatStyle.isDelimitationEnabled()));
+            captureNumberFormatStyle.getDelimiter(), precision,
+            captureNumberFormatStyle.isDelimitationEnabled()));
         });
         this.setPropertyForNonDestructive(captureProperties, 'format-number-precision', precision);
         updateGuideAndProperties(shapes);
       }, scope);
-      
-      version.downHandler(function() {
-      
-        goog.array.forEach(targetShapes, function(shape, count) {
+
+      version.downHandler(function () {
+
+        goog.array.forEach(targetShapes, function (shape, count) {
           shape.setFormatStyle(captureFormatStyleArray[count]);
         });
         this.setCloneProperties(captureProperties);
@@ -1389,45 +1389,45 @@ thin.core.MultipleShapesHelper.prototype.createPropertyComponent_ = function() {
     });
   }, false, this);
   proppane.addProperty(precisionInputProperty, formatGroup, 'format-number-precision');
-  
-  
+
+
   var lengthInputProperty = new thin.ui.PropertyPane.InputProperty(thin.t('field_fill_length'));
   var lengthInput = lengthInputProperty.getValueControl();
   var lengthValidation = new thin.ui.Input.NumberValidator();
   lengthInput.setValidator(lengthValidation);
-  lengthInputProperty.addEventListener(propEventType.CHANGE, function(e) {
-  
+  lengthInputProperty.addEventListener(propEventType.CHANGE, function (e) {
+
     var paddingLength = Number(e.target.getValue());
     var captureProperties = scope.getCloneProperties();
     var shapes = manager.getActiveShapeByIncludeList().getClone();
     var targetShapes = [];
     var captureFormatStyleArray = [];
-    
-    goog.array.forEach(shapes, function(shape, count) {
+
+    goog.array.forEach(shapes, function (shape, count) {
       var properties = shape.getProperties();
       if (goog.object.containsKey(properties, 'format-padding-length')) {
         goog.array.insert(targetShapes, shape);
         goog.array.insertAt(captureFormatStyleArray, shape.getFormatStyle(), count);
       }
     });
-    
-    workspace.normalVersioning(function(version) {
-    
-      version.upHandler(function() {
-      
-        goog.array.forEach(targetShapes, function(shape, count) {
+
+    workspace.normalVersioning(function (version) {
+
+      version.upHandler(function () {
+
+        goog.array.forEach(targetShapes, function (shape, count) {
           var capturePaddingFormatStyle = captureFormatStyleArray[count];
           shape.setFormatStyle(new thin.core.formatstyles.PaddingFormat(
-                                        capturePaddingFormatStyle.getDirection(),
-                                        capturePaddingFormatStyle.getChar(), paddingLength));
+            capturePaddingFormatStyle.getDirection(),
+            capturePaddingFormatStyle.getChar(), paddingLength));
         });
         this.setPropertyForNonDestructive(captureProperties, 'format-padding-length', paddingLength);
         updateGuideAndProperties(shapes);
       }, scope);
-      
-      version.downHandler(function() {
-      
-        goog.array.forEach(targetShapes, function(shape, count) {
+
+      version.downHandler(function () {
+
+        goog.array.forEach(targetShapes, function (shape, count) {
           shape.setFormatStyle(captureFormatStyleArray[count]);
         });
         this.setCloneProperties(captureProperties);
@@ -1436,43 +1436,43 @@ thin.core.MultipleShapesHelper.prototype.createPropertyComponent_ = function() {
     });
   }, false, this);
   proppane.addProperty(lengthInputProperty, formatGroup, 'format-padding-length');
-  
-  
+
+
   var charInputProperty = new thin.ui.PropertyPane.InputProperty(thin.t('field_fill_character'));
   var charInput = charInputProperty.getValueControl();
-  charInputProperty.addEventListener(propEventType.CHANGE, function(e) {
-  
+  charInputProperty.addEventListener(propEventType.CHANGE, function (e) {
+
     var paddingChar = e.target.getValue();
     var captureProperties = scope.getCloneProperties();
     var shapes = manager.getActiveShapeByIncludeList().getClone();
     var targetShapes = [];
     var captureFormatStyleArray = [];
-    
-    goog.array.forEach(shapes, function(shape, count) {
+
+    goog.array.forEach(shapes, function (shape, count) {
       var properties = shape.getProperties();
       if (goog.object.containsKey(properties, 'format-padding-char')) {
         goog.array.insert(targetShapes, shape);
         goog.array.insertAt(captureFormatStyleArray, shape.getFormatStyle(), count);
       }
     });
-    
-    workspace.normalVersioning(function(version) {
-    
-      version.upHandler(function() {
-      
-        goog.array.forEach(targetShapes, function(shape, count) {
+
+    workspace.normalVersioning(function (version) {
+
+      version.upHandler(function () {
+
+        goog.array.forEach(targetShapes, function (shape, count) {
           var capturePaddingFormatStyle = captureFormatStyleArray[count];
           shape.setFormatStyle(new thin.core.formatstyles.PaddingFormat(
-                                        capturePaddingFormatStyle.getDirection(),
-                                        paddingChar, capturePaddingFormatStyle.getLength()));
+            capturePaddingFormatStyle.getDirection(),
+            paddingChar, capturePaddingFormatStyle.getLength()));
         });
         this.setPropertyForNonDestructive(captureProperties, 'format-padding-char', paddingChar);
         updateGuideAndProperties(shapes);
       }, scope);
-      
-      version.downHandler(function() {
-      
-        goog.array.forEach(targetShapes, function(shape, count) {
+
+      version.downHandler(function () {
+
+        goog.array.forEach(targetShapes, function (shape, count) {
           shape.setFormatStyle(captureFormatStyleArray[count]);
         });
         this.setCloneProperties(captureProperties);
@@ -1481,7 +1481,7 @@ thin.core.MultipleShapesHelper.prototype.createPropertyComponent_ = function() {
     });
   }, false, this);
   proppane.addProperty(charInputProperty, formatGroup, 'format-padding-char');
-  
+
 
 
   var directionSelectProperty = new thin.ui.PropertyPane.SelectProperty(thin.t('field_fill_direction'));
@@ -1489,43 +1489,43 @@ thin.core.MultipleShapesHelper.prototype.createPropertyComponent_ = function() {
   var directionType = thin.core.formatstyles.PaddingFormat.DirectionType;
 
   directionSelect.setTextAlignLeft();
-  goog.array.forEach([directionType.L, directionType.R], function(type) {
+  goog.array.forEach([directionType.L, directionType.R], function (type) {
     directionSelect.addItem(
-        new thin.ui.Option(thin.core.formatstyles.PaddingFormat.getDirectionName(type), type));
+      new thin.ui.Option(thin.core.formatstyles.PaddingFormat.getDirectionName(type), type));
   });
 
-  directionSelectProperty.addEventListener(propEventType.CHANGE, function(e) {
+  directionSelectProperty.addEventListener(propEventType.CHANGE, function (e) {
     var directionType = e.target.getValue();
     var captureProperties = scope.getCloneProperties();
     var shapes = manager.getActiveShapeByIncludeList().getClone();
     var targetShapes = [];
     var captureFormatStyleArray = [];
-    
-    goog.array.forEach(shapes, function(shape, count) {
+
+    goog.array.forEach(shapes, function (shape, count) {
       var properties = shape.getProperties();
       if (goog.object.containsKey(properties, 'format-padding-direction')) {
         goog.array.insert(targetShapes, shape);
         goog.array.insertAt(captureFormatStyleArray, shape.getFormatStyle(), count);
       }
     });
-    
-    workspace.normalVersioning(function(version) {
-    
-      version.upHandler(function() {
-      
-        goog.array.forEach(targetShapes, function(shape, count) {
+
+    workspace.normalVersioning(function (version) {
+
+      version.upHandler(function () {
+
+        goog.array.forEach(targetShapes, function (shape, count) {
           var capturePaddingFormatStyle = captureFormatStyleArray[count];
           shape.setFormatStyle(new thin.core.formatstyles.PaddingFormat(
-                                        directionType, capturePaddingFormatStyle.getChar(),
-                                        capturePaddingFormatStyle.getLength()));
+            directionType, capturePaddingFormatStyle.getChar(),
+            capturePaddingFormatStyle.getLength()));
         });
         this.setPropertyForNonDestructive(captureProperties, 'format-padding-direction', directionType);
         updateGuideAndProperties(shapes);
       }, scope);
-      
-      version.downHandler(function() {
-      
-        goog.array.forEach(targetShapes, function(shape, count) {
+
+      version.downHandler(function () {
+
+        goog.array.forEach(targetShapes, function (shape, count) {
           shape.setFormatStyle(captureFormatStyleArray[count]);
         });
         this.setCloneProperties(captureProperties);
@@ -1535,14 +1535,14 @@ thin.core.MultipleShapesHelper.prototype.createPropertyComponent_ = function() {
   }, false, this);
   proppane.addProperty(directionSelectProperty, formatGroup, 'format-padding-direction');
 
-  
+
   var positionGroup = proppane.addGroup(thin.t('property_group_image'));
-  
-  
+
+
   var positionX = thin.core.ImageblockShape.PositionX;
   var posXSelectProperty = new thin.ui.PropertyPane.SelectProperty(thin.t('field_horizontal_position'));
   var posXSelect = posXSelectProperty.getValueControl();
-  
+
   posXSelect.setTextAlignLeft();
   posXSelect.addItem(new thin.ui.Option(thin.t('label_left_position'), positionX.LEFT));
   posXSelect.addItem(new thin.ui.Option(thin.t('label_center_position'), positionX.CENTER));
@@ -1550,45 +1550,45 @@ thin.core.MultipleShapesHelper.prototype.createPropertyComponent_ = function() {
   posXSelect.setValue(positionX.DEFAULT);
 
   posXSelectProperty.addEventListener(propEventType.CHANGE,
-      function(e) {
-        var position = e.target.getValue();
-        var captureProperties = scope.getCloneProperties();
-        var shapes = manager.getActiveShapeByIncludeList().getClone();
-        var targetShapes = [];
-        var capturePositions = [];
-        
-        goog.array.forEach(shapes, function(shape, count) {
-          var properties = shape.getProperties();
-          if (goog.object.containsKey(properties, 'position-x')) {
-            goog.array.insert(targetShapes, shape);
-            goog.array.insertAt(capturePositions, properties['position-x'], count);
-          }
-        });
-        workspace.normalVersioning(function(version) {
-          version.upHandler(function() {
-            goog.array.forEach(targetShapes, function(shape) {
-              shape.setPositionX(position);
-            });
-            this.setPropertyForNonDestructive(captureProperties, 'position-x', position);
-            updateGuideAndProperties(shapes);
-          }, scope);
-          
-          version.downHandler(function() {
-            goog.array.forEach(targetShapes, function(shape, count) {
-              shape.setPositionX(capturePositions[count]);
-            });
-            this.setCloneProperties(captureProperties);
-            updateGuideAndProperties(shapes);
-          }, scope);
-        });
-      }, false, this);
-  
-  proppane.addProperty(posXSelectProperty , positionGroup, 'position-x');
-  
+    function (e) {
+      var position = e.target.getValue();
+      var captureProperties = scope.getCloneProperties();
+      var shapes = manager.getActiveShapeByIncludeList().getClone();
+      var targetShapes = [];
+      var capturePositions = [];
+
+      goog.array.forEach(shapes, function (shape, count) {
+        var properties = shape.getProperties();
+        if (goog.object.containsKey(properties, 'position-x')) {
+          goog.array.insert(targetShapes, shape);
+          goog.array.insertAt(capturePositions, properties['position-x'], count);
+        }
+      });
+      workspace.normalVersioning(function (version) {
+        version.upHandler(function () {
+          goog.array.forEach(targetShapes, function (shape) {
+            shape.setPositionX(position);
+          });
+          this.setPropertyForNonDestructive(captureProperties, 'position-x', position);
+          updateGuideAndProperties(shapes);
+        }, scope);
+
+        version.downHandler(function () {
+          goog.array.forEach(targetShapes, function (shape, count) {
+            shape.setPositionX(capturePositions[count]);
+          });
+          this.setCloneProperties(captureProperties);
+          updateGuideAndProperties(shapes);
+        }, scope);
+      });
+    }, false, this);
+
+  proppane.addProperty(posXSelectProperty, positionGroup, 'position-x');
+
   var positionY = thin.core.ImageblockShape.PositionY;
   var posYSelectProperty = new thin.ui.PropertyPane.SelectProperty(thin.t('field_vertical_position'));
   var posYSelect = posYSelectProperty.getValueControl();
-  
+
   posYSelect.setTextAlignLeft();
   posYSelect.addItem(new thin.ui.Option(thin.t('label_top_position'), positionY.TOP));
   posYSelect.addItem(new thin.ui.Option(thin.t('label_middle_position'), positionY.CENTER));
@@ -1596,42 +1596,42 @@ thin.core.MultipleShapesHelper.prototype.createPropertyComponent_ = function() {
   posYSelect.setValue(positionY.DEFAULT);
 
   posYSelectProperty.addEventListener(propEventType.CHANGE,
-      function(e) {
-        var position = e.target.getValue();
-        var captureProperties = scope.getCloneProperties();
-        var shapes = manager.getActiveShapeByIncludeList().getClone();
-        var targetShapes = [];
-        var capturePositions = [];
-        
-        goog.array.forEach(shapes, function(shape, count) {
-          var properties = shape.getProperties();
-          if (goog.object.containsKey(properties, 'position-y')) {
-            goog.array.insert(targetShapes, shape);
-            goog.array.insertAt(capturePositions, properties['position-y'], count);
-          }
-        });
-        workspace.normalVersioning(function(version) {
-          version.upHandler(function() {
-            goog.array.forEach(targetShapes, function(shape) {
-              shape.setPositionY(position);
-            });
-            this.setPropertyForNonDestructive(captureProperties, 'position-y', position);
-            updateGuideAndProperties(shapes);
-          }, scope);
-          
-          version.downHandler(function() {
-            goog.array.forEach(targetShapes, function(shape, count) {
-              shape.setPositionY(capturePositions[count]);
-            });
-            this.setCloneProperties(captureProperties);
-            updateGuideAndProperties(shapes);
-          }, scope);
-        });
-      }, false, this);
-  
-  proppane.addProperty(posYSelectProperty , positionGroup, 'position-y');
- 
-  
+    function (e) {
+      var position = e.target.getValue();
+      var captureProperties = scope.getCloneProperties();
+      var shapes = manager.getActiveShapeByIncludeList().getClone();
+      var targetShapes = [];
+      var capturePositions = [];
+
+      goog.array.forEach(shapes, function (shape, count) {
+        var properties = shape.getProperties();
+        if (goog.object.containsKey(properties, 'position-y')) {
+          goog.array.insert(targetShapes, shape);
+          goog.array.insertAt(capturePositions, properties['position-y'], count);
+        }
+      });
+      workspace.normalVersioning(function (version) {
+        version.upHandler(function () {
+          goog.array.forEach(targetShapes, function (shape) {
+            shape.setPositionY(position);
+          });
+          this.setPropertyForNonDestructive(captureProperties, 'position-y', position);
+          updateGuideAndProperties(shapes);
+        }, scope);
+
+        version.downHandler(function () {
+          goog.array.forEach(targetShapes, function (shape, count) {
+            shape.setPositionY(capturePositions[count]);
+          });
+          this.setCloneProperties(captureProperties);
+          updateGuideAndProperties(shapes);
+        }, scope);
+      });
+    }, false, this);
+
+  proppane.addProperty(posYSelectProperty, positionGroup, 'position-y');
+
+
   var cooperationGroup = proppane.addGroup(thin.t('property_group_association'));
 
 
@@ -1641,43 +1641,43 @@ thin.core.MultipleShapesHelper.prototype.createPropertyComponent_ = function() {
   defaultValidation.setAllowBlank(true);
   defaultValueInput.setValidator(defaultValidation);
   defaultValueInputProperty.addEventListener(propEventType.CHANGE,
-      function(e) {
-      
-        var defaultValue = e.target.getValue();
-        var captureProperties = scope.getCloneProperties();
-        var shapes = manager.getActiveShapeByIncludeList().getClone();
-        var targetShapes = [];
-        var captureDefaultValueArray = [];
-        
-        goog.array.forEach(shapes, function(shape, count) {
-          var properties = shape.getProperties();
-          if (goog.object.containsKey(properties, 'default-value')) {
-            goog.array.insert(targetShapes, shape);
-            goog.array.insertAt(captureDefaultValueArray, properties['default-value'], count);
-          }
-        });
-        workspace.normalVersioning(function(version) {
-        
-          version.upHandler(function() {
-          
-            goog.array.forEach(targetShapes, function(shape) {
-              shape.setDefaultValueOfLink(defaultValue);
-            });
-            this.setPropertyForNonDestructive(captureProperties, 'default-value', defaultValue);
-            updateGuideAndProperties(shapes);
-          }, scope);
-          
-          version.downHandler(function() {
-          
-            goog.array.forEach(targetShapes, function(shape, count) {
-              shape.setDefaultValueOfLink(captureDefaultValueArray[count]);
-            });
-            this.setCloneProperties(captureProperties);
-            updateGuideAndProperties(shapes);
-          }, scope);
-        });
-      }, false, this);
-  
+    function (e) {
+
+      var defaultValue = e.target.getValue();
+      var captureProperties = scope.getCloneProperties();
+      var shapes = manager.getActiveShapeByIncludeList().getClone();
+      var targetShapes = [];
+      var captureDefaultValueArray = [];
+
+      goog.array.forEach(shapes, function (shape, count) {
+        var properties = shape.getProperties();
+        if (goog.object.containsKey(properties, 'default-value')) {
+          goog.array.insert(targetShapes, shape);
+          goog.array.insertAt(captureDefaultValueArray, properties['default-value'], count);
+        }
+      });
+      workspace.normalVersioning(function (version) {
+
+        version.upHandler(function () {
+
+          goog.array.forEach(targetShapes, function (shape) {
+            shape.setDefaultValueOfLink(defaultValue);
+          });
+          this.setPropertyForNonDestructive(captureProperties, 'default-value', defaultValue);
+          updateGuideAndProperties(shapes);
+        }, scope);
+
+        version.downHandler(function () {
+
+          goog.array.forEach(targetShapes, function (shape, count) {
+            shape.setDefaultValueOfLink(captureDefaultValueArray[count]);
+          });
+          this.setCloneProperties(captureProperties);
+          updateGuideAndProperties(shapes);
+        }, scope);
+      });
+    }, false, this);
+
   proppane.addProperty(defaultValueInputProperty, cooperationGroup, 'default-value');
 };
 
@@ -1685,21 +1685,21 @@ thin.core.MultipleShapesHelper.prototype.createPropertyComponent_ = function() {
 /**
  * @param {string} formatType
  */
-thin.core.MultipleShapesHelper.prototype.setDisplayForPropPane = function(formatType) {
+thin.core.MultipleShapesHelper.prototype.setDisplayForPropPane = function (formatType) {
 
   var proppane = thin.ui.getComponent('proppane');
 
   var formatTypeTemplate = thin.core.formatstyles.FormatType;
   var baselist = ['format-datetime-format', 'format-number-delimiter', 'format-number-precision', 'format-padding-length', 'format-padding-char', 'format-padding-direction'];
   var targetlist = [];
-  
-  goog.array.forEach(baselist, function(targetId) {
+
+  goog.array.forEach(baselist, function (targetId) {
     var target = proppane.getChild(targetId);
     if (target.isDisplay()) {
       target.setDisplay(false);
     }
   });
-  
+
   switch (formatType) {
     case formatTypeTemplate.DATETIME:
       targetlist = ['format-datetime-format'];
@@ -1712,14 +1712,14 @@ thin.core.MultipleShapesHelper.prototype.setDisplayForPropPane = function(format
       break;
   }
   if (!goog.array.isEmpty(targetlist)) {
-    goog.array.forEach(targetlist, function(targetId) {
+    goog.array.forEach(targetlist, function (targetId) {
       proppane.getChild(targetId).setDisplay(true);
     });
   }
 };
 
 
-thin.core.MultipleShapesHelper.prototype.updateProperties = function() {
+thin.core.MultipleShapesHelper.prototype.updateProperties = function () {
   var proppane = thin.ui.getComponent('proppane');
 
   if (!proppane.isTarget(this)) {
@@ -1730,11 +1730,11 @@ thin.core.MultipleShapesHelper.prototype.updateProperties = function() {
   if (!this.isCapture_) {
     this.initializeProperties();
   }
-  
+
   var properties = this.getCloneProperties();
   var proppaneBlank = thin.core.ModuleShape.PROPPANE_SHOW_BLANK;
   var noneColor = thin.core.ModuleShape.NONE;
-  
+
   proppane.getPropertyControl('left').setValue(properties['left']);
   proppane.getPropertyControl('top').setValue(properties['top']);
   proppane.getPropertyControl('width').setValue(properties['width']);
@@ -1768,7 +1768,7 @@ thin.core.MultipleShapesHelper.prototype.updateProperties = function() {
   proppane.getPropertyControl('text-valign').setValue(properties['text-valign']);
   proppane.getPropertyControl('multiple').setChecked(properties['multiple']);
   proppane.getPropertyControl('line-height').setInternalValue(properties['line-height']);
-  
+
   proppane.getPropertyControl('kerning').setValue(properties['kerning']);
   proppane.getPropertyControl('overflow').setValue(properties['overflow']);
 
@@ -1777,8 +1777,8 @@ thin.core.MultipleShapesHelper.prototype.updateProperties = function() {
   proppane.getPropertyControl('format-type').setValue(formatType);
   proppane.getPropertyControl('format-base').setValue(properties['format-base']);
   proppane.getPropertyControl('format-datetime-format').setInternalValue(properties['format-datetime-format']);
- 
-    var delimiterProperty = proppane.getChild('format-number-delimiter');
+
+  var delimiterProperty = proppane.getChild('format-number-delimiter');
   delimiterProperty.setValue(properties['format-number-delimiter']);
   var isDelimitationEnabled = properties['format-number-delimitation'];
   delimiterProperty.setControlEnabled(isDelimitationEnabled);
@@ -1787,15 +1787,15 @@ thin.core.MultipleShapesHelper.prototype.updateProperties = function() {
   proppane.getPropertyControl('format-padding-char').setValue(properties['format-padding-char']);
   proppane.getPropertyControl('format-padding-direction').setValue(properties['format-padding-direction']);
   proppane.getPropertyControl('default-value').setValue(properties['default-value']);
-  
+
   this.setDisplayForPropPane(formatType);
-  
+
   this.isCapture_ = false;
 };
 
 
 /** @inheritDoc */
-thin.core.MultipleShapesHelper.prototype.disposeInternal = function() {
+thin.core.MultipleShapesHelper.prototype.disposeInternal = function () {
   thin.core.MultipleShapesHelper.superClass_.disposeInternal.call(this);
   delete this.layout_;
   delete this.properties_;

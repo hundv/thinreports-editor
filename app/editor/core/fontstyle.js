@@ -19,14 +19,14 @@ goog.provide('thin.core.FontStyle');
 /**
  * @constructor
  */
-thin.core.FontStyle = function() {};
+thin.core.FontStyle = function () {};
 
 
 /**
  * @type {Array.<string>}
  */
 thin.core.FontStyle.FONTSIZE_LIST = [
-  '8', '9', '10', '11', '12', '14', '16', '18',
+  '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '14', '16', '18',
   '20', '22', '24', '26', '28', '36', '48', '72'
 ];
 
@@ -76,7 +76,7 @@ thin.core.FontStyle.prototype.decoration;
 /**
  * @return {Object}
  */
-thin.core.FontStyle.prototype.asJSON = function() {
+thin.core.FontStyle.prototype.asJSON = function () {
   var array = [];
 
   if (this.bold) {

@@ -910,7 +910,7 @@ thin.core.TblockShape.prototype.createPropertyComponent_ = function () {
   var fontSizeComb = fontSizeCombProperty.getValueControl();
   var fontSizeInput = fontSizeComb.getInput();
   var fontSizeInputValidation = new thin.ui.Input.NumberValidator(this);
-  fontSizeInputValidation.setInputRange(5);
+  fontSizeInputValidation.setInputRange(2);
   fontSizeInputValidation.setAllowDecimal(true, 1);
   fontSizeInput.setValidator(fontSizeInputValidation);
 

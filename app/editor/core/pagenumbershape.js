@@ -41,7 +41,7 @@ goog.require('goog.ui.Component.EventType');
  * @constructor
  * @extends {thin.core.AbstractTextGroup}
  */
-thin.core.PageNumberShape = function(element, layout) {
+thin.core.PageNumberShape = function (element, layout) {
   goog.base(this, element, layout);
   this.setCss(thin.core.PageNumberShape.CLASSID);
 };
@@ -115,7 +115,7 @@ thin.core.PageNumberShape.prototype.base_;
 /**
  * @return {string}
  */
-thin.core.PageNumberShape.prototype.getClassId = function() {
+thin.core.PageNumberShape.prototype.getClassId = function () {
   return thin.core.PageNumberShape.CLASSID;
 };
 
@@ -124,13 +124,13 @@ thin.core.PageNumberShape.prototype.getClassId = function() {
  * Override thin.core.ModuleShape#canResizeHeight.
  * @return {boolean}
  */
-thin.core.PageNumberShape.prototype.canResizeHeight = function() {
+thin.core.PageNumberShape.prototype.canResizeHeight = function () {
   return false;
 };
 
 
 /** @inheritDoc */
-thin.core.PageNumberShape.prototype.updateToolbarUI = function() {
+thin.core.PageNumberShape.prototype.updateToolbarUI = function () {
   goog.base(this, 'updateToolbarUI');
   thin.ui.enablingFontUIs(true, true, true, false, false);
 };
@@ -141,11 +141,11 @@ thin.core.PageNumberShape.prototype.updateToolbarUI = function() {
  * @return {thin.core.Box}
  * @private
  */
-thin.core.PageNumberShape.prototype.createBox_ = function(opt_element) {
+thin.core.PageNumberShape.prototype.createBox_ = function (opt_element) {
   var opt_classId;
   if (!opt_element) {
     opt_classId = thin.core.PageNumberShape.CLASSID +
-        thin.core.PageNumberShape.ClassIds.BOX;
+      thin.core.PageNumberShape.ClassIds.BOX;
   }
 
   var box = goog.base(this, 'createBox_', opt_element, opt_classId);
@@ -163,21 +163,21 @@ thin.core.PageNumberShape.prototype.createBox_ = function(opt_element) {
  * @return {thin.core.PageNumberShape.Label_}
  * @private
  */
-thin.core.PageNumberShape.prototype.createLabel_ = function(opt_element) {
+thin.core.PageNumberShape.prototype.createLabel_ = function (opt_element) {
   var label = new thin.core.PageNumberShape.Label_(
-          this, this.getLayout(), opt_element);
+    this, this.getLayout(), opt_element);
   label.setText(this.getFormat());
   return label;
 };
 
 
 /** @inheritDoc */
-thin.core.PageNumberShape.prototype.setup = function() {
+thin.core.PageNumberShape.prototype.setup = function () {
   var element = this.getElement();
   var classId = thin.core.PageNumberShape.ClassIds;
 
   var box = thin.core.getElementByClassNameForChildNodes(
-        thin.core.PageNumberShape.CLASSID + classId.BOX, element.childNodes);
+    thin.core.PageNumberShape.CLASSID + classId.BOX, element.childNodes);
 
   this.box_ = this.createBox_(box);
   if (!box) {
@@ -194,17 +194,17 @@ thin.core.PageNumberShape.prototype.setup = function() {
 
 
 
-thin.core.PageNumberShape.prototype.createClipPath = function() {
+thin.core.PageNumberShape.prototype.createClipPath = function () {
   this.box_.createClipPath(this);
 };
 
 
-thin.core.PageNumberShape.prototype.removeClipPath = function() {
+thin.core.PageNumberShape.prototype.removeClipPath = function () {
   this.box_.removeClipPath();
 };
 
 
-thin.core.PageNumberShape.prototype.setDefaultOutline = function() {
+thin.core.PageNumberShape.prototype.setDefaultOutline = function () {
   this.setTargetOutline(this.getLayout().getHelpers().getPageNumberOutline());
 };
 
@@ -213,27 +213,27 @@ thin.core.PageNumberShape.prototype.setDefaultOutline = function() {
  * @param {string} shapeId
  * @param {thin.core.ShapeIdManager=} opt_manager
  */
-thin.core.PageNumberShape.prototype.setShapeId = function(shapeId, opt_manager) {
+thin.core.PageNumberShape.prototype.setShapeId = function (shapeId, opt_manager) {
   this.setShapeId_(shapeId, opt_manager);
 };
 
 
 /** @inheritDoc */
-thin.core.PageNumberShape.prototype.setLeft = function(left) {
+thin.core.PageNumberShape.prototype.setLeft = function (left) {
   goog.base(this, 'setLeft', left);
   this.label_.repositionX();
 };
 
 
 /** @inheritDoc */
-thin.core.PageNumberShape.prototype.setHeight = function(height) {
+thin.core.PageNumberShape.prototype.setHeight = function (height) {
   goog.base(this, 'setHeight', height);
   this.label_.repositionY();
 };
 
 
 /** @inheritDoc */
-thin.core.PageNumberShape.prototype.setTop = function(top) {
+thin.core.PageNumberShape.prototype.setTop = function (top) {
   goog.base(this, 'setTop', top);
   this.label_.repositionY();
 };
@@ -242,7 +242,7 @@ thin.core.PageNumberShape.prototype.setTop = function(top) {
 /**
  * @param {string} type
  */
-thin.core.PageNumberShape.prototype.setOverflowType = function(type) {
+thin.core.PageNumberShape.prototype.setOverflowType = function (type) {
   this.getLayout().setElementAttributes(this.getElement(), {
     'x-overflow': type
   });
@@ -252,16 +252,16 @@ thin.core.PageNumberShape.prototype.setOverflowType = function(type) {
 /**
  * @return {string}
  */
-thin.core.PageNumberShape.prototype.getOverflowType = function() {
-  return this.getLayout().getElementAttribute(this.getElement(), 'x-overflow')
-    || thin.core.TextStyle.DEFAULT_OVERFLOWTYPE;
+thin.core.PageNumberShape.prototype.getOverflowType = function () {
+  return this.getLayout().getElementAttribute(this.getElement(), 'x-overflow') ||
+    thin.core.TextStyle.DEFAULT_OVERFLOWTYPE;
 };
 
 
 /**
  * @param {string} format
  */
-thin.core.PageNumberShape.prototype.setFormat = function(format) {
+thin.core.PageNumberShape.prototype.setFormat = function (format) {
   this.getLayout().setElementAttributes(this.getElement(), {
     'x-format': format
   });
@@ -272,16 +272,16 @@ thin.core.PageNumberShape.prototype.setFormat = function(format) {
 /**
  * @return {string}
  */
-thin.core.PageNumberShape.prototype.getFormat = function() {
+thin.core.PageNumberShape.prototype.getFormat = function () {
   return this.getLayout().getElementAttribute(this.getElement(),
-      'x-format') || thin.core.PageNumberShape.DEFAULT_PAGENO_FORMAT;
+    'x-format') || thin.core.PageNumberShape.DEFAULT_PAGENO_FORMAT;
 };
 
 
 /**
  * @param {string} targetId
  */
-thin.core.PageNumberShape.prototype.setTargetId = function(targetId) {
+thin.core.PageNumberShape.prototype.setTargetId = function (targetId) {
   var layout = this.getLayout();
   layout.setElementAttributes(this.getElement(), {
     'x-target': targetId
@@ -292,13 +292,13 @@ thin.core.PageNumberShape.prototype.setTargetId = function(targetId) {
 /**
  * @return {string}
  */
-thin.core.PageNumberShape.prototype.getTargetId = function() {
+thin.core.PageNumberShape.prototype.getTargetId = function () {
   return this.getLayout().getElementAttribute(this.getElement(),
-      'x-target') || '';
+    'x-target') || '';
 };
 
 
-thin.core.PageNumberShape.prototype.removeTargetShapeId = function() {
+thin.core.PageNumberShape.prototype.removeTargetShapeId = function () {
   if (!goog.string.isEmpty(this.getTargetId())) {
     this.setTargetId('');
   }
@@ -309,7 +309,7 @@ thin.core.PageNumberShape.prototype.removeTargetShapeId = function() {
  * @param {thin.core.Helpers} helpers
  * @param {thin.core.MultiOutlineHelper} multiOutlineHelper
  */
-thin.core.PageNumberShape.prototype.toOutline = function(helpers, multiOutlineHelper) {
+thin.core.PageNumberShape.prototype.toOutline = function (helpers, multiOutlineHelper) {
   multiOutlineHelper.toPageNumberOutline(this, helpers);
 };
 
@@ -317,7 +317,7 @@ thin.core.PageNumberShape.prototype.toOutline = function(helpers, multiOutlineHe
 /**
  * @return {Function}
  */
-thin.core.PageNumberShape.prototype.getCloneCreator = function() {
+thin.core.PageNumberShape.prototype.getCloneCreator = function () {
   var sourceCoordinate = new goog.math.Coordinate(this.getLeft(), this.getTop()).clone();
   var deltaCoordinateForList = this.getDeltaCoordinateForList().clone();
   var deltaCoordinateForGuide = this.getDeltaCoordinateForGuide().clone();
@@ -350,7 +350,7 @@ thin.core.PageNumberShape.prototype.getCloneCreator = function() {
    * @param {thin.core.ShapeIdManager=} opt_shapeIdManager
    * @return {thin.core.PageNumberShape}
    */
-  return function(layout, opt_isAdaptDeltaForList, opt_renderTo, opt_basisCoordinate, opt_shapeIdManager) {
+  return function (layout, opt_isAdaptDeltaForList, opt_renderTo, opt_basisCoordinate, opt_shapeIdManager) {
 
     var shape = layout.createPageNumberShape();
     layout.appendChild(shape, opt_renderTo);
@@ -379,7 +379,7 @@ thin.core.PageNumberShape.prototype.getCloneCreator = function() {
 /**
  * @private
  */
-thin.core.PageNumberShape.prototype.createPropertyComponent_ = function() {
+thin.core.PageNumberShape.prototype.createPropertyComponent_ = function () {
   var scope = this;
   var layout = this.getLayout();
   var workspace = layout.getWorkspace();
@@ -397,7 +397,7 @@ thin.core.PageNumberShape.prototype.createPropertyComponent_ = function() {
   leftInput.getNumberValidator().setAllowDecimal(true, 1);
 
   leftInputProperty.addEventListener(propEventType.CHANGE,
-      this.setLeftForPropertyUpdate, false, this);
+    this.setLeftForPropertyUpdate, false, this);
 
   proppane.addProperty(leftInputProperty, baseGroup, 'left');
 
@@ -407,7 +407,7 @@ thin.core.PageNumberShape.prototype.createPropertyComponent_ = function() {
   topInput.getNumberValidator().setAllowDecimal(true, 1);
 
   topInputProperty.addEventListener(propEventType.CHANGE,
-      this.setTopForPropertyUpdate, false, this);
+    this.setTopForPropertyUpdate, false, this);
 
   proppane.addProperty(topInputProperty, baseGroup, 'top');
 
@@ -417,14 +417,14 @@ thin.core.PageNumberShape.prototype.createPropertyComponent_ = function() {
   widthInput.getNumberValidator().setAllowDecimal(true, 1);
 
   widthInputProperty.addEventListener(propEventType.CHANGE,
-      this.setWidthForPropertyUpdate, false, this);
+    this.setWidthForPropertyUpdate, false, this);
 
   proppane.addProperty(widthInputProperty, baseGroup, 'width');
 
 
   var displayCheckProperty = new thin.ui.PropertyPane.CheckboxProperty(thin.t('field_display'));
   displayCheckProperty.addEventListener(propEventType.CHANGE,
-      this.setDisplayForPropertyUpdate, false, this);
+    this.setDisplayForPropertyUpdate, false, this);
 
   proppane.addProperty(displayCheckProperty, baseGroup, 'display');
 
@@ -435,71 +435,71 @@ thin.core.PageNumberShape.prototype.createPropertyComponent_ = function() {
   var colorInputProperty = new thin.ui.PropertyPane.ColorProperty(thin.t('field_font_color'));
   colorInputProperty.getValueControl().getInput().setLabel('none');
   colorInputProperty.addEventListener(propEventType.CHANGE,
-      function(e) {
+    function (e) {
 
-        var scope = this;
-        var layout = this.getLayout();
-        var proppaneBlank = thin.core.ModuleShape.PROPPANE_SHOW_BLANK;
-        var fillNone = thin.core.ModuleShape.NONE;
-        //  choose none color returned null.
-        var fillColor = /** @type {string} */(thin.getValIfNotDef(e.target.getValue(), proppaneBlank));
-        var fill = new goog.graphics.SolidFill(thin.isExactlyEqual(fillColor, proppaneBlank) ?
-                           fillNone : fillColor);
-        var captureFill = this.getFill();
-        var captureFillColor = captureFill.getColor();
-        if (thin.isExactlyEqual(captureFillColor, fillNone)) {
-          captureFillColor = proppaneBlank;
-        }
+      var scope = this;
+      var layout = this.getLayout();
+      var proppaneBlank = thin.core.ModuleShape.PROPPANE_SHOW_BLANK;
+      var fillNone = thin.core.ModuleShape.NONE;
+      //  choose none color returned null.
+      var fillColor = /** @type {string} */ (thin.getValIfNotDef(e.target.getValue(), proppaneBlank));
+      var fill = new goog.graphics.SolidFill(thin.isExactlyEqual(fillColor, proppaneBlank) ?
+        fillNone : fillColor);
+      var captureFill = this.getFill();
+      var captureFillColor = captureFill.getColor();
+      if (thin.isExactlyEqual(captureFillColor, fillNone)) {
+        captureFillColor = proppaneBlank;
+      }
 
-        layout.getWorkspace().normalVersioning(function(version) {
+      layout.getWorkspace().normalVersioning(function (version) {
 
-          version.upHandler(function() {
-            this.setFill(fill);
-            proppane.getPropertyControl('font-color').setValue(fillColor);
-          }, scope);
+        version.upHandler(function () {
+          this.setFill(fill);
+          proppane.getPropertyControl('font-color').setValue(fillColor);
+        }, scope);
 
-          version.downHandler(function() {
-            this.setFill(captureFill);
-            proppane.getPropertyControl('font-color').setValue(captureFillColor);
-          }, scope);
-        });
-      }, false, this);
+        version.downHandler(function () {
+          this.setFill(captureFill);
+          proppane.getPropertyControl('font-color').setValue(captureFillColor);
+        }, scope);
+      });
+    }, false, this);
 
-  proppane.addProperty(colorInputProperty , fontGroup, 'font-color');
+  proppane.addProperty(colorInputProperty, fontGroup, 'font-color');
 
 
   var fontSizeCombProperty = new thin.ui.PropertyPane.ComboBoxProperty(thin.t('field_font_size'));
   var fontSizeComb = fontSizeCombProperty.getValueControl();
   var fontSizeInput = fontSizeComb.getInput();
   var fontSizeInputValidation = new thin.ui.Input.NumberValidator(this);
-  fontSizeInputValidation.setInputRange(5);
+  fontSizeInputValidation.setInputRange(2);
   fontSizeInputValidation.setAllowDecimal(true, 1);
   fontSizeInput.setValidator(fontSizeInputValidation);
 
   var fontSizeItem;
-  goog.array.forEach(thin.core.FontStyle.FONTSIZE_LIST, function(fontSizeValue) {
+  goog.array.forEach(thin.core.FontStyle.FONTSIZE_LIST, function (fontSizeValue) {
     fontSizeItem = new thin.ui.ComboBoxItem(fontSizeValue);
     fontSizeItem.setSticky(true);
     fontSizeComb.addItem(fontSizeItem);
   });
 
   fontSizeCombProperty.addEventListener(propEventType.CHANGE,
-      function(e) {
-        workspace.getAction().actionSetFontSize(Number(e.target.getValue()));
-      }, false, this);
+    function (e) {
+      workspace.getAction().actionSetFontSize(Number(e.target.getValue()));
+    }, false, this);
 
-  proppane.addProperty(fontSizeCombProperty , fontGroup, 'font-size');
+  proppane.addProperty(fontSizeCombProperty, fontGroup, 'font-size');
 
 
   var fontFamilySelectProperty =
-        new thin.ui.PropertyPane.FontSelectProperty();
+    new thin.ui.PropertyPane.FontSelectProperty();
 
   fontFamilySelectProperty.addEventListener(propEventType.CHANGE,
-      function(e) {
-        workspace.getAction().actionSetFontFamily(e.target.getValue());
-      }, false, this);
+    function (e) {
+      workspace.getAction().actionSetFontFamily(e.target.getValue());
+    }, false, this);
 
-  proppane.addProperty(fontFamilySelectProperty , fontGroup, 'font-family');
+  proppane.addProperty(fontFamilySelectProperty, fontGroup, 'font-family');
 
 
   var textGroup = proppane.addGroup(thin.t('property_group_text'));
@@ -509,17 +509,17 @@ thin.core.PageNumberShape.prototype.createPropertyComponent_ = function() {
   var textAlignType = thin.core.TextStyle.HorizonAlignType;
 
   textAlignSelect.setTextAlignLeft();
-  goog.array.forEach([textAlignType.START, textAlignType.MIDDLE, textAlignType.END], function(type) {
+  goog.array.forEach([textAlignType.START, textAlignType.MIDDLE, textAlignType.END], function (type) {
     textAlignSelect.addItem(
-        new thin.ui.Option(thin.core.TextStyle.getHorizonAlignName(type), type));
+      new thin.ui.Option(thin.core.TextStyle.getHorizonAlignName(type), type));
   });
 
   textAlignSelectProperty.addEventListener(propEventType.CHANGE,
-      function(e) {
-        workspace.getAction().actionSetTextAnchor(e.target.getValue());
-      }, false, this);
+    function (e) {
+      workspace.getAction().actionSetTextAnchor(e.target.getValue());
+    }, false, this);
 
-  proppane.addProperty(textAlignSelectProperty , textGroup, 'text-halign');
+  proppane.addProperty(textAlignSelectProperty, textGroup, 'text-halign');
 
 
   var kerningInputProperty = new thin.ui.PropertyPane.NumberInputProperty(thin.t('field_text_kerning'), 'auto');
@@ -529,25 +529,25 @@ thin.core.PageNumberShape.prototype.createPropertyComponent_ = function() {
   kerningInputValidation.setAllowBlank(true);
 
   kerningInputProperty.addEventListener(propEventType.CHANGE,
-      function(e) {
-        var kerning = e.target.getValue();
-        var captureSpacing = scope.getKerning();
+    function (e) {
+      var kerning = e.target.getValue();
+      var captureSpacing = scope.getKerning();
 
-        if (kerning !== thin.core.TextStyle.DEFAULT_KERNING) {
-          kerning = String(Number(kerning));
-        }
+      if (kerning !== thin.core.TextStyle.DEFAULT_KERNING) {
+        kerning = String(Number(kerning));
+      }
 
-        workspace.normalVersioning(function(version) {
-          version.upHandler(function() {
-            this.setKerning(kerning);
-            proppane.getPropertyControl('kerning').setValue(kerning);
-          }, scope);
-          version.downHandler(function() {
-            this.setKerning(captureSpacing);
-            proppane.getPropertyControl('kerning').setValue(captureSpacing);
-          }, scope);
-        });
-      }, false, this);
+      workspace.normalVersioning(function (version) {
+        version.upHandler(function () {
+          this.setKerning(kerning);
+          proppane.getPropertyControl('kerning').setValue(kerning);
+        }, scope);
+        version.downHandler(function () {
+          this.setKerning(captureSpacing);
+          proppane.getPropertyControl('kerning').setValue(captureSpacing);
+        }, scope);
+      });
+    }, false, this);
 
   proppane.addProperty(kerningInputProperty, textGroup, 'kerning');
 
@@ -558,27 +558,27 @@ thin.core.PageNumberShape.prototype.createPropertyComponent_ = function() {
 
   var overflowType = thin.core.TextStyle.OverflowType;
 
-  goog.array.forEach([overflowType.TRUNCATE, overflowType.FIT, overflowType.EXPAND], function(type) {
+  goog.array.forEach([overflowType.TRUNCATE, overflowType.FIT, overflowType.EXPAND], function (type) {
     textOverflowSelect.addItem(
-        new thin.ui.Option(thin.core.TextStyle.getOverflowName(type), type));
+      new thin.ui.Option(thin.core.TextStyle.getOverflowName(type), type));
   });
 
   textOverflowSelectProperty.addEventListener(propEventType.CHANGE,
-      function(e) {
-        var overflow = e.target.getValue();
-        var captureOverflow = scope.getOverflowType();
+    function (e) {
+      var overflow = e.target.getValue();
+      var captureOverflow = scope.getOverflowType();
 
-        workspace.normalVersioning(function(version) {
-          version.upHandler(function() {
-            this.setOverflowType(overflow);
-            proppane.getPropertyControl('overflow').setValue(overflow);
-          }, scope);
-          version.downHandler(function() {
-            this.setOverflowType(captureOverflow);
-            proppane.getPropertyControl('overflow').setValue(captureOverflow);
-          }, scope);
-        });
-      }, false, this);
+      workspace.normalVersioning(function (version) {
+        version.upHandler(function () {
+          this.setOverflowType(overflow);
+          proppane.getPropertyControl('overflow').setValue(overflow);
+        }, scope);
+        version.downHandler(function () {
+          this.setOverflowType(captureOverflow);
+          proppane.getPropertyControl('overflow').setValue(captureOverflow);
+        }, scope);
+      });
+    }, false, this);
 
   proppane.addProperty(textOverflowSelectProperty, textGroup, 'overflow');
 
@@ -590,7 +590,7 @@ thin.core.PageNumberShape.prototype.createPropertyComponent_ = function() {
   var formatValidator = new thin.ui.Input.Validator();
   formatValidator.setAllowBlank(true);
   formatValidator.setMessage(thin.t('error_no_valid_placeholder_included'));
-  formatValidator.setMethod(function(value) {
+  formatValidator.setMethod(function (value) {
     return /\{(page|total)\}/.test(value);
   });
 
@@ -598,40 +598,44 @@ thin.core.PageNumberShape.prototype.createPropertyComponent_ = function() {
   formatInput.setTooltip(thin.t('text_placeholder_of_pageno_description'));
 
   formatInputProperty.addEventListener(propEventType.CHANGE,
-      function(e) {
-        var newFormat = e.target.getValue() || thin.core.PageNumberShape.DEFAULT_PAGENO_FORMAT;
-        var oldFormat = scope.getFormat();
+    function (e) {
+      var newFormat = e.target.getValue() || thin.core.PageNumberShape.DEFAULT_PAGENO_FORMAT;
+      var oldFormat = scope.getFormat();
 
-        workspace.normalVersioning(function(version) {
-          version.upHandler(function() {
-            this.setFormat(newFormat);
-            proppane.getPropertyControl('format').setValue(newFormat);
-          }, scope);
+      workspace.normalVersioning(function (version) {
+        version.upHandler(function () {
+          this.setFormat(newFormat);
+          proppane.getPropertyControl('format').setValue(newFormat);
+        }, scope);
 
-          version.downHandler(function() {
-            this.setFormat(oldFormat);
-            proppane.getPropertyControl('format').setValue(oldFormat);
-          }, scope);
-        });
-      }, false, this);
+        version.downHandler(function () {
+          this.setFormat(oldFormat);
+          proppane.getPropertyControl('format').setValue(oldFormat);
+        }, scope);
+      });
+    }, false, this);
 
   proppane.addProperty(formatInputProperty, pageNoGroup, 'format');
 
   var targetInputProperty = new thin.ui.PropertyPane.InputProperty(
-        thin.t('field_counted_page_target'), thin.t('field_default_counted_page_target'));
+    thin.t('field_counted_page_target'), thin.t('field_default_counted_page_target'));
   var targetInput = targetInputProperty.getValueControl();
   var targetValidator = new thin.ui.Input.Validator();
   targetValidator.setAllowBlank(true);
-  targetValidator.setMethod(function(targetId) {
+  targetValidator.setMethod(function (targetId) {
     var target = layout.getShapeForShapeId(targetId);
     var error = null;
 
-    switch(true) {
+    switch (true) {
       case !target:
-        error = thin.t('error_id_not_found', {'id': targetId});
+        error = thin.t('error_id_not_found', {
+          'id': targetId
+        });
         break;
       case !target.instanceOfListShape():
-        error = thin.t('error_id_is_not_list', {'id': targetId});
+        error = thin.t('error_id_is_not_list', {
+          'id': targetId
+        });
         break;
     }
     if (error) {
@@ -646,22 +650,22 @@ thin.core.PageNumberShape.prototype.createPropertyComponent_ = function() {
   targetInput.setTooltip(thin.t('text_counted_page_target_description'));
 
   targetInputProperty.addEventListener(propEventType.CHANGE,
-      function(e) {
-        var newTargetId = e.target.getValue();
-        var oldTargetId = scope.getTargetId();
+    function (e) {
+      var newTargetId = e.target.getValue();
+      var oldTargetId = scope.getTargetId();
 
-        workspace.normalVersioning(function(version) {
-          version.upHandler(function() {
-            this.setTargetId(newTargetId);
-            proppane.getPropertyControl('target').setValue(newTargetId);
-          }, scope);
+      workspace.normalVersioning(function (version) {
+        version.upHandler(function () {
+          this.setTargetId(newTargetId);
+          proppane.getPropertyControl('target').setValue(newTargetId);
+        }, scope);
 
-          version.downHandler(function() {
-            this.setTargetId(oldTargetId);
-            proppane.getPropertyControl('target').setValue(oldTargetId);
-          }, scope);
-        });
-      }, false, this);
+        version.downHandler(function () {
+          this.setTargetId(oldTargetId);
+          proppane.getPropertyControl('target').setValue(oldTargetId);
+        }, scope);
+      });
+    }, false, this);
 
   proppane.addProperty(targetInputProperty, pageNoGroup, 'target');
 
@@ -671,30 +675,30 @@ thin.core.PageNumberShape.prototype.createPropertyComponent_ = function() {
   var idInputProperty = new thin.ui.PropertyPane.IdInputProperty(this, 'ID');
 
   idInputProperty.addEventListener(propEventType.CHANGE,
-      function(e) {
+    function (e) {
 
-        var shapeId = e.target.getValue();
-        var captureShapeId = scope.getShapeId();
+      var shapeId = e.target.getValue();
+      var captureShapeId = scope.getShapeId();
 
-        workspace.normalVersioning(function(version) {
-          version.upHandler(function() {
-            this.setShapeId(shapeId);
-            proppane.getPropertyControl('shape-id').setValue(shapeId);
-          }, scope);
+      workspace.normalVersioning(function (version) {
+        version.upHandler(function () {
+          this.setShapeId(shapeId);
+          proppane.getPropertyControl('shape-id').setValue(shapeId);
+        }, scope);
 
-          version.downHandler(function() {
-            this.setShapeId(captureShapeId);
-            proppane.getPropertyControl('shape-id').setValue(captureShapeId);
-          }, scope);
-        });
-      }, false, this);
+        version.downHandler(function () {
+          this.setShapeId(captureShapeId);
+          proppane.getPropertyControl('shape-id').setValue(captureShapeId);
+        }, scope);
+      });
+    }, false, this);
 
   proppane.addProperty(idInputProperty, associationGroup, 'shape-id');
 
 
   var descProperty = new thin.ui.PropertyPane.InputProperty(thin.t('field_description'));
   descProperty.addEventListener(propEventType.CHANGE,
-      this.setDescPropertyUpdate, false, this);
+    this.setDescPropertyUpdate, false, this);
 
   proppane.addProperty(descProperty, associationGroup, 'desc');
 };
@@ -703,7 +707,7 @@ thin.core.PageNumberShape.prototype.createPropertyComponent_ = function() {
 /**
  * @return {Object}
  */
-thin.core.PageNumberShape.prototype.getProperties = function() {
+thin.core.PageNumberShape.prototype.getProperties = function () {
   var properties = {
     'left': this.getLeft(),
     'top': this.getTop(),
@@ -725,7 +729,7 @@ thin.core.PageNumberShape.prototype.getProperties = function() {
 };
 
 
-thin.core.PageNumberShape.prototype.updateProperties = function() {
+thin.core.PageNumberShape.prototype.updateProperties = function () {
   var proppane = thin.ui.getComponent('proppane');
 
   if (!proppane.isTarget(this)) {
@@ -763,7 +767,7 @@ thin.core.PageNumberShape.prototype.updateProperties = function() {
 /**
  * @param {Object} properties
  */
-thin.core.PageNumberShape.prototype.setInitShapeProperties = function(properties) {
+thin.core.PageNumberShape.prototype.setInitShapeProperties = function (properties) {
   this.setFill(thin.core.PageNumberShape.DEFAULT_FILL);
   this.setFontSize(properties.SIZE);
   this.setFontFamily(properties.FAMILY);
@@ -777,7 +781,7 @@ thin.core.PageNumberShape.prototype.setInitShapeProperties = function(properties
 
 
 /** @inheritDoc */
-thin.core.PageNumberShape.prototype.disposeInternal = function() {
+thin.core.PageNumberShape.prototype.disposeInternal = function () {
   goog.base(this, 'disposeInternal');
   this.disposeInternalForShape();
 
@@ -794,7 +798,7 @@ thin.core.PageNumberShape.prototype.disposeInternal = function() {
  * @extends {thin.core.AbstractText}
  * @private
  */
-thin.core.PageNumberShape.Label_ = function(parent, layout, opt_element) {
+thin.core.PageNumberShape.Label_ = function (parent, layout, opt_element) {
   var element = opt_element || layout.createSvgElement('text', {
     'kerning': 'auto',
     'font-size': 10,
@@ -814,19 +818,19 @@ thin.core.PageNumberShape.Label_ = function(parent, layout, opt_element) {
 goog.inherits(thin.core.PageNumberShape.Label_, thin.core.AbstractText);
 
 
-thin.core.PageNumberShape.Label_.prototype.repositionX = function() {
+thin.core.PageNumberShape.Label_.prototype.repositionX = function () {
   this.setLeft(this.parent_.getLeft() + Math.floor(this.parent_.getWidth() / 2));
 };
 
 
-thin.core.PageNumberShape.Label_.prototype.repositionY = function() {
+thin.core.PageNumberShape.Label_.prototype.repositionY = function () {
   this.setTop(this.parent_.getTop() + 1 +
-      Number(this.getLayout().getElementAttribute(this.getElement(), 'font-size')));
+    Number(this.getLayout().getElementAttribute(this.getElement(), 'font-size')));
 };
 
 
 /** @inheritDoc */
-thin.core.PageNumberShape.Label_.prototype.disposeInternal = function() {
+thin.core.PageNumberShape.Label_.prototype.disposeInternal = function () {
   goog.base(this, 'disposeInternal');
   delete this.parent_;
 };
@@ -835,7 +839,7 @@ thin.core.PageNumberShape.Label_.prototype.disposeInternal = function() {
 /**
  * @return {string}
  */
-thin.core.PageNumberShape.prototype.getType = function() {
+thin.core.PageNumberShape.prototype.getType = function () {
   return 'page-number';
 };
 
@@ -843,7 +847,7 @@ thin.core.PageNumberShape.prototype.getType = function() {
 /**
  * @return {Object}
  */
-thin.core.PageNumberShape.prototype.asJSON = function() {
+thin.core.PageNumberShape.prototype.asJSON = function () {
   var object = goog.base(this, 'asJSON');
 
   goog.object.extend(object, {
@@ -867,13 +871,13 @@ thin.core.PageNumberShape.prototype.asJSON = function() {
 /**
  * @param {Object} attrs
  */
-thin.core.PageNumberShape.prototype.update = function(attrs) {
+thin.core.PageNumberShape.prototype.update = function (attrs) {
   goog.base(this, 'update', attrs);
 
   this.label_.repositionX();
   this.label_.repositionY();
 
-  goog.object.forEach(attrs, function(value, attr) {
+  goog.object.forEach(attrs, function (value, attr) {
     switch (attr) {
       case 'format':
         this.setFormat(value);
@@ -887,6 +891,6 @@ thin.core.PageNumberShape.prototype.update = function(attrs) {
       default:
         // Do Nothing
         break;
-      }
+    }
   }, this);
 };
