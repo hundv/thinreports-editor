@@ -1,6 +1,6 @@
 {
   "name": "ThinreportsEditor",
-  "productName": "Thinreports Editor",
+  "productName": "H&V Berichte und Etiketten-Editor",
   "version": "0.0.0",
   "license": "GPL-3.0",
   "description": "Designer for Thinreports",
@@ -25,5 +25,17 @@
     "electron-packager": "^9.0.0",
     "electron-prebuilt": "^1.4.13",
     "js-yaml": "^3.9.1"
+  },
+  "build": {
+    "appId": "ThinreportsEditor.id",
+    "mac": {
+      "category": "HUV.category"
+    },
+    "protocols": {
+      "name": "thinreports-protocol",
+      "schemes": [
+        "thinreports"
+      ]
+    }
   }
 }

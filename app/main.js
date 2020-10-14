@@ -41,6 +41,14 @@ app.on('activate', () => {
   }
 })
 
+app.on('open-url', function (event, data) {
+  event.preventDefault();
+  link = data;
+});
+
+app.setAsDefaultProtocolClient('thinreports');
+
+
 function setupMenu () {
   const menus = []
 
