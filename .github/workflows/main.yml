@@ -20,11 +20,6 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '10.x'
-      - name: Install Python
-        uses: actions/setup-python@v1
-        with:
-          python-version: '2.7.16'
-          architecture: 'x64'
       - name: Setup Java JDK
         uses: actions/setup-java@v1.4.3
         with:
