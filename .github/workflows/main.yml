@@ -26,3 +26,8 @@ jobs:
         uses: Adzz/yarn_command_action@v1.0.0
         with:
           command: install
+      - name: Compile and Build...
+        run: |
+          yarn run compile
+          yarn run build
+
