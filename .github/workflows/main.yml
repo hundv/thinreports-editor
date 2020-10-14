@@ -22,12 +22,15 @@ jobs:
         uses: actions/setup-java@v1.4.3
         with:
           java-version: 1.6
-      - name: Run a yarn or npm command
+      - name: Install Yarn dependencies
         uses: Adzz/yarn_command_action@v1.0.0
         with:
           command: install
-      - name: Compile and Build...
-        run: |
-          yarn run compile
-          yarn run build
-
+      - name: Compile
+        uses: Adzz/yarn_command_action@v1.0.0
+        with:
+          command: run compile
+      - name: Build
+        uses: Adzz/yarn_command_action@v1.0.0
+        with:
+          command: run build
