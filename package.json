@@ -1,5 +1,6 @@
 {
   "name": "ThinreportsEditor",
+  "name": "thinreports-editor",
   "productName": "H&V Berichte und Etiketten-Editor",
   "version": "0.0.0",
   "license": "GPL-3.0",
@@ -11,31 +12,22 @@
     "compile:javascript": "node tasks/compile.javascript.js",
     "compile:css": "node tasks/compile.css.js",
     "compile:template": "node tasks/compile.template.js",
+    "compile:prod": "cross-env NODE_ENV=production npm run compile",
     "build": "node tasks/build.js",
-    "release": "cross-env NODE_ENV=production npm run compile && npm run build",
+    "build:macos": "node tasks/build.js darwin",
+    "build:windows": "node tasks/build.js win32",
+    "build:linux": "node tasks/build.js linux",
+    "release": "npm run compile:prod && npm run build",
     "watch": "node tasks/watch.js",
     "postinstall": "cd app && npm install"
   },
   "devDependencies": {
-    "archiver": "^2.0.3",
-    "chokidar": "^1.7.0",
-    "cross-env": "^5.0.5",
-    "del": "^3.0.0",
-    "electron": "^1.7.5",
-    "electron-packager": "^9.0.0",
-    "electron-prebuilt": "^1.4.13",
-    "js-yaml": "^3.9.1"
-  },
-  "build": {
-    "appId": "ThinreportsEditor.id",
-    "mac": {
-      "category": "HUV.category"
-    },
-    "protocols": {
-      "name": "thinreports-protocol",
-      "schemes": [
-        "thinreports"
-      ]
-    }
+    "archiver": "^5.0.2",
+    "chokidar": "^3.4.2",
+    "cross-env": "^7.0.2",
+    "del": "^6.0.0",
+    "electron": "^9.3.2",
+    "electron-packager": "^15.1.0",
+    "js-yaml": "^3.14.0"
   }
 }
