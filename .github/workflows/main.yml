@@ -16,21 +16,21 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Setup Node.js environment
-        uses: actions/setup-node@v2.1.2
+      - name: Install node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '10.x'
+      - name: Install Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: '2.7'
+          architecture: 'x64'
       - name: Setup Java JDK
         uses: actions/setup-java@v1.4.3
         with:
           java-version: 1.6
-      - name: Install Yarn dependencies
-        uses: Adzz/yarn_command_action@v1.0.0
-        with:
-          command: install
-      - name: Compile
-        uses: Adzz/yarn_command_action@v1.0.0
-        with:
-          command: run compile
-      - name: Build
-        uses: Adzz/yarn_command_action@v1.0.0
-        with:
-          command: run build
+      - name: Run...
+        run: |
+          yarn install
+          yarn run compile
+          yarn run build
