@@ -1,0 +1,69 @@
+/**
+ * Copyright (C) 2011 Matsukei Co.,Ltd.
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+.thin-input-unit-changer {
+  display: inline-block;
+  height: auto;
+  line-height: normal;
+  width: 10em;
+  background-color: #fff;
+}
+
+.thin-input-unit-changer-disabled {
+  opacity: 0.4;
+}
+
+.thin-input-unit-changer-body {
+  display: -webkit-box;
+  box-sizing: border-box;
+  white-space: nowrap;
+  border-radius: 2px;
+  border: 1px solid rgb(180, 180, 180);
+  height: inherit;
+  line-height: inherit;
+}
+
+.thin-input-unit-changer .thin-input {
+  display: block;
+  box-sizing: border-box;
+  -webkit-box-flex: 1;
+  border: 0;
+  margin: 0 !important;
+  width: 100% !important;
+  padding: 0;
+}
+
+.thin-input-unit-changer-button {
+  width: 24px;
+  line-height: inherit;
+  cursor: default;
+  box-sizing: border-box;
+  border-left: 1px solid rgb(180, 180, 180);
+  background-color: #fff;
+}
+
+.thin-input-unit-changer-button-body {
+  text-align: center;
+  box-sizing: border-box;
+  line-height: inherit;
+}
+
+.thin-input-unit-changer-button-label {
+  font-size: 10px !important;
+  font-family: Helvetica, Arial sans-serif !important;
+  color: rgb(80, 80, 80) !important;
+}
