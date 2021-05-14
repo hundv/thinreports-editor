@@ -1,0 +1,65 @@
+/**
+ * Copyright (C) 2011 Matsukei Co.,Ltd.
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+.thin-toolbox {
+  text-align: center;
+  margin: 2px 0;
+  position: relative;
+  z-index: 2;
+  line-height: 1em;
+}
+
+/**
+ * thin.ui.ToolboxButton
+ */
+.thin-toolbox-button {
+  cursor: default;
+  line-height: normal !important;
+}
+
+.thin-toolbox-button-body {
+  text-align: center;
+  padding: 2px 4px;
+  border: 1px solid transparent;
+  background-color: transparent;
+}
+
+.thin-toolbox-button-label {
+  display: none;
+}
+
+.thin-toolbox-button-hover .thin-toolbox-button-body {
+  background-color: rgb(80, 80, 80);
+}
+
+.thin-toolbox-button-active .thin-toolbox-button-body, 
+.thin-toolbox-button-selected .thin-toolbox-button-body {
+  background-color: rgb(70, 70, 70);
+}
+
+.thin-toolbox-button-disabled {
+  opacity: 0.4;
+}
+
+/**
+ * thin.ui.ToolboxSeparator
+ */
+.thin-toolbox-separator {
+  height: 1px;
+  margin: 0.5em 0;
+  border-top: 1px solid #555;
+}

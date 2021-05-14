@@ -1,0 +1,37 @@
+/**
+ * Copyright (C) 2011 Matsukei Co.,Ltd.
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+.thin-option {
+  padding: 1px 0;
+  box-sizing: border-box;
+}
+
+.thin-option-highlight {
+  background-color: rgb(170, 170, 170);
+}
+.thin-option-highlight .thin-option-content {
+  color: #fff;
+}
+
+.thin-option-content {
+  color: #444;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  line-height: 1.8em;
+  margin: 0 7px;
+}
